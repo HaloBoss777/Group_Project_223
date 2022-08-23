@@ -36,3 +36,5 @@ EasterneAdventuresAPI/.vs/CarnageApi.Web/v16
 *.v1
 EasterneAdventuresAPI/.vs/VanZylApi/v16
 EasterneAdventuresAPI/CarnageApi/obj
+EasterneAdventuresAPI/CarnageApi.Core/obj
+EasterneAdventuresAPI/CarnageApi.Infrastructure/obj
