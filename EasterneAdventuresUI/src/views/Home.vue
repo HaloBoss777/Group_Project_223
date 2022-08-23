@@ -3,7 +3,8 @@
         <div>
             <div class="topicContainer">
                 <div class="TopicHeader">
-                    <h1>Whooo Project</h1>
+                    <h1>Whooo Project{{item}}</h1>
+                    <button @click="item++" >Click Here</button>
                 </div>
                <div class="topicitemcontainer">
                     <div class="topicItem" v-for="(item, itemIndex) in topics" :key="itemIndex">
@@ -90,6 +91,7 @@ export default {
             topicToAdd:"",
             threadToAdd:"",
             postToAdd:"",
+            item:0,
         };
     },
     methods: {
