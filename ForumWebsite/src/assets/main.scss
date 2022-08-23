@@ -1,0 +1,96 @@
+
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import 'navbar';
+@import 'Home';
+@import 'Equipment';
+@import 'ContactUs';
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "AvantGarde Bold", Sans-serif;
+    color: whitesmoke;
+    background-color: transparent;
+}
+
+*:focus{
+    outline: none;
+}
+
+*{
+    /* width */
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+/* button */
+    &::-webkit-scrollbar-button {
+        background: #161616;
+    }
+
+/* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #333;
+    }
+
+/* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }
+
+/* Track */
+    &::-webkit-scrollbar-track {
+        background: #161616;
+    }
+
+/* The track NOT covered by the handle.
+::-webkit-scrollbar-track-piece {
+    background: #000;
+}
+
+/* Corner */
+    &::-webkit-scrollbar-corner {
+        background: #161616;
+    }
+
+    &::-webkit-resizer {
+        background: #161616;
+    }
+}
+
+
+.router-view{
+    background-color: transparent;
+}
+.backgroundImageforsite{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+    overflow: hidden;
+}
+
+
+@media screen and(max-width:1000px) {
+    .router-view{
+        padding-top: 45px;
+    }
+    
+}
+
+    .slider-item {
+    transform:scale(0.8);
+    transition-timing-function: ease;
+    transition-duration: 300ms;
+  }
+  .slider-item.slider-active {
+    transform:scale(1.0);
+    z-index: 999;
+  }
+  .slider-item.slider-active-copy {
+    transform:scale(1.0);
+    z-index: 999;
+  }
+
+
