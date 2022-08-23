@@ -3,7 +3,7 @@
         <div>
             <div class="topicContainer">
                 <div class="TopicHeader">
-                    <h1>Topics for Discussion</h1>
+                    <h1>Whooo Project</h1>
                 </div>
                <div class="topicitemcontainer">
                     <div class="topicItem" v-for="(item, itemIndex) in topics" :key="itemIndex">
