@@ -30,3 +30,9 @@ CarnageApi/CarnageApi.Core/obj/Debug
 CarnageApi/CarnageApi.Core/obj/Release
 CarnageApi/CarnageApi.Infrastructure/obj/Debug
 CarnageApi/CarnageApi.Infrastructure/obj/Release
+EasterneAdventuresAPI/CarnageApi/obj/Debug
+EasterneAdventuresAPI/CarnageApi.Infrastructure/obj/Release
+EasterneAdventuresAPI/.vs/CarnageApi.Web/v16
+*.v1
+EasterneAdventuresAPI/.vs/VanZylApi/v16
+EasterneAdventuresAPI/CarnageApi/obj

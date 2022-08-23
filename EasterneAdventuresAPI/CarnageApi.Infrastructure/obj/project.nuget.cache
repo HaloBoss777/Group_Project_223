@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qqmm9I3npmsloI0+pFHUAyS1tTLJwz9Hh1O9HdDgz7AYHh1pCZE+wpx0/bgwKNCG4lGolZ6ATNwVS72CcmTR5g==",
+  "dgSpecHash": "phyLqxLIYGKkd2rCn3FFIlzDSZNMO9w1NvnBRHj+5QLnFWY39pnyiAtfI9eQzvk6jHxlcUzjvxpxJ+WYyRdkJA==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Infrastructure\\CarnageApi.Infrastructure.csproj",
+  "projectFilePath": "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Infrastructure\\CarnageApi.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jeand\\.nuget\\packages\\bold.licensing\\2.2.32\\bold.licensing.2.2.32.nupkg.sha512",
     "C:\\Users\\Jeand\\.nuget\\packages\\boldreports.net.core\\2.2.34\\boldreports.net.core.2.2.34.nupkg.sha512",

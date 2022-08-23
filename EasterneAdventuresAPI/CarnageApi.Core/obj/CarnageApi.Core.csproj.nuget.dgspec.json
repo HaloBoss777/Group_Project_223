@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Core\\CarnageApi.Core.csproj": {}
+    "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Core\\CarnageApi.Core.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Core\\CarnageApi.Core.csproj": {
+    "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Core\\CarnageApi.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Core\\CarnageApi.Core.csproj",
+        "projectUniqueName": "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Core\\CarnageApi.Core.csproj",
         "projectName": "CarnageApi.Core",
-        "projectPath": "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Core\\CarnageApi.Core.csproj",
+        "projectPath": "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Core\\CarnageApi.Core.csproj",
         "packagesPath": "C:\\Users\\Jeand\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\MyWish\\api\\CarnageApi\\CarnageApi.Core\\obj\\",
+        "outputPath": "C:\\Projects\\Group_Project_223\\EasterneAdventuresAPI\\CarnageApi.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
