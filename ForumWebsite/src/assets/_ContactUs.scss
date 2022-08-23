@@ -1,0 +1,177 @@
+#contactUs{
+    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .contentHeader{
+        margin-bottom: 50px;
+    }
+    .ContactnumContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-bottom: 30px;
+    }
+    .Contactnum{
+        display: flex;
+        flex-grow: 0;
+
+        flex-direction: column;
+        box-shadow: -1rem 0 3rem #000;
+        padding: 15px;
+        border-radius: 25px;
+        background-color: #1E1E1E;
+        transition: 300ms ease-in-out;
+        &:hover{
+            background-color: #F2AF29;
+            h2,h4{
+                color: black;
+            }
+        }
+    }
+
+    .options{
+        cursor: pointer;
+        margin-top: 10px;
+        h4:hover{
+            color: lightgreen;
+        }
+    }
+
+    .container{
+        width: 25%;
+        .textboxes{
+            display: flex;
+            flex-direction: column;
+            box-shadow: -1rem 0 3rem #000;
+            padding: 15px;
+            border-radius: 25px;
+            background-color: #1E1E1E;
+
+            
+            input{
+                
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 25px;
+                box-sizing: border-box;
+            }
+            .message{
+                height: 200px;
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 25px;
+                box-sizing: border-box;
+                resize: none;
+                &:focus{
+                    outline: none;
+                }
+            }
+            button{
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 25px;
+                box-sizing: border-box;
+                cursor: pointer;
+            }
+        }
+    }
+    .disabled{
+        color: #999;
+        cursor: default !important;
+        border: 2px solid gray !important;
+    }
+
+    .content{
+        padding-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding-bottom: 10px;
+        .icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img, svg{
+                fill: #ccc;
+                width: 75%;
+            }
+        }
+    }
+    @media screen and(max-width: 1000px) {
+        img, svg{
+            fill: #ccc;
+            width: 20%;
+            height: 160px;
+        }
+        .container{
+            width: 50%;
+        }
+    }
+    @media screen and(max-width: 800px) {
+        .panel{
+            background-color: #161616;
+            margin-bottom: 40px;
+            padding-top: 20px;
+            margin: 0px 10px 10px 10px;
+            border-radius: 25px;
+        }
+        .container{
+            padding-bottom: 20px;
+        }
+        .ContactnumContainer{
+            flex-direction: column;
+            width: 80vw;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            .Contactnum:first-child{
+                margin-top: 20px;
+            }
+            .Contactnum{
+                margin-bottom: 20px;
+            }
+        }
+        .contentHeader{
+            margin-bottom: 10px;
+        }
+        .container{
+            margin: 0 auto;
+            margin-top: 10px;
+            width: 80%;
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            .icon{
+                display: flex;
+                height: 80px;
+                justify-content: center;
+                align-items: center;
+                img, svg{
+                    fill: #ccc;
+                    width: 20%;
+                    height: 80px;
+                }
+            }
+        }
+    }
+}
+
+.panel{
+    background-color: #161616;
+    margin-bottom: 40px;
+    padding-top: 20px;
+    margin: 0px 10px 10px 10px;
+    border-radius: 25px;
+}
