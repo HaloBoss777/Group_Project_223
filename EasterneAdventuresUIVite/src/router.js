@@ -13,7 +13,19 @@ var routes = [{
   path:'/Login',
     component:()=>
       import('./pages/Login.vue')
-  },
+  },{
+    path:'/Dashboard',
+      component:()=>
+        import('./pages/Admin/Dashboard.vue')
+      ,children:[
+        {
+          path:'/Activities',
+          component: ()=>
+            import("./pages/Admin/Activities.vue")
+        }
+
+      ]
+    },
 ]
 
 const router = new createRouter({
