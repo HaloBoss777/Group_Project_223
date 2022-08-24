@@ -1,6 +1,6 @@
 <template>
   <div ref="HomePage" id="HomePage"> 
-    <h1>Harro</h1>
+    <h1>Login Page</h1>
     <button @click="goToOtherPage" >Click here</button>
   </div>
 </template> 
@@ -24,7 +24,7 @@ export default {
   },
   methods: { 
     goToOtherPage(){
-      this.$router.push("/Login");
+      this.$router.push("/Home");
     }
   },
   mounted() { 
