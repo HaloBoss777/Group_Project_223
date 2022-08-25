@@ -15,7 +15,7 @@ namespace EntityConfigurationBase
 		private IRepository<Permission> _Permission;
 		private IRepository<Site> _Site;
 		private IRepository<User> _User;
-		private IRepository<UserSiteRoll> _UserSiteRoll;
+		private IRepository<Booking> _UserSiteRoll;
 
 		public WantzUnitOfWork(IWantzContext context)
 		{
@@ -26,7 +26,7 @@ namespace EntityConfigurationBase
 		public IRepository<Permission> Permission => _Permission ?? (_Permission = new Repository<Permission>(_context));
 		public IRepository<Site> Site => _Site ?? (_Site = new Repository<Site>(_context));
 		public IRepository<User> User => _User ?? (_User = new Repository<User>(_context));
-		public IRepository<UserSiteRoll> UserSiteRoll => _UserSiteRoll ?? (_UserSiteRoll = new Repository<UserSiteRoll>(_context));
+		public IRepository<Booking> UserSiteRoll => _UserSiteRoll ?? (_UserSiteRoll = new Repository<Booking>(_context));
         public void Save()
 		{
 			_context.SaveChanges();

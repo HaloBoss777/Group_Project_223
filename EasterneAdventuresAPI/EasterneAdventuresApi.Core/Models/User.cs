@@ -16,7 +16,7 @@ namespace EasterneAdventuresApi.Core.Models
         public string PasswordHash{ get; set; }
         public bool IsActive{ get; set; }
 
-        public virtual List<UserSiteRoll> UserSiteRoll { get; set; }
+        public virtual List<Booking> UserSiteRoll { get; set; }
 
 
 
