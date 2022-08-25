@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EasterneAdventuresApi.Infrastructure.Database.Mappings
 {
-    public class SiteEntityConfiguration : EntityCongurationMapper<Site>
+    public class BookingEntityConfiguration : EntityCongurationMapper<Booking>
     {
-        public override void Configure(EntityTypeBuilder<Site> builder)
+        public override void Configure(EntityTypeBuilder<Booking> builder)
         {
-            builder.HasKey(c => c.Id);
-			builder.ToTable("Site");
+            builder.HasKey(c => c.Booking_Id);
+			builder.ToTable("Booking");
         }
     }
 }
