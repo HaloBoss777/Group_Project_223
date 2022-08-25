@@ -37,7 +37,7 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpGet]
         [Route("~/api/ListUsers")]
         [AllowAnonymous]
-        public List<User> ListUsers()
+        public List<Employee> ListUsers()
         {
             Thread.Sleep(5000);
             return _authService.listUsers();

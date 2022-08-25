@@ -10,8 +10,8 @@ namespace EasterneAdventuresApi.Core.Interfaces
       
 		IRepository<Permission> Permission { get; }
 		IRepository<Site> Site { get; }
-		IRepository<User> User { get; }
-		IRepository<Booking> UserSiteRoll { get; }
+		IRepository<Employee> User { get; }
+		IRepository<UserSiteRoll> UserSiteRoll { get; }
 
         void Save();
         void BeginTransaction();

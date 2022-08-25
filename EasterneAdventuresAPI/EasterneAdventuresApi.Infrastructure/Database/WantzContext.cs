@@ -19,8 +19,8 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		
 		DbSet<Permission> Permissions { get; set; }
 		DbSet<Site> Sites { get; set; }
-		DbSet<User> Users { get; set; }
-		DbSet<Booking> UserSiteRolls { get; set; }
+		DbSet<Employee> Users { get; set; }
+		DbSet<UserSiteRoll> UserSiteRolls { get; set; }
 		List<T> FetchDtoList<T>(
              string spName,
              IEnumerable<IDataParameter> parameters)
@@ -65,8 +65,8 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 
         public DbSet<Permission> Permissions { get; set; }
 		public DbSet<Site> Sites { get; set; }
-		public DbSet<User> Users { get; set; }
-		public DbSet<Booking> UserSiteRolls { get; set; }
+		public DbSet<Employee> Users { get; set; }
+		public DbSet<UserSiteRoll> UserSiteRolls { get; set; }
 
 
 		public List<T> FetchDtoList<T>(

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EasterneAdventuresApi.Infrastructure.Database.Mappings
 {
-    public class UserEntityConfiguration : EntityCongurationMapper<User>
+    public class UserEntityConfiguration : EntityCongurationMapper<Employee>
     {
-        public override void Configure(EntityTypeBuilder<User> builder)
+        public override void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasKey(c => c.Id);
 			builder.ToTable("User");
