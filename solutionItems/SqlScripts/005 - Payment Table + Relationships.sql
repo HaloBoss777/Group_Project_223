@@ -23,7 +23,7 @@ REFERENCES [dbo].[Booking] ([Booking_Id])
 	ALTER TABLE [dbo].[Payment] CHECK CONSTRAINT [FK_Payment_Booking]
 
 	ALTER TABLE [dbo].[Payment] WITH CHECK ADD CONSTRAINT [FK_Payment_Client] FOREIGN KEY([Client_Id])
-REFERENCES [dbo].[Client_Id] ([Client_Id])
+REFERENCES [dbo].[Client] ([Client_Id])
 
 	ALTER TABLE [dbo].[Payment] CHECK CONSTRAINT [FK_Payment_Client]
 
