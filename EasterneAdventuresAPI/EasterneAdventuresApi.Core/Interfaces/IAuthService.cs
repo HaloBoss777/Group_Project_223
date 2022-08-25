@@ -11,7 +11,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
     public interface IAuthService
     {
         UserAuthDTO signIn(UserAuthDTO user);
-        List<User> listUsers();
+        List<Employee> listUsers();
         List<Site> ListSite();
         List<Permission> ListPermission();
         List<UserSiteRollDTO> ListUserSiteRoll();
