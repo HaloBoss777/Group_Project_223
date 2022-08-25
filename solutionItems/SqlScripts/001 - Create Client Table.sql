@@ -6,7 +6,7 @@ BEGIN
 
 CREATE TABLE [dbo].[Client](
 	[Client_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] varchar(255) NOT NULL,
+	[Full_Name] varchar(255) NOT NULL,
 	[Email] varchar(255) NOT NULL,
 	[CellNum] varchar(13) NOT NULL,
 	[RSA_ID] varchar(13) NOT NULL,
