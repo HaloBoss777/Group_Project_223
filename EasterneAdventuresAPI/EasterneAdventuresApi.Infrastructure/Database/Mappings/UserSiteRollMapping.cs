@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EasterneAdventuresApi.Infrastructure.Database.Mappings
 {
-    public class UserSiteRollEntityConfiguration : EntityCongurationMapper<UserSiteRoll>
+    public class UserSiteRollEntityConfiguration : EntityCongurationMapper<Booking>
     {
-        public override void Configure(EntityTypeBuilder<UserSiteRoll> builder)
+        public override void Configure(EntityTypeBuilder<Booking> builder)
         {
             builder.HasKey(c => c.Id);
 
