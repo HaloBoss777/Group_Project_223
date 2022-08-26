@@ -57,6 +57,7 @@ export default {
     },
   },
   mounted() { 
+    this.routelistData = i18n.routeList;
   },
 }
 </script>
