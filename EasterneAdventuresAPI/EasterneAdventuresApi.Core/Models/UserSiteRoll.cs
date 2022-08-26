@@ -18,7 +18,7 @@ namespace EasterneAdventuresApi.Core.Models
         public DateTime ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
 
-        public virtual User User { get; set;}
+        public virtual Employee User { get; set;}
         public virtual Site Site { get; set; }
         public virtual Permission Permission { get; set; }
 

@@ -196,7 +196,7 @@ namespace EasterneAdventuresApi.Core.Services
 			return signedInUser;
 		}
 
-		public List<User> listUsers() 
+		public List<Employee> listUsers() 
 		{
 			var result = _unitOfWork.User.Query().ToList();
 			return result;
