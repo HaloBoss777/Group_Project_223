@@ -15,11 +15,13 @@ var routes = [{
       import('./pages/Login.vue')
   },{
     path:'/Dashboard',
+      name:"Home",
       component:()=>
         import('./pages/Admin/Dashboard.vue')
       ,children:[
         {
           path:'/Activities',
+          name:"Activities",
           component: ()=>
             import("./pages/Admin/Activities.vue")
         }
