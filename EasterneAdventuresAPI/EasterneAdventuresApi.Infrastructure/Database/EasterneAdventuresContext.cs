@@ -22,6 +22,8 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		DbSet<Activity> Activities { get; set; }
 		DbSet<Equipment> Equipments { get; set; }
 		DbSet<ActivityEquipment> ActivityEquipments { get; set; }
+		DbSet<Payment> Payments { get; set; }
+		DbSet<Booking> Bookings { get; set; }
 		List<T> FetchDtoList<T>(
              string spName,
              IEnumerable<IDataParameter> parameters)
@@ -61,6 +63,8 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		public DbSet<Activity> Activities { get; set; }
 		public DbSet<ActivityEquipment> ActivityEquipments { get; set; }
 		public DbSet<Equipment> Equipments { get; set; }
+		public DbSet<Booking> Bookings { get; set; }
+		public DbSet<Payment> Payments { get; set; }
 
 
 		public List<T> FetchDtoList<T>(

@@ -13,6 +13,8 @@ namespace EasterneAdventuresApi.Core.Interfaces
         IRepository<Activity> Activity { get; }
         IRepository<Equipment> Equipment { get; }
         IRepository<ActivityEquipment> ActivityEquipment { get; }
+        IRepository<Booking> Booking { get; }
+        IRepository<Payment> Payment { get; }
 
         void Save();
         void BeginTransaction();

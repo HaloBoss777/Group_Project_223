@@ -17,6 +17,8 @@ namespace EntityConfigurationBase
 		private IRepository<Activity> _activities;
 		private IRepository<Equipment> _equipment;
 		private IRepository<ActivityEquipment> _activityEquipments;
+		private IRepository<Booking> _booking;
+		private IRepository<Payment> _payment;
 
 
 		public EasterneAdventuresUnitOfWork(IEasterneAdventuresContext context)
@@ -30,6 +32,8 @@ namespace EntityConfigurationBase
 		public IRepository<Activity> Activity => _activities ?? (_activities = new Repository<Activity>(_context));
 		public IRepository<Equipment> Equipment => _equipment ?? (_equipment = new Repository<Equipment>(_context));
 		public IRepository<ActivityEquipment> ActivityEquipment => _activityEquipments ?? (_activityEquipments = new Repository<ActivityEquipment>(_context));
+		public IRepository<Booking> Booking => _booking ?? (_booking = new Repository<Booking>(_context));
+		public IRepository<Payment> Payment => _payment ?? (_payment = new Repository<Payment>(_context));
 		public void Save()
 		{
 			_context.SaveChanges();
