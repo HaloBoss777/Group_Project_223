@@ -15,5 +15,8 @@ namespace EasterneAdventuresApi.Core.Interfaces
         List<EmployeeDTO> GetAllEmployee();
 
         bool AddEmployee(EmployeeDTO employee);
+
+        bool UpdateEmployee(EmployeeDTO employee);
+
     }
 }

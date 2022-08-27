@@ -70,5 +70,12 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _adminService.AddEmployee(empToAdd);
         }
 
+        [HttpPost]
+        [Route("~/api/Admin/UpdateEmployee")]
+        [AllowAnonymous]
+        public bool UpdateEmployee(EmployeeDTO empToAdd)
+        {
+            return _adminService.UpdateEmployee(empToAdd);
+        }
     }
 }
