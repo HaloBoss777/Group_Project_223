@@ -9,6 +9,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
     {
       
 		IRepository<Employee> Employee { get; }
+		IRepository<Activity> Activity { get; }
 
         void Save();
         void BeginTransaction();

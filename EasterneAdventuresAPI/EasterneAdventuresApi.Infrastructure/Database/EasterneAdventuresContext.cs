@@ -18,6 +18,7 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		int SaveChanges();
 		
 		DbSet<Employee> Employees { get; set; }
+		DbSet<Activity> Activities { get; set; }
 		List<T> FetchDtoList<T>(
              string spName,
              IEnumerable<IDataParameter> parameters)
@@ -61,6 +62,7 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 
 
 		public DbSet<Employee> Employees { get; set; }
+		public DbSet<Activity> Activities { get; set; }
 
 
 		public List<T> FetchDtoList<T>(

@@ -31,11 +31,10 @@ namespace EasterneAdventuresApi.Core.Services
 		{
 			_unitOfWork = unitOfWork;
 		}
-
 		
 		public List<ActivityDTO> GetAllActivities()
         {
-			return null;
+			return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
         }
 		
 	}

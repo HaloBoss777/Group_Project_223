@@ -13,6 +13,7 @@ namespace EntityConfigurationBase
 
 		
 		private IRepository<Employee> _employee;
+		private IRepository<Activity> _activities;
 
 		public EasterneAdventuresUnitOfWork(IEasterneAdventuresContext context)
 		{
@@ -21,7 +22,8 @@ namespace EntityConfigurationBase
 		}
 
 		public IRepository<Employee> Employee => _employee ?? (_employee = new Repository<Employee>(_context));
-        public void Save()
+		public IRepository<Activity> Activity => _activities ?? (_activities = new Repository<Activity>(_context));
+		public void Save()
 		{
 			_context.SaveChanges();
 		}

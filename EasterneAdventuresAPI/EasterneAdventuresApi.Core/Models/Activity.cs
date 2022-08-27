@@ -16,5 +16,14 @@ namespace EasterneAdventuresApi.Core.Models
         public virtual List<ActivityEquipment> ActivityEquipments { get; set; }
         public virtual List<Booking> Bookings { get; set; }
 
+
+        public ActivityDTO  DisplayActivityDTO => new ActivityDTO
+        {
+            Activity_Id = Activity_Id,
+            Description = Description,
+            Price_PP = Price_PP,
+            Name = Name,
+        };
+
     }
 }
