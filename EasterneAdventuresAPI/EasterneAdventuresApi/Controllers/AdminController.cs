@@ -54,5 +54,21 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _adminService.DeleteActivity(activity_Id);
         }
 
+        [HttpGet]
+        [Route("~/api/Admin/ListEmployee")]
+        [AllowAnonymous]
+        public List<EmployeeDTO> GetAllEmployee()
+        {
+            return _adminService.GetAllEmployee();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddEmployee")]
+        [AllowAnonymous]
+        public bool AddEmployee(EmployeeDTO empToAdd)
+        {
+            return _adminService.AddEmployee(empToAdd);
+        }
+
     }
 }

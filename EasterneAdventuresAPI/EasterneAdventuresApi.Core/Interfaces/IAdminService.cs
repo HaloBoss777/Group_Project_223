@@ -11,5 +11,9 @@ namespace EasterneAdventuresApi.Core.Interfaces
         bool AddActivity(ActivityDTO activity);
         bool UpdateActivity(ActivityDTO activity);
         bool DeleteActivity(int activity_Id);
+
+        List<EmployeeDTO> GetAllEmployee();
+
+        bool AddEmployee(EmployeeDTO employee);
     }
 }
