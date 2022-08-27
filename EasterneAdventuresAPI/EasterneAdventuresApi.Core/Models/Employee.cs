@@ -9,7 +9,7 @@ namespace EasterneAdventuresApi.Core.Models
     public class Employee : BaseModel
     {
         public int Emp_Id { get; set; }
-        public string FullName{ get; set; }
+        public string Full_Name{ get; set; }
         public string PO_BOX { get; set; }
         public string Street { get; set; }
         public int Str_Num { get; set; }
@@ -24,7 +24,7 @@ namespace EasterneAdventuresApi.Core.Models
         public EmployeeDTO DisplayEmployeeDTO => new EmployeeDTO
         {
             Emp_ID = Emp_Id,
-            Full_Name = FullName,
+            Full_Name = Full_Name,
             PO_Box = PO_BOX,
             Street = Street,
             Str_Num = Str_Num,

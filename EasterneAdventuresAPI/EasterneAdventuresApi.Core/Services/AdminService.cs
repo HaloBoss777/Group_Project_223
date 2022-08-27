@@ -87,5 +87,26 @@ namespace EasterneAdventuresApi.Core.Services
         {
             return _unitOfWork.Employee.Query().Select(x => x.DisplayEmployeeDTO).ToList();
         }
+
+        public bool AddEmployee(EmployeeDTO employee)
+        {
+            var employeeToAdd = new Employee()
+            {
+                Emp_Id = employee.Emp_ID,
+                Full_Name = employee.Full_Name,
+                PO_BOX = employee.PO_Box,
+                Street = employee.Street,
+                Str_Num = employee.Str_Num,
+                Area_Num = employee.Area_Num,
+                CellNum = employee.CellNum,
+                Instructor = employee.Instructor,
+                Admin = employee.Admin,
+                RSA_Id = employee.RSA_Id,
+            };
+
+            _unitOfWork.Employee.Add(employeeToAdd);
+            _unitOfWork.Save();
+            return true;
+        }
     }
 }
