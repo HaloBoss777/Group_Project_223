@@ -11,6 +11,9 @@ export default {
       routeName:"Activities",
       routeUrl:"Activities"
     },
-    
+    {
+      routeName:"Employees",
+      routeUrl:"Employees"
+    },
   ]
 }

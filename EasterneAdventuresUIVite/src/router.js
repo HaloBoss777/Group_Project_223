@@ -24,8 +24,13 @@ var routes = [{
           name:"Activities",
           component: ()=>
             import("./pages/Admin/Activities.vue")
-        }
-
+        },
+        {
+          path:'/Employees',
+          name:"Employees",
+          component: ()=>
+            import("./pages/Admin/Employees.vue")
+        },
       ]
     },
 ]
