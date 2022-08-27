@@ -5,15 +5,18 @@ export default {
   routeList: [
     {
       routeName: "Home",
-      routeUrl: "Dashboard"
+      routeUrl: "Dashboard",
+      icon:"home"
     },
     {
       routeName:"Activities",
-      routeUrl:"Activities"
+      routeUrl:"Activities",
+      icon:"map"
     },
     {
       routeName:"Employees",
-      routeUrl:"Employees"
+      routeUrl:"Employees",
+      icon:"users"
     },
   ]
 }

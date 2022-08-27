@@ -17,6 +17,7 @@ img{
 
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
+  transition-delay:0.3s ;
 }
 
 .slide-fade-leave-active {
@@ -29,4 +30,8 @@ img{
   position: absolute;
   width: 100%;
   opacity: 0;
+}
+
+.app-container{
+  min-height: 100vh;
 }
