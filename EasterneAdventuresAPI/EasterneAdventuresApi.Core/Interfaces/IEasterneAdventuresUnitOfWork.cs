@@ -8,8 +8,11 @@ namespace EasterneAdventuresApi.Core.Interfaces
     public interface IEasterneAdventuresUnitOfWork
     {
       
+		IRepository<Client> Client { get; }
 		IRepository<Employee> Employee { get; }
-		IRepository<Activity> Activity { get; }
+        IRepository<Activity> Activity { get; }
+        IRepository<Equipment> Equipment { get; }
+        IRepository<ActivityEquipment> ActivityEquipment { get; }
 
         void Save();
         void BeginTransaction();

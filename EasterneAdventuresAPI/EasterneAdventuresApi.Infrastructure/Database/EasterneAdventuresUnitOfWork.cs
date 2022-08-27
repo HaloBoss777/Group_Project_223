@@ -12,8 +12,12 @@ namespace EntityConfigurationBase
 		private readonly IEasterneAdventuresContext _context;
 
 		
+		private IRepository<Client> _client;
 		private IRepository<Employee> _employee;
 		private IRepository<Activity> _activities;
+		private IRepository<Equipment> _equipment;
+		private IRepository<ActivityEquipment> _activityEquipments;
+
 
 		public EasterneAdventuresUnitOfWork(IEasterneAdventuresContext context)
 		{
@@ -21,8 +25,11 @@ namespace EntityConfigurationBase
 
 		}
 
+		public IRepository<Client> Client => _client ?? (_client = new Repository<Client>(_context));
 		public IRepository<Employee> Employee => _employee ?? (_employee = new Repository<Employee>(_context));
 		public IRepository<Activity> Activity => _activities ?? (_activities = new Repository<Activity>(_context));
+		public IRepository<Equipment> Equipment => _equipment ?? (_equipment = new Repository<Equipment>(_context));
+		public IRepository<ActivityEquipment> ActivityEquipment => _activityEquipments ?? (_activityEquipments = new Repository<ActivityEquipment>(_context));
 		public void Save()
 		{
 			_context.SaveChanges();

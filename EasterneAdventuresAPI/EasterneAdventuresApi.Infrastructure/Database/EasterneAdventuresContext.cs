@@ -18,7 +18,10 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		int SaveChanges();
 		
 		DbSet<Employee> Employees { get; set; }
+		DbSet<Client> Clients { get; set; }
 		DbSet<Activity> Activities { get; set; }
+		DbSet<Equipment> Equipments { get; set; }
+		DbSet<ActivityEquipment> ActivityEquipments { get; set; }
 		List<T> FetchDtoList<T>(
              string spName,
              IEnumerable<IDataParameter> parameters)
@@ -38,14 +41,6 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-            //modelBuilder.Entity<topics>().ToTable("topics");
-            //modelBuilder.Entity<topics>().HasKey(g => g.Topic_ID).HasName("PK_Topic_ID");
-            //modelBuilder.Entity<topics>().Property(g => g.Topic_ID).HasColumnType("int").UseMySqlIdentityColumn().IsRequired();
-            //modelBuilder.Entity<topics>().Property(g => g.Topic_Name).HasColumnType("varchar(255)").IsRequired(false);
-            //modelBuilder.Entity<topics>().Property(g => g.Date_Created).HasColumnType("datetime").IsRequired();
-
-
-
 
             base.OnModelCreating(modelBuilder);
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
@@ -61,8 +56,11 @@ namespace EasterneAdventuresApi.Infrastructure.Database
         }
 
 
+		public DbSet<Client> Clients { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 		public DbSet<Activity> Activities { get; set; }
+		public DbSet<ActivityEquipment> ActivityEquipments { get; set; }
+		public DbSet<Equipment> Equipments { get; set; }
 
 
 		public List<T> FetchDtoList<T>(
