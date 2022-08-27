@@ -58,7 +58,7 @@
     <div v-if="addActivivityOpen">
       <div>
         <label for="ActivityName">Name</label>
-        <input v-model="formData.name" @input="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name">
+        <input v-model="formData.name" @input="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name" class="FancyInput">
         <input v-model="formData.description" @input="formData.description = $event.target.value"  type="text" placeholder="Description">
         <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value"  type="text" placeholder="Price_PP">
       </div>
