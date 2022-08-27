@@ -19,7 +19,7 @@ using EasterneAdventuresApi.Core.Interfaces;
 using EasterneAdventuresApi.Core.Services;
 using EntityConfigurationBase;
 using System.Configuration;
-using IWantzContext = EasterneAdventuresApi.Infrastructure.Database.IWantzContext;
+using IeasterneAdventuresContext = EasterneAdventuresApi.Infrastructure.Database.IEasterneAdventuresContext;
 using MySql.Data.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
@@ -42,15 +42,15 @@ namespace EasterneAdventuresApi
         {
 
             string mysqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<WantzContext>(options => options.UseMySql(mysqlConnectionStr));
+            //services.AddDbContext<easterneAdventuresContext>(options => options.UseMySql(mysqlConnectionStr));
 
-            services.AddDbContext<WantzContext>(options => options
+            services.AddDbContext<EasterneAdventuresContext>(options => options
                 .UseSqlServer(mysqlConnectionStr));
 
             services.AddControllers();
             services.AddSingleton<IMemoryCache, MemoryCache>();
-            services.AddScoped<IWantzContext, WantzContext>();
-            services.AddScoped<IWantzUnitOfWork, WantzUnitOfWork>();
+            services.AddScoped<IEasterneAdventuresContext, EasterneAdventuresContext>();
+            services.AddScoped<IEasterneAdventuresUnitOfWork, EasterneAdventuresUnitOfWork>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthInfo, AuthInfo>();

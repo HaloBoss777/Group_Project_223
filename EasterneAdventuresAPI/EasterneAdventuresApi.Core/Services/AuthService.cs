@@ -24,10 +24,10 @@ namespace EasterneAdventuresApi.Core.Services
     public class AuthService : IAuthService
     {
 
-		private readonly IWantzUnitOfWork _unitOfWork;
+		private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
 
 
-		public AuthService(IWantzUnitOfWork unitOfWork)
+		public AuthService(IEasterneAdventuresUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
@@ -148,76 +148,54 @@ namespace EasterneAdventuresApi.Core.Services
 		//}
 
 
-		private UserAuthDTO AuthenticateUser(UserAuthDTO userAuth)
-		{
-            try
-            {
-				var returnData = _unitOfWork.User.Query(x => x.Email.ToLower() == userAuth.Email.ToLower() && x.PasswordHash == userAuth.PasswordHash && x.IsActive).Select(x => new UserAuthDTO
-				{
-					Id = x.Id,
-					PasswordHash = x.PasswordHash,
-					ValidUser = true,
-					DisplayName = x.DisplayName,
-					Email = x.Email
+		//private UserAuthDTO AuthenticateUser(UserAuthDTO userAuth)
+		//{
+  //          try
+  //          {
+		//		var returnData = _unitOfWork.User.Query(x => x.Email.ToLower() == userAuth.Email.ToLower() && x.PasswordHash == userAuth.PasswordHash && x.IsActive).Select(x => new UserAuthDTO
+		//		{
+		//			Id = x.Id,
+		//			PasswordHash = x.PasswordHash,
+		//			ValidUser = true,
+		//			DisplayName = x.DisplayName,
+		//			Email = x.Email
 
-				}).Single();
+		//		}).Single();
 
-				var sitePermissions = _unitOfWork.UserSiteRoll.Query(e => e.UserId == returnData.Id).Select(y => y.UserSiteRollDTO).ToList();
-				returnData.SitePermissions = sitePermissions;
+		//		var sitePermissions = _unitOfWork.UserSiteRoll.Query(e => e.UserId == returnData.Id).Select(y => y.UserSiteRollDTO).ToList();
+		//		returnData.SitePermissions = sitePermissions;
 
 
-				var userInfo = new AuthInfo
-				{
-					Permissions = returnData.SitePermissions.Select(x => x.PermissionId.ToString()).ToList(),
-					SiteId = returnData.SitePermissions.First().SiteId,
-					UserId = returnData.Id,
-					DisplayName = returnData.DisplayName
-				};
+		//		var userInfo = new AuthInfo
+		//		{
+		//			Permissions = returnData.SitePermissions.Select(x => x.PermissionId.ToString()).ToList(),
+		//			SiteId = returnData.SitePermissions.First().SiteId,
+		//			UserId = returnData.Id,
+		//			DisplayName = returnData.DisplayName
+		//		};
 
-				return returnData;
+		//		return returnData;
 			
-			}
-            catch (Exception)
-            {
-				throw new ValidationException("Autentication Failed"); ;
-            }
+		//	}
+  //          catch (Exception)
+  //          {
+		//		throw new ValidationException("Autentication Failed"); ;
+  //          }
 
-		}
+		//}
 
-		public UserAuthDTO signIn(UserAuthDTO user) 
-		{
-			var signedInUser = AuthenticateUser(user);
+		//public UserAuthDTO signIn(UserAuthDTO user) 
+		//{
+		//	var signedInUser = AuthenticateUser(user);
 
-			var apiToken = GenerateJSONWebToken(signedInUser);
+		//	var apiToken = GenerateJSONWebToken(signedInUser);
 				
-			signedInUser.ApiToken = apiToken;
+		//	signedInUser.ApiToken = apiToken;
 
 
-			return signedInUser;
-		}
+		//	return signedInUser;
+		//}
 
-		public List<Employee> listUsers() 
-		{
-			var result = _unitOfWork.User.Query().ToList();
-			return result;
-		}
-
-		public List<Site> ListSite()
-		{
-			var result = _unitOfWork.Site.Query().ToList();
-			return result;
-		}
-
-		public List<Permission> ListPermission()
-		{
-			var result = _unitOfWork.Permission.Query().ToList();
-			return result;
-		}
-
-		public List<UserSiteRollDTO> ListUserSiteRoll()
-		{
-			var result = _unitOfWork.UserSiteRoll.Query().Select(x=>x.UserSiteRollDTO).ToList();
-			return result;
-		}
+		
 	}
 }

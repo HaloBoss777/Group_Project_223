@@ -23,48 +23,48 @@ namespace EasterneAdventuresApi.Web.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
-        [Route("~/api/Authentication/SignIn")]
-        [AllowAnonymous]
-        public UserAuthDTO SignIn(UserAuthDTO user)
-        {
-            var serviceData = _authService.signIn(user);
+        //[HttpPost]
+        //[Route("~/api/Authentication/SignIn")]
+        //[AllowAnonymous]
+        //public UserAuthDTO SignIn(UserAuthDTO user)
+        //{
+        //    var serviceData = _authService.signIn(user);
             
-            return serviceData;
-        }
+        //    return serviceData;
+        //}
 
 
-        [HttpGet]
-        [Route("~/api/ListUsers")]
-        [AllowAnonymous]
-        public List<Employee> ListUsers()
-        {
-            Thread.Sleep(5000);
-            return _authService.listUsers();
-        }
+        //[HttpGet]
+        //[Route("~/api/ListUsers")]
+        //[AllowAnonymous]
+        //public List<Employee> ListUsers()
+        //{
+        //    Thread.Sleep(5000);
+        //    return _authService.listUsers();
+        //}
 
-        [HttpGet]
-        [Route("~/api/Sites")]
-        [AuthorizationFilter]
-        public List<Site> ListSites()
-        {
-            return _authService.ListSite();
-        }
+        //[HttpGet]
+        //[Route("~/api/Sites")]
+        //[AuthorizationFilter]
+        //public List<Site> ListSites()
+        //{
+        //    return _authService.ListSite();
+        //}
 
-        [HttpGet]
-        [Route("~/api/Permissions")]
-        [AuthorizationFilter]
-        public List<Permission> ListPermission()
-        {
-            return _authService.ListPermission();
-        }
+        //[HttpGet]
+        //[Route("~/api/Permissions")]
+        //[AuthorizationFilter]
+        //public List<Permission> ListPermission()
+        //{
+        //    return _authService.ListPermission();
+        //}
 
-        [HttpGet]
-        [Route("~/api/UserSiteRoll")]
-        [AuthorizationFilter]
-        public List<UserSiteRollDTO> ListUserSiteRoll()
-        {
-            return _authService.ListUserSiteRoll();
-        }
+        //[HttpGet]
+        //[Route("~/api/UserSiteRoll")]
+        //[AuthorizationFilter]
+        //public List<UserSiteRollDTO> ListUserSiteRoll()
+        //{
+        //    return _authService.ListUserSiteRoll();
+        //}
     }
 }

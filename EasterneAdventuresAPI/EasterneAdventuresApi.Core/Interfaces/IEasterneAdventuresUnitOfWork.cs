@@ -5,13 +5,10 @@ using EasterneAdventuresApi.Core.Interfaces;
 
 namespace EasterneAdventuresApi.Core.Interfaces
 {
-    public interface IWantzUnitOfWork
-	{
+    public interface IEasterneAdventuresUnitOfWork
+    {
       
-		IRepository<Permission> Permission { get; }
-		IRepository<Site> Site { get; }
-		IRepository<Employee> User { get; }
-		IRepository<UserSiteRoll> UserSiteRoll { get; }
+		IRepository<Employee> Employee { get; }
 
         void Save();
         void BeginTransaction();

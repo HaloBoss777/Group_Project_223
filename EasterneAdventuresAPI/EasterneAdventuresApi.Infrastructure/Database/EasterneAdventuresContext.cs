@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace EasterneAdventuresApi.Infrastructure.Database
 {
-	public interface IWantzContext
+	public interface IEasterneAdventuresContext
 	{
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		void BeginTransaction();
@@ -17,19 +17,16 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		void RollbackTransaction();
 		int SaveChanges();
 		
-		DbSet<Permission> Permissions { get; set; }
-		DbSet<Site> Sites { get; set; }
-		DbSet<Employee> Users { get; set; }
-		DbSet<UserSiteRoll> UserSiteRolls { get; set; }
+		DbSet<Employee> Employees { get; set; }
 		List<T> FetchDtoList<T>(
              string spName,
              IEnumerable<IDataParameter> parameters)
              where T : new();
     }
 
-	public class WantzContext : DbContext, IWantzContext
+	public class EasterneAdventuresContext : DbContext, IEasterneAdventuresContext
 	{
-		public WantzContext(DbContextOptions<WantzContext> options)
+		public EasterneAdventuresContext(DbContextOptions<EasterneAdventuresContext> options)
 		: base(options)
 		{ }
 
@@ -63,10 +60,7 @@ namespace EasterneAdventuresApi.Infrastructure.Database
         }
 
 
-        public DbSet<Permission> Permissions { get; set; }
-		public DbSet<Site> Sites { get; set; }
-		public DbSet<Employee> Users { get; set; }
-		public DbSet<UserSiteRoll> UserSiteRolls { get; set; }
+		public DbSet<Employee> Employees { get; set; }
 
 
 		public List<T> FetchDtoList<T>(

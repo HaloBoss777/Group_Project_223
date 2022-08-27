@@ -8,9 +8,9 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 {
     public class Repository<T> : IRepository<T> where T : BaseModel
     {
-        private readonly IWantzContext _context;
+        private readonly IEasterneAdventuresContext _context;
 
-        public Repository(IWantzContext context)
+        public Repository(IEasterneAdventuresContext context)
         {
             _context = context;
         }

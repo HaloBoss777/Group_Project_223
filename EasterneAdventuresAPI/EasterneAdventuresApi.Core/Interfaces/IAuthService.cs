@@ -10,10 +10,8 @@ namespace EasterneAdventuresApi.Core.Interfaces
 {
     public interface IAuthService
     {
-        UserAuthDTO signIn(UserAuthDTO user);
-        List<Employee> listUsers();
-        List<Site> ListSite();
-        List<Permission> ListPermission();
-        List<UserSiteRollDTO> ListUserSiteRoll();
+        //UserAuthDTO signIn(UserAuthDTO user);
+        //List<Employee> listUsers();
+        //List<UserSiteRollDTO> ListUserSiteRoll();
     }
 }

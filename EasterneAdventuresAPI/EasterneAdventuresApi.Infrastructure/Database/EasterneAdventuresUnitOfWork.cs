@@ -3,30 +3,24 @@ using EasterneAdventuresApi.Core.Models;
 using EasterneAdventuresApi.Infrastructure.Database;
 using System.Collections.Generic;
 using System.Data;
-using IWantzContext = EasterneAdventuresApi.Infrastructure.Database.IWantzContext;
+using IEasterneAdventuresContext = EasterneAdventuresApi.Infrastructure.Database.IEasterneAdventuresContext;
 
 namespace EntityConfigurationBase
 {
-	public class WantzUnitOfWork : IWantzUnitOfWork
+	public class EasterneAdventuresUnitOfWork : IEasterneAdventuresUnitOfWork
 	{
-		private readonly IWantzContext _context;
+		private readonly IEasterneAdventuresContext _context;
 
 		
-		private IRepository<Permission> _Permission;
-		private IRepository<Site> _Site;
-		private IRepository<Employee> _User;
-		private IRepository<UserSiteRoll> _UserSiteRoll;
+		private IRepository<Employee> _employee;
 
-		public WantzUnitOfWork(IWantzContext context)
+		public EasterneAdventuresUnitOfWork(IEasterneAdventuresContext context)
 		{
 			_context = context;
 
 		}
 
-		public IRepository<Permission> Permission => _Permission ?? (_Permission = new Repository<Permission>(_context));
-		public IRepository<Site> Site => _Site ?? (_Site = new Repository<Site>(_context));
-		public IRepository<Employee> User => _User ?? (_User = new Repository<Employee>(_context));
-		public IRepository<UserSiteRoll> UserSiteRoll => _UserSiteRoll ?? (_UserSiteRoll = new Repository<UserSiteRoll>(_context));
+		public IRepository<Employee> Employee => _employee ?? (_employee = new Repository<Employee>(_context));
         public void Save()
 		{
 			_context.SaveChanges();
