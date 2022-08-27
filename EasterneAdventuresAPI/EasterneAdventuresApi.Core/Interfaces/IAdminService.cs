@@ -7,10 +7,14 @@ namespace EasterneAdventuresApi.Core.Interfaces
 {
     public interface IAdminService
     {
+        //Activities
+
         List<ActivityDTO> GetAllActivities();
         bool AddActivity(ActivityDTO activity);
         bool UpdateActivity(ActivityDTO activity);
         bool DeleteActivity(int activity_Id);
+
+        //Employee
 
         List<EmployeeDTO> GetAllEmployee();
 

@@ -22,6 +22,8 @@ namespace EasterneAdventuresApi.Web.Controllers
             _adminService = adminService;
         }
 
+        //Activities
+
         [HttpGet]
         [Route("~/api/Admin/ListActivities")]
         [AllowAnonymous]
@@ -53,6 +55,8 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.DeleteActivity(activity_Id);
         }
+
+        //Employee
 
         [HttpGet]
         [Route("~/api/Admin/ListEmployee")]
