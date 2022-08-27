@@ -72,7 +72,7 @@ export default {
       routelistData: [],
     };
   },
-  components: {Card},
+  components: {},
   watch: {},
   computed: {},
   methods: {
