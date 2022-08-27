@@ -77,5 +77,13 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.UpdateEmployee(empToAdd);
         }
+
+        [HttpGet]
+        [Route("~/api/Admin/DeleteEmployee")]
+        [AllowAnonymous]
+        public bool DeleteEmployee(int employee_Id)
+        {
+            return _adminService.DeleteEmployee(employee_Id);
+        }
     }
 }
