@@ -112,7 +112,6 @@ export default {
       this.addActivivityOpen = false;
     },
     addNewItem(){
-      debugger
       var self = this;
       var dataToSend = {
         activity_Id:this.formData.activity_Id,
@@ -122,8 +121,8 @@ export default {
       };
 
       var onSuccess = response =>{
-        debugger
         if(response){
+          self.getActivityList();
           self.cancelAdd();
         }
       }
