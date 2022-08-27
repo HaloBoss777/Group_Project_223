@@ -18,5 +18,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
 
         bool UpdateEmployee(EmployeeDTO employee);
 
+        bool DeleteEmployee(int employee_Id);
+
     }
 }

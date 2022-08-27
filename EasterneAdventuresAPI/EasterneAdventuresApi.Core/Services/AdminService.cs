@@ -131,5 +131,18 @@ namespace EasterneAdventuresApi.Core.Services
 
             return true;
         }
+
+        public bool DeleteEmployee(int employee_Id)
+        {
+            var EmployeeToDelete = _unitOfWork.Employee.Query(x => x.Emp_Id == employee_Id).SingleOrDefault();
+            if (EmployeeToDelete == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Employee.Delete(EmployeeToDelete);
+            _unitOfWork.Save();
+            return true;
+        }
     }
 }
