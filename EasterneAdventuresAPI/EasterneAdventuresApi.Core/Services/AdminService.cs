@@ -108,5 +108,28 @@ namespace EasterneAdventuresApi.Core.Services
             _unitOfWork.Save();
             return true;
         }
+
+        public bool UpdateEmployee(EmployeeDTO employee)
+        {
+            var employeeToUpdate = _unitOfWork.Employee.Query(x => x.Emp_Id == employee.Emp_ID).SingleOrDefault();
+            if(employeeToUpdate == null)
+            {
+                return false;
+            }
+
+            employeeToUpdate.Full_Name = employee.Full_Name;
+            employeeToUpdate.PO_BOX = employee.PO_Box;
+            employeeToUpdate.Street = employee.Street;
+            employeeToUpdate.CellNum = employee.CellNum;
+            employeeToUpdate.Str_Num = employee.Str_Num;
+            employeeToUpdate.Area_Num = employee.Area_Num;
+            employeeToUpdate.CellNum = employee.CellNum;
+            employeeToUpdate.Instructor = employee.Instructor;
+            employeeToUpdate.Admin = employee.Admin;
+            employeeToUpdate.RSA_Id = employee.RSA_Id;
+            _unitOfWork.Save();
+
+            return true;
+        }
     }
 }
