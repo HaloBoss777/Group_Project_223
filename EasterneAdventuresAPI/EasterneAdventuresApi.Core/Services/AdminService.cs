@@ -22,62 +22,70 @@ using Microsoft.Azure.Storage.Shared.Protocol;
 namespace EasterneAdventuresApi.Core.Services
 {
     public class AdminService : IAdminService
-	{
+    {
 
-		private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
+        private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
 
 
-		public AdminService(IEasterneAdventuresUnitOfWork unitOfWork)
-		{
-			_unitOfWork = unitOfWork;
-		}
-		
-		public List<ActivityDTO> GetAllActivities()
+        public AdminService(IEasterneAdventuresUnitOfWork unitOfWork)
         {
-			return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
+            _unitOfWork = unitOfWork;
         }
 
-		public bool AddActivity(ActivityDTO activity)
-		{
-			var activityToAdd = new Activity()
-            {
-				Name = activity.Name,
-				Description = activity.Description,
-				Price_PP = activity.Price_PP,
-			};
-			_unitOfWork.Activity.Add(activityToAdd);
-			_unitOfWork.Save();
-			return true;
-		}
+        //Activities
 
-		public bool UpdateActivity(ActivityDTO activity)
-		{
-			var activityToUpdate = _unitOfWork.Activity.Query(x=>x.Activity_Id == activity.Activity_Id).SingleOrDefault();
+        public List<ActivityDTO> GetAllActivities()
+        {
+            return _unitOfWork.Activity.Query().Select(x => x.DisplayActivityDTO).ToList();
+        }
+
+        public bool AddActivity(ActivityDTO activity)
+        {
+            var activityToAdd = new Activity()
+            {
+                Name = activity.Name,
+                Description = activity.Description,
+                Price_PP = activity.Price_PP,
+            };
+            _unitOfWork.Activity.Add(activityToAdd);
+            _unitOfWork.Save();
+            return true;
+        }
+
+        public bool UpdateActivity(ActivityDTO activity)
+        {
+            var activityToUpdate = _unitOfWork.Activity.Query(x => x.Activity_Id == activity.Activity_Id).SingleOrDefault();
             if (activityToUpdate == null)
             {
-				return false;
+                return false;
             }
 
-			activityToUpdate.Description = activity.Description;
-			activityToUpdate.Name = activity.Name;
-			activityToUpdate.Price_PP = activity.Price_PP;
-			_unitOfWork.Save();
+            activityToUpdate.Description = activity.Description;
+            activityToUpdate.Name = activity.Name;
+            activityToUpdate.Price_PP = activity.Price_PP;
+            _unitOfWork.Save();
 
-			return true;
-		}
+            return true;
+        }
 
-		public bool DeleteActivity(int activity_Id)
-		{
-			var activityToDelete = _unitOfWork.Activity.Query(x => x.Activity_Id == activity_Id).SingleOrDefault();
-			if (activityToDelete == null)
-			{
-				return false;
-			}
+        public bool DeleteActivity(int activity_Id)
+        {
+            var activityToDelete = _unitOfWork.Activity.Query(x => x.Activity_Id == activity_Id).SingleOrDefault();
+            if (activityToDelete == null)
+            {
+                return false;
+            }
 
-			_unitOfWork.Activity.Delete(activityToDelete);
-			_unitOfWork.Save();
-			return true;
-		}
+            _unitOfWork.Activity.Delete(activityToDelete);
+            _unitOfWork.Save();
+            return true;
+        }
 
-	}
+        //Employee
+
+        public List<EmployeeDTO> GetAllEmployee()
+        {
+            return _unitOfWork.Employee.Query().Select(x => x.DisplayEmployeeDTO).ToList();
+        }
+    }
 }

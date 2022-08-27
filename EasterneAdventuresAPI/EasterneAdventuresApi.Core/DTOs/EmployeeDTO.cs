@@ -15,6 +15,6 @@ namespace EasterneAdventuresApi.Core.DTOs
         public string CellNum { get; set; }
         public bool Instructor { get; set; }
         public bool Admin { get; set; }
-        public string varchar { get; set; }
+        public string RSA_Id { get; set; }
     }
 }

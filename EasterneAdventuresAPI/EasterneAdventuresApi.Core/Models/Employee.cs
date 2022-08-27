@@ -12,7 +12,7 @@ namespace EasterneAdventuresApi.Core.Models
         public string FullName{ get; set; }
         public string PO_BOX { get; set; }
         public string Street { get; set; }
-        public string Str_Num { get; set; }
+        public int Str_Num { get; set; }
         public string Area_Num{ get; set; }
         public string  CellNum { get; set; }
         public bool Instructor { get; set; }
@@ -20,5 +20,20 @@ namespace EasterneAdventuresApi.Core.Models
         public string RSA_Id { get; set; }
 
         public virtual List<Booking> Bookings { get; set; }
+
+        public EmployeeDTO DisplayEmployeeDTO => new EmployeeDTO
+        {
+            Emp_ID = Emp_Id,
+            Full_Name = FullName,
+            PO_Box = PO_BOX,
+            Street = Street,
+            Str_Num = Str_Num,
+            Area_Num = Area_Num,
+            CellNum = CellNum,
+            Instructor = Instructor,
+            Admin = Admin,
+            RSA_Id = RSA_Id,
+
+        };
     }
 }
