@@ -514,12 +514,16 @@ body {
     align-items: center;
     
     &:hover { color: var(--action-color); }
-    svg { width: 12px; }
+    
   }
   
   .cell-label {
     display: none;
   }
+}
+
+.small-Icon{
+  width: 12px; 
 }
 
 .status {
