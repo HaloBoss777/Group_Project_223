@@ -34,8 +34,10 @@
             <vue-feather type="arrow-up"></vue-feather>
           </button>
         </div>
+        <div class="product-cell image">
+        </div>
       </div>
-      <div class="products-row" v-for="(activity, index) in activityList" :key="index">
+      <div class="products-row" v-for="(activity, index) in activityList" :key="index" @click="activitySelected(activity)">
         <div class="product-cell category">
           <span>{{activity.name}}</span>
         </div>
@@ -45,16 +47,20 @@
         <div class="product-cell category">
           <span>R{{activity.price_PP}}</span>
         </div>
+        <div class="product-cell category">
+          <button class="sort-button">
+            <vue-feather type="trash-2"></vue-feather>
+          </button>
+        </div>
       </div>
       
-
     </div>
     <div v-if="addActivivityOpen">
       <div>
         <label for="ActivityName">Name</label>
-        <input @input.lazy="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name">
-        <input @input.lazy="formData.description = $event.target.value"  type="text" placeholder="Description">
-        <input @input.lazy="formData.price_PP = $event.target.value"  type="text" placeholder="Price_PP">
+        <input v-model="formData.name" @input="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name">
+        <input v-model="formData.description" @input="formData.description = $event.target.value"  type="text" placeholder="Description">
+        <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value"  type="text" placeholder="Price_PP">
       </div>
       <div>
         <button class="app-content-cancelButton" @click="cancelAdd">Cancel</button>
@@ -127,6 +133,13 @@ export default {
         }
       }
       this.$AjaxPostAnon(`Admin/AddActivity`,dataToSend,onSuccess);
+    },
+    activitySelected(dataChosen){
+      debugger
+      this.formData.activity_Id =dataChosen.activity_Id,
+      this.formData.name = dataChosen.name,
+      this.formData.description= dataChosen.description,
+      this.formData.price_PP= dataChosen.price_PP
     }
   },
   mounted() { 
