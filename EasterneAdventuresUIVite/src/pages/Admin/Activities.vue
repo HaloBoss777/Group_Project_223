@@ -48,7 +48,7 @@
           <span>R{{activity.price_PP}}</span>
         </div>
         <div class="product-cell">
-          <button class="sort-button">
+          <button class="sort-button" @click="deleteActivity(activity.activity_Id)">
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
@@ -161,6 +161,12 @@ export default {
         }
       }
       this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
+    },
+    deleteActivity(activity_Id){
+      var onSuccess=response=>{
+        this.getActivityList()
+      }
+      this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
     }
   },
   mounted() { 
