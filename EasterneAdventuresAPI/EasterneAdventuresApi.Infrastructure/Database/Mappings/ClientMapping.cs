@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EasterneAdventuresApi.Infrastructure.Database.Mappings
 {
-    public class PermissionEntityConfiguration : EntityCongurationMapper<Permission>
+    public class ClientEntityConfiguration : EntityCongurationMapper<Client>
     {
-        public override void Configure(EntityTypeBuilder<Permission> builder)
+        public override void Configure(EntityTypeBuilder<Client> builder)
         {
-            builder.HasKey(c => c.Id);
-			builder.ToTable("Permission");
+            builder.HasKey(c => c.Client_Id);
+			builder.ToTable("Client");
         }
     }
 }
