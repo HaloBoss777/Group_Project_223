@@ -46,7 +46,7 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _adminService.UpdateActivity(itemToAdd);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("~/api/Admin/DeleteActivity")]
         [AllowAnonymous]
         public bool DeleteActivity(int activity_Id)
