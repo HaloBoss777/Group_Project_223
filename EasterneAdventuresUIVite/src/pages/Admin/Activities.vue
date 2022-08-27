@@ -1,7 +1,7 @@
 <template>
   <div class="app-content-header">
-      <h1 class="app-content-headerText">Products</h1>
-      <button v-if="!addActivivityOpen" @click="addNewProduct" class="app-content-headerButton">Add Product</button>
+      <h1 class="app-content-headerText">Activity</h1>
+      <button v-if="!addActivivityOpen" @click="addNewActivity" class="app-content-headerButton">Add Activity</button>
     </div>
     <div v-if="!addActivivityOpen" class="app-content-actions">
       <input class="search-bar" placeholder="Search..." type="text">
@@ -111,7 +111,7 @@ export default {
       }
       this.$AjaxGet(`Admin/ListActivities`,onSuccess);
     },
-    addNewProduct(){
+    addNewActivityoduct(){
       this.addActivivityOpen = true;
     },
     cancelAdd(){
