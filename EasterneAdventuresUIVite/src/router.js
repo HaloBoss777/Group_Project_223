@@ -35,9 +35,12 @@ var routes = [{
     },
 ]
 
+
+
 const router = new createRouter({
   history: createWebHistory(),
   routes, 
 })
+
 
 export default router

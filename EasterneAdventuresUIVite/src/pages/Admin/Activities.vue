@@ -1,5 +1,6 @@
 <template>
-  <div class="app-content-header">
+  <div>
+    <div class="app-content-header">
       <h1 class="app-content-headerText">Activity</h1>
       <button v-if="!addActivivityOpen" @click="addNewActivity" class="app-content-headerButton">Add Activity</button>
     </div>
@@ -68,6 +69,7 @@
         <button v-if="editActivivityOpen" class="app-content-headerButton" @click="updateActivity">Update</button>
       </div>
     </div>
+  </div>
 </template> 
 
 

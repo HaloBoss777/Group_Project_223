@@ -26,7 +26,11 @@
     </div>
   </div>
   <div class="app-content">
-    <router-view></router-view>
+    <router-view v-slot="{Component,route}">
+      <transition  name="slide-fade">
+        <component :is="Component"  />
+      </transition>
+    </router-view>
   </div>
   </div>
   </div>
