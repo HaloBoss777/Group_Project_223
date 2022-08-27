@@ -54,6 +54,7 @@ namespace EasterneAdventuresApi
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthInfo, AuthInfo>();
+            services.AddScoped<IClientArea, ClientAreaService>();
 
             services.AddCors(options => 
             {
