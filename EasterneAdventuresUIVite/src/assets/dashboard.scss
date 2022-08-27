@@ -13,6 +13,8 @@
   --sidebar-active-link: #1d283c;
   --sidebar-hover-link: #1a2539;
   --action-color: #2869ff;
+  --warning-color: #ffb056;
+  --warning-color-hover: #ffbe74;
   --action-color-hover: #6291fd;
   --app-content-secondary-color: #1d283c;
   --filter-reset: #2c394f;
@@ -227,6 +229,22 @@ body {
     
     &:hover {
       background-color: var(--action-color-hover);
+    }
+  }
+  &-cancelButton {
+    background-color: var(--warning-color);
+    color: #fff;
+    font-size: $font-small;
+    line-height: 24px;
+    border: none;
+    border-radius: 4px;
+    height: 32px;
+    padding: 0 16px;
+    transition: .2s;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--warning-color-hover);
     }
   }
   

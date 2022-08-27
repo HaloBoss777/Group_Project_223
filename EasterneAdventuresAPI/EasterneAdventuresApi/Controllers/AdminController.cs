@@ -17,7 +17,6 @@ namespace EasterneAdventuresApi.Web.Controllers
     {
         public readonly IAdminService _adminService;
 
-
         public AdminController(IAdminService adminService) 
         {
             _adminService = adminService;
@@ -29,6 +28,30 @@ namespace EasterneAdventuresApi.Web.Controllers
         public List<ActivityDTO> GetAllActivities()
         {
             return _adminService.GetAllActivities();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddActivity")]
+        [AllowAnonymous]
+        public bool AddActivity(ActivityDTO itemToAdd)
+        {
+            return _adminService.AddActivity(itemToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/UpdateActivity")]
+        [AllowAnonymous]
+        public bool UpdateActivity(ActivityDTO itemToAdd)
+        {
+            return _adminService.UpdateActivity(itemToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/DeleteActivity")]
+        [AllowAnonymous]
+        public bool DeleteActivity(int activity_Id)
+        {
+            return _adminService.DeleteActivity(activity_Id);
         }
 
     }
