@@ -1,7 +1,7 @@
 <template>
   <div class="app-content-header">
-      <h1 class="app-content-headerText">Products</h1>
-      <button v-if="!addActivivityOpen" @click="addNewProduct" class="app-content-headerButton">Add Product</button>
+      <h1 class="app-content-headerText">Activity</h1>
+      <button v-if="!addActivivityOpen" @click="addNewActivity" class="app-content-headerButton">Add Activity</button>
     </div>
     <div v-if="!addActivivityOpen" class="app-content-actions">
       <input class="search-bar" placeholder="Search..." type="text">
@@ -64,7 +64,8 @@
       </div>
       <div>
         <button class="app-content-cancelButton" @click="cancelAdd">Cancel</button>
-        <button class="app-content-headerButton" @click="addNewItem">Add</button>
+        <button v-if="!editActivivityOpen" class="app-content-headerButton" @click="addNewItem">Add</button>
+        <button v-if="editActivivityOpen" class="app-content-headerButton" @click="updateActivity">Update</button>
       </div>
     </div>
 </template> 
@@ -77,6 +78,7 @@ export default {
       listViewActive:true,
       activityList:[],
       addActivivityOpen:false,
+      editActivivityOpen:false,
       formData:{
         activity_Id:0,
         name : null,
@@ -111,11 +113,12 @@ export default {
       }
       this.$AjaxGet(`Admin/ListActivities`,onSuccess);
     },
-    addNewProduct(){
+    addNewActivityoduct(){
       this.addActivivityOpen = true;
     },
     cancelAdd(){
       this.addActivivityOpen = false;
+      this.editActivivityOpen = false;
     },
     addNewItem(){
       var self = this;
@@ -139,6 +142,25 @@ export default {
       this.formData.name = dataChosen.name,
       this.formData.description= dataChosen.description,
       this.formData.price_PP= dataChosen.price_PP
+      this.addActivivityOpen = true;
+      this.editActivivityOpen = true;
+    },
+    updateActivity(){
+      var self = this;
+      var dataToSend = {
+        activity_Id:this.formData.activity_Id,
+        name : this.formData.name,
+        description: this.formData.description,
+        price_PP:parseFloat(this.formData.price_PP)
+      };
+
+      var onSuccess = response =>{
+        if(response){
+          self.getActivityList();
+          self.cancelAdd();
+        }
+      }
+      this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
     }
   },
   mounted() { 
