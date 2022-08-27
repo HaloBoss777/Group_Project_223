@@ -49,7 +49,7 @@
         </div>
         <div class="product-cell">
           <button class="sort-button">
-            <vue-feather type="trash-2" size="36"></vue-feather>
+            <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
       </div>
