@@ -4,3 +4,12 @@
 img{
   border-radius: 50%;
 }
+
+
+.ItemBelow{
+  z-index: 2;
+}
+
+.ItemAbove{
+  z-index: 1;
+}

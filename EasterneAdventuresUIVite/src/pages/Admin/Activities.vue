@@ -37,7 +37,7 @@
         <div class="product-cell image">
         </div>
       </div>
-      <div class="products-row" v-for="(activity, index) in activityList" :key="index" @click="activitySelected(activity)">
+      <div class="products-row ItemBelow" v-for="(activity, index) in activityList" :key="index" @click.prevent="activitySelected(activity)">
         <div class="product-cell category">
           <span>{{activity.name}}</span>
         </div>
@@ -48,7 +48,7 @@
           <span>R{{activity.price_PP}}</span>
         </div>
         <div class="product-cell">
-          <button class="sort-button" @click="deleteActivity(activity.activity_Id)">
+          <button class="sort-button ItemAbove" @click.prevent="deleteActivity(activity.activity_Id)">
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
@@ -79,6 +79,7 @@ export default {
       activityList:[],
       addActivivityOpen:false,
       editActivivityOpen:false,
+      deletedActivity:false,
       formData:{
         activity_Id:0,
         name : null,
@@ -113,7 +114,7 @@ export default {
       }
       this.$AjaxGet(`Admin/ListActivities`,onSuccess);
     },
-    addNewActivityoduct(){
+    addNewActivity(){
       this.addActivivityOpen = true;
     },
     cancelAdd(){
@@ -138,6 +139,9 @@ export default {
       this.$AjaxPostAnon(`Admin/AddActivity`,dataToSend,onSuccess);
     },
     activitySelected(dataChosen){
+      if(this.deletedActivity){
+        return
+      }
       this.formData.activity_Id =dataChosen.activity_Id,
       this.formData.name = dataChosen.name,
       this.formData.description= dataChosen.description,
@@ -163,8 +167,10 @@ export default {
       this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
     },
     deleteActivity(activity_Id){
+      this.deletedActivity = true;
       var onSuccess=response=>{
         this.getActivityList()
+        this.deletedActivity = false;
       }
       this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
     }
