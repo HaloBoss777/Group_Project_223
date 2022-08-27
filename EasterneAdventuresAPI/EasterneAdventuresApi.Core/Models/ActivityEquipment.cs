@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace EasterneAdventuresApi.Core.Models
 {
-    public class Permission : BaseModel
+    public class ActivityEquipment : BaseModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int ActivityEquipment_Id { get; set; }
+        public int Activity_Id { get; set; }
+        public int Equipment_Id { get; set; }
 
-        public virtual List<Booking> UserSiteRoll { get; set; }
     }
 }
