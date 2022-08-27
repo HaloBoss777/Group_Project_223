@@ -56,7 +56,7 @@ app.config.globalProperties.$AjaxGet = (url,OnSuccess,onFinally) =>{
 app.config.globalProperties.$AjaxPostAnon = (url,sendData,OnSuccess,onFinally) =>{
   var urlBuilt = UrlBuilder(url);
   return axios({
-    method:'get',
+    method:'post',
     url:urlBuilt,
     data:sendData,
   }).then(response =>{
