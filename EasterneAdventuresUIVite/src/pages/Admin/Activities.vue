@@ -19,19 +19,19 @@
         <div class="product-cell image">
           Name
           <button class="sort-button">
-            <vue-feather type="arrow-up"></vue-feather>
+            <vue-feather class="small-Icon" type="arrow-up" size="36px"></vue-feather>
           </button>
         </div>
         <div class="product-cell image">
           Description
           <button class="sort-button">
-            <vue-feather type="arrow-up"></vue-feather>
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
         <div class="product-cell image">
           Price
           <button class="sort-button">
-            <vue-feather type="arrow-up"></vue-feather>
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
         <div class="product-cell image">
@@ -47,7 +47,7 @@
         <div class="product-cell category">
           <span>R{{activity.price_PP}}</span>
         </div>
-        <div class="product-cell category">
+        <div class="product-cell">
           <button class="sort-button">
             <vue-feather type="trash-2"></vue-feather>
           </button>
@@ -135,7 +135,6 @@ export default {
       this.$AjaxPostAnon(`Admin/AddActivity`,dataToSend,onSuccess);
     },
     activitySelected(dataChosen){
-      debugger
       this.formData.activity_Id =dataChosen.activity_Id,
       this.formData.name = dataChosen.name,
       this.formData.description= dataChosen.description,
