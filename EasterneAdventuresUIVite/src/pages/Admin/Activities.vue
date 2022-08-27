@@ -4,7 +4,7 @@
       <button v-if="!addActivivityOpen" @click="addNewActivity" class="app-content-headerButton">Add Activity</button>
     </div>
     <div v-if="!addActivivityOpen" class="app-content-actions">
-      <input class="search-bar" placeholder="Search..." type="text">
+      <input @input="filterValue = $event.target.value" class="search-bar" placeholder="Search..." type="text">
       <div class="app-content-actions-wrapper">
         <button @click="setList" class="action-button list" :class="listViewActive ? 'active' : ''" title="List View">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
@@ -37,7 +37,7 @@
         <div class="product-cell image">
         </div>
       </div>
-      <div class="products-row ItemBelow" v-for="(activity, index) in activityList" :key="index" @click.prevent="activitySelected(activity)">
+      <div class="products-row ItemBelow" v-for="(activity, index) in filteredActivityList" :key="index" @click.prevent="activitySelected(activity)">
         <div class="product-cell category">
           <span>{{activity.name}}</span>
         </div>
@@ -77,6 +77,7 @@ export default {
     return { 
       listViewActive:true,
       activityList:[],
+      filteredActivityList:[],
       addActivivityOpen:false,
       editActivivityOpen:false,
       deletedActivity:false,
@@ -85,14 +86,20 @@ export default {
         name : null,
         description: null,
         price_PP:null
-      }
+      },
+      filterValue:""
     }
   },
   components:{ 
 
   },
   watch:{ 
-
+    filterValue:function UpdateFilter(value) {
+      this.filteredActivityList = this.activityList.filter(x=> {
+        var stringValue = x.price_PP.toString();
+        return (x.name.includes(value) || x.description.includes(value) || stringValue.includes(value))
+      })
+    }
   },
   computed: { 
 
@@ -111,6 +118,7 @@ export default {
       var self = this;
       var onSuccess = response =>{
         self.activityList = response;
+        self.filteredActivityList = self.activityList;
       }
       this.$AjaxGet(`Admin/ListActivities`,onSuccess);
     },
