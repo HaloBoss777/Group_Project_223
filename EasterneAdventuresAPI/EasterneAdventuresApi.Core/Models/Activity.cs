@@ -13,5 +13,8 @@ namespace EasterneAdventuresApi.Core.Models
         public string Description { get; set; }
         public decimal Price_PP { get; set; }
 
+        public virtual List<ActivityEquipment> ActivityEquipments { get; set; }
+        public virtual List<Booking> Bookings { get; set; }
+
     }
 }

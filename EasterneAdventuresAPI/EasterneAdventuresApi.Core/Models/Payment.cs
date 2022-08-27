@@ -14,5 +14,8 @@ namespace EasterneAdventuresApi.Core.Models
         public decimal TotalPrice { get; set; }
         public bool Paid { get; set; }
 
+        public virtual Client Client { get; set; }
+        public virtual Booking Booking { get; set; }
+
     }
 }

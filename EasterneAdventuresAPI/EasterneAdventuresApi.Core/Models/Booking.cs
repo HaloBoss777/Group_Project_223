@@ -16,6 +16,11 @@ namespace EasterneAdventuresApi.Core.Models
         public DateTime Date_Booked { get; set; }
         public int Attendees { get; set; }
 
+        public virtual Employee Employee { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Payment Payment { get; set; }
+        public virtual Activity Activity { get; set; }
+
 
     }
 }

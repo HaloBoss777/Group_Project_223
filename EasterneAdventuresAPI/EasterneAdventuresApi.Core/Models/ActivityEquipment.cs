@@ -12,5 +12,8 @@ namespace EasterneAdventuresApi.Core.Models
         public int Activity_Id { get; set; }
         public int Equipment_Id { get; set; }
 
+        public virtual Activity Activity { get; set; }
+        public virtual Equipment Equipment { get; set; }
+
     }
 }

@@ -12,5 +12,7 @@ namespace EasterneAdventuresApi.Core.Models
         public string Name { get; set; }
         public bool Broken { get; set; }
 
+        public virtual List<ActivityEquipment> ActivityEquipments { get; set; }
+
     }
 }

@@ -18,5 +18,7 @@ namespace EasterneAdventuresApi.Core.Models
         public bool Instructor { get; set; }
         public bool Admin { get; set; }
         public string RSA_Id { get; set; }
+
+        public virtual List<Booking> Bookings { get; set; }
     }
 }
