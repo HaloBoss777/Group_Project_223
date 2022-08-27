@@ -60,7 +60,6 @@ namespace EasterneAdventuresApi.Web.Filters
             //((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).Permissions = currentSitePermissionList;
             ((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).DisplayName = displayName;
 			((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).UserId = userId;
-			((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).SiteId = siteId;
 		}
 	}
 }
