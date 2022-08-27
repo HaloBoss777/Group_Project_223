@@ -64,7 +64,8 @@
       </div>
       <div>
         <button class="app-content-cancelButton" @click="cancelAdd">Cancel</button>
-        <button class="app-content-headerButton" @click="addNewItem">Add</button>
+        <button v-if="!editActivivityOpen" class="app-content-headerButton" @click="addNewItem">Add</button>
+        <button v-if="editActivivityOpen" class="app-content-headerButton" @click="updateActivity">Update</button>
       </div>
     </div>
 </template> 
@@ -77,6 +78,7 @@ export default {
       listViewActive:true,
       activityList:[],
       addActivivityOpen:false,
+      editActivivityOpen:false,
       formData:{
         activity_Id:0,
         name : null,
@@ -116,6 +118,7 @@ export default {
     },
     cancelAdd(){
       this.addActivivityOpen = false;
+      this.editActivivityOpen = false;
     },
     addNewItem(){
       var self = this;
@@ -139,6 +142,25 @@ export default {
       this.formData.name = dataChosen.name,
       this.formData.description= dataChosen.description,
       this.formData.price_PP= dataChosen.price_PP
+      this.addActivivityOpen = true;
+      this.editActivivityOpen = true;
+    },
+    updateActivity(){
+      var self = this;
+      var dataToSend = {
+        activity_Id:this.formData.activity_Id,
+        name : this.formData.name,
+        description: this.formData.description,
+        price_PP:parseFloat(this.formData.price_PP)
+      };
+
+      var onSuccess = response =>{
+        if(response){
+          self.getActivityList();
+          self.cancelAdd();
+        }
+      }
+      this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
     }
   },
   mounted() { 
