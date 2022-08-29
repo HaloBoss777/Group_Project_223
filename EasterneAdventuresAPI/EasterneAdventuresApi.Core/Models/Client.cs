@@ -16,5 +16,14 @@ namespace EasterneAdventuresApi.Core.Models
 
         public virtual List<Booking> Bookings { get; set; }
         public virtual List<Payment> Payments { get; set; }
+
+        public ClientDTO DisplayCLientDTO => new ClientDTO()
+        {
+            Client_Id = Client_Id,
+            FullName = FullName,
+            Email = Email,
+            CellNum = CellNum,
+            RSA_ID = RSA_ID,
+        };
     }
 }

@@ -14,5 +14,11 @@ namespace EasterneAdventuresApi.Core.Models
 
         public virtual List<ActivityEquipment> ActivityEquipments { get; set; }
 
+        public EquipmentDTO DisplayEquipmentDTO => new EquipmentDTO()
+        {
+            Equipment_Id = Equipment_Id,
+            Name = Name,
+            Broken = Broken,
+        };
     }
 }

@@ -43,9 +43,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/UpdateActivity")]
         [AllowAnonymous]
-        public bool UpdateActivity(ActivityDTO itemToAdd)
+        public bool UpdateActivity(ActivityDTO itemToUpdate)
         {
-            return _adminService.UpdateActivity(itemToAdd);
+            return _adminService.UpdateActivity(itemToUpdate);
         }
 
         [HttpGet]
@@ -77,9 +77,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/UpdateEmployee")]
         [AllowAnonymous]
-        public bool UpdateEmployee(EmployeeDTO empToAdd)
+        public bool UpdateEmployee(EmployeeDTO empToUpdate)
         {
-            return _adminService.UpdateEmployee(empToAdd);
+            return _adminService.UpdateEmployee(empToUpdate);
         }
 
         [HttpGet]
@@ -88,6 +88,74 @@ namespace EasterneAdventuresApi.Web.Controllers
         public bool DeleteEmployee(int employee_Id)
         {
             return _adminService.DeleteEmployee(employee_Id);
+        }
+
+        //Bookings
+
+        [HttpGet]
+        [Route("~/api/Admin/ListBookings")]
+        [AllowAnonymous]
+        public List<BookingDTO> GetAllBookings()
+        {
+            return _adminService.GetAllBookings();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddBooking")]
+        [AllowAnonymous]
+        public bool AddBooking(BookingDTO BookingToAdd)
+        {
+            return _adminService.AddBooking(BookingToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/UpdateBooking")]
+        [AllowAnonymous]
+        public bool UpdateBooking(BookingDTO BookingToUpdate)
+        {
+            return _adminService.UpdateBooking(BookingToUpdate);
+        }
+
+        [HttpGet]
+        [Route("~/api/Admin/DeleteBooking")]
+        [AllowAnonymous]
+        public bool DeleteBooking(int Booking_Id)
+        {
+            return _adminService.DeleteBooking(Booking_Id);
+        }
+
+        //Equipment
+
+        [HttpGet]
+        [Route("~/api/Admin/ListEquipment")]
+        [AllowAnonymous]
+        public List<EquipmentDTO> GetAllEquipment()
+        {
+            return _adminService.GetAllEquipment();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddEquipmnet")]
+        [AllowAnonymous]
+        public bool AddEquipment(EquipmentDTO EquipmentToAdd)
+        {
+            return _adminService.addEquipment(EquipmentToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/UpdateEquipment")]
+        [AllowAnonymous]
+        public bool UpdateEquipment(BookingDTO EquipmentToUpdate)
+        {
+            return _adminService.UpdateBooking(EquipmentToUpdate);
+        }
+
+        [HttpGet]
+        [Route("~/api/Admin/DeleteEquipment")]
+        [AllowAnonymous]
+        public bool DeleteEquipment(int Equipment_Id)
+        {
+            return _adminService.deleteEquipment(Equipment_Id);
         }
     }
 }

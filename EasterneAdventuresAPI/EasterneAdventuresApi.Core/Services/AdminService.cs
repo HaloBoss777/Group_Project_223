@@ -112,7 +112,7 @@ namespace EasterneAdventuresApi.Core.Services
         public bool UpdateEmployee(EmployeeDTO employee)
         {
             var employeeToUpdate = _unitOfWork.Employee.Query(x => x.Emp_Id == employee.Emp_ID).SingleOrDefault();
-            if(employeeToUpdate == null)
+            if (employeeToUpdate == null)
             {
                 return false;
             }
@@ -199,6 +199,56 @@ namespace EasterneAdventuresApi.Core.Services
             _unitOfWork.Booking.Delete(bookingToDelete);
             _unitOfWork.Save();
             return true;
+        }
+
+        //Equipment
+
+        public List<EquipmentDTO> GetAllEquipment()
+        {
+            return _unitOfWork.Equipment.Query().Select(x => x.DisplayEquipmentDTO).ToList();
+        }
+
+        public bool addEquipment(EquipmentDTO equipment)
+        {
+            var equipmentToAdd = new Equipment()
+            {
+                Equipment_Id = equipment.Equipment_Id,
+                Name = equipment.Name,
+                Broken = equipment.Broken,
+            };
+
+            _unitOfWork.Equipment.Add(equipmentToAdd);
+            _unitOfWork.Save();
+            return true;
+        }
+
+        public bool UpdateEquipment(EquipmentDTO equipment)
+        {
+            var equipmentToUpdate = _unitOfWork.Equipment.Query(x => x.Equipment_Id == equipment.Equipment_Id).SingleOrDefault();
+            if(equipmentToUpdate == null)
+            {
+                return false;
+            }
+
+            equipmentToUpdate.Equipment_Id = equipment.Equipment_Id;
+            equipmentToUpdate.Name = equipment.Name;
+            equipmentToUpdate.Broken = equipment.Broken;
+            _unitOfWork.Save();
+
+            return true;
+        }
+
+        public bool DeleteEquipment(int equipment_Id)
+        {
+            var equipmentToDelete = _unitOfWork.Equipment.Query(x => x.Equipment_Id == equipment_Id).SingleOrDefault();
+            if (equipmentToDelete == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Equipment.Delete(equipmentToDelete);
+            return true;
+
         }
     }
 }

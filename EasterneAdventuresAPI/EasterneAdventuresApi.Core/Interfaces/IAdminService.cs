@@ -24,5 +24,24 @@ namespace EasterneAdventuresApi.Core.Interfaces
 
         bool DeleteEmployee(int employee_Id);
 
+        //Booking
+
+        List<BookingDTO> GetAllBookings();
+
+        bool AddBooking(BookingDTO booking);
+
+        bool UpdateBooking(BookingDTO booking);
+
+        bool DeleteBooking(int booking_Id);
+
+        //Equipment
+
+        List<EquipmentDTO> GetAllEquipment();
+
+        bool addEquipment(EquipmentDTO equipment);
+
+        bool updateEquipment(EquipmentDTO equipment);
+
+        bool deleteEquipment(int equipment_Id);
     }
 }
