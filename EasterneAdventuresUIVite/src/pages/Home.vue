@@ -1,6 +1,7 @@
 <template>
   <div ref="HomePage" id="HomePage"> 
-    <h1>Harro</h1>
+    <h1>WELCOME TO ESTERNE ADVENTURES</h1>
+    <h1>THE JOY OF LIFE</h1>
     <img src="../assets/Esterne.png" alt="">
     <button @click="goToOtherPage" >Click here</button>
   </div>
