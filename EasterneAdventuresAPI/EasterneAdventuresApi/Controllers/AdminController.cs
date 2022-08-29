@@ -123,5 +123,39 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.DeleteBooking(Booking_Id);
         }
+
+        //Equipment
+
+        [HttpGet]
+        [Route("~/api/Admin/ListEquipment")]
+        [AllowAnonymous]
+        public List<EquipmentDTO> GetAllEquipment()
+        {
+            return _adminService.GetAllEquipment();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddEquipmnet")]
+        [AllowAnonymous]
+        public bool AddEquipment(EquipmentDTO EquipmentToAdd)
+        {
+            return _adminService.addEquipment(EquipmentToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/UpdateEquipment")]
+        [AllowAnonymous]
+        public bool UpdateEquipment(BookingDTO EquipmentToUpdate)
+        {
+            return _adminService.UpdateBooking(EquipmentToUpdate);
+        }
+
+        [HttpGet]
+        [Route("~/api/Admin/DeleteEquipment")]
+        [AllowAnonymous]
+        public bool DeleteEquipment(int Equipment_Id)
+        {
+            return _adminService.deleteEquipment(Equipment_Id);
+        }
     }
 }
