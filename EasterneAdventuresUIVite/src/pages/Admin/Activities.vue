@@ -57,14 +57,25 @@
       
     </div>
     <div v-if="addActivivityOpen">
-      <div>
-        <label for="ActivityName">Name</label>
-        <input v-model="formData.name" @input="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name" class="FancyInput">
-        <input v-model="formData.description" @input="formData.description = $event.target.value"  type="text" placeholder="Description">
-        <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value"  type="text" placeholder="Price_PP">
+      <div class="Input-Section">
+        <label for="name" class="inp">
+          <input v-model="formData.name" @input="formData.name = $event.target.value" type="text" id="name" placeholder="&nbsp;">
+          <span class="label">Name</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="description" class="inp">
+          <textarea cols="20"  v-model="formData.description" @input="formData.description = $event.target.value" type="text" id="description" placeholder="&nbsp;"></textarea>
+          <span class="label">Description</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="price" class="inp">
+          <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value" type="text" id="price" placeholder="&nbsp;">
+          <span class="label">Price PP</span>
+          <span class="focus-bg"></span>
+        </label>
       </div>
-      <div>
-        <button class="app-content-cancelButton" @click="cancelAdd">Cancel</button>
+      <div class="right-side">
+        <button class="app-content-cancelButton mr-2" @click="cancelAdd">Cancel</button>
         <button v-if="!editActivivityOpen" class="app-content-headerButton" @click="addNewItem">Add</button>
         <button v-if="editActivivityOpen" class="app-content-headerButton" @click="updateActivity">Update</button>
       </div>

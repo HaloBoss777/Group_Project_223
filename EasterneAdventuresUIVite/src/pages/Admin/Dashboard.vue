@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="app-content">
-        <router-view v-slot="{ Component, route }">
+        <router-view v-slot="{ Component }">
           <transition name="slide-fade">
             <component :is="Component" />
           </transition>
