@@ -43,9 +43,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/UpdateActivity")]
         [AllowAnonymous]
-        public bool UpdateActivity(ActivityDTO itemToAdd)
+        public bool UpdateActivity(ActivityDTO itemToUpdate)
         {
-            return _adminService.UpdateActivity(itemToAdd);
+            return _adminService.UpdateActivity(itemToUpdate);
         }
 
         [HttpGet]
@@ -77,9 +77,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/UpdateEmployee")]
         [AllowAnonymous]
-        public bool UpdateEmployee(EmployeeDTO empToAdd)
+        public bool UpdateEmployee(EmployeeDTO empToUpdate)
         {
-            return _adminService.UpdateEmployee(empToAdd);
+            return _adminService.UpdateEmployee(empToUpdate);
         }
 
         [HttpGet]
@@ -88,6 +88,40 @@ namespace EasterneAdventuresApi.Web.Controllers
         public bool DeleteEmployee(int employee_Id)
         {
             return _adminService.DeleteEmployee(employee_Id);
+        }
+
+        //Bookings
+
+        [HttpGet]
+        [Route("~/api/Admin/ListBookings")]
+        [AllowAnonymous]
+        public List<BookingDTO> GetAllBookings()
+        {
+            return _adminService.GetAllBookings();
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddBooking")]
+        [AllowAnonymous]
+        public bool AddBooking(BookingDTO BookingToAdd)
+        {
+            return _adminService.AddBooking(BookingToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/UpdateBooking")]
+        [AllowAnonymous]
+        public bool UpdateBooking(BookingDTO BookingToUpdate)
+        {
+            return _adminService.UpdateBooking(BookingToUpdate);
+        }
+
+        [HttpGet]
+        [Route("~/api/Admin/DeleteBooking")]
+        [AllowAnonymous]
+        public bool DeleteBooking(int Booking_Id)
+        {
+            return _adminService.DeleteBooking(Booking_Id);
         }
     }
 }
