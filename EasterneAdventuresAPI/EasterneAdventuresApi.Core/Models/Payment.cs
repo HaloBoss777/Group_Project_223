@@ -17,5 +17,14 @@ namespace EasterneAdventuresApi.Core.Models
         public virtual Client Client { get; set; }
         public virtual Booking Booking { get; set; }
 
+        public PaymentDTO DisplayPaymentDTO => new PaymentDTO()
+        {
+            Payment_Id = Payment_Id,
+            Booking_Id = Booking_Id,
+            Client_Id = Client_Id,
+            TotalPrice = TotalPrice,
+            Paid = Paid,
+        };
+
     }
 }

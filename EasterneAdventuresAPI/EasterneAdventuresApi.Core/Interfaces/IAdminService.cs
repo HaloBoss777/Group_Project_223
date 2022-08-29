@@ -38,10 +38,10 @@ namespace EasterneAdventuresApi.Core.Interfaces
 
         List<EquipmentDTO> GetAllEquipment();
 
-        bool addEquipment(EquipmentDTO equipment);
+        bool AddEquipment(EquipmentDTO equipment);
 
-        bool updateEquipment(EquipmentDTO equipment);
+        bool UpdateEquipment(EquipmentDTO equipment);
 
-        bool deleteEquipment(int equipment_Id);
+        bool DeleteEquipment(int equipment_Id);
     }
 }
