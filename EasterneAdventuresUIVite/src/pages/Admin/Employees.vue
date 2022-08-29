@@ -203,11 +203,12 @@ export default {
     },
     deleteActivity(activity_Id){
       this.deletedActivity = true;
-      var onSuccess=response=>{
-        this.getActivityList()
-        this.deletedActivity = false;
-      }
-      this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
+      // var onSuccess=response=>{
+      //   this.getActivityList()
+      //   this.deletedActivity = false;
+      // }
+      // this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
+      
     }
   },
   mounted() { 

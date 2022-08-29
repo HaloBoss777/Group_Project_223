@@ -49,7 +49,7 @@
           <span>R{{activity.price_PP}}</span>
         </div>
         <div class="product-cell">
-          <button class="sort-button ItemAbove" @click.prevent="deleteActivity(activity.activity_Id)">
+          <button class="sort-button ItemAbove" @click.prevent="confirmDelete(activity.activity_Id,activity.name)">
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
@@ -187,8 +187,24 @@ export default {
       }
       this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
     },
-    deleteActivity(activity_Id){
+    confirmDelete(activity_Id,name){
       this.deletedActivity = true;
+      this.$swal.fire({
+        title: `Are you sure you want to Delete ${name} ?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        denyButtonText: `Don't Delete`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$swal.fire(`Deleted ${name}`, '', 'success')
+          this.deleteActivity(activity_Id);
+        } else if (result.isDenied) {
+          this.$swal.fire(`${name} not deleted`, '', 'info')
+        }
+      })
+    },
+    deleteActivity(activity_Id){
       var onSuccess=response=>{
         this.getActivityList()
         this.deletedActivity = false;
