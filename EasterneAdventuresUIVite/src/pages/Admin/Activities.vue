@@ -192,7 +192,7 @@ export default {
       this.$swal.fire({
         title: `Are you sure you want to Delete ${name} ?`,
         showDenyButton: true,
-        showCancelButton: true,
+        showCancelButton: false,
         confirmButtonText: 'Delete',
         denyButtonText: `Don't Delete`,
       }).then((result) => {
