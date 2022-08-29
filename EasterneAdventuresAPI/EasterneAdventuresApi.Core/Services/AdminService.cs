@@ -45,7 +45,7 @@ namespace EasterneAdventuresApi.Core.Services
             {
                 Name = activity.Name,
                 Description = activity.Description,
-                Price_PP = activity.Price_PP,
+                Price_PP = Convert.ToDecimal(activity.Price_PP),
             };
             _unitOfWork.Activity.Add(activityToAdd);
             _unitOfWork.Save();
