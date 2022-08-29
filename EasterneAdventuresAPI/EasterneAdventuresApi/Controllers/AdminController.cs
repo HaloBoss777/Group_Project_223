@@ -145,9 +145,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/UpdateEquipment")]
         [AllowAnonymous]
-        public bool UpdateEquipment(BookingDTO EquipmentToUpdate)
+        public bool UpdateEquipment(EquipmentDTO EquipmentToUpdate)
         {
-            return _adminService.UpdateBooking(EquipmentToUpdate);
+            return _adminService.UpdateEquipment(EquipmentToUpdate);
         }
 
         [HttpGet]

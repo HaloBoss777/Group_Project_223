@@ -247,6 +247,7 @@ namespace EasterneAdventuresApi.Core.Services
             }
 
             _unitOfWork.Equipment.Delete(equipmentToDelete);
+            _unitOfWork.Save();
             return true;
 
         }
