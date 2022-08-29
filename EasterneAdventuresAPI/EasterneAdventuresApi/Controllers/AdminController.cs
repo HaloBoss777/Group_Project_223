@@ -139,7 +139,7 @@ namespace EasterneAdventuresApi.Web.Controllers
         [AllowAnonymous]
         public bool AddEquipment(EquipmentDTO EquipmentToAdd)
         {
-            return _adminService.addEquipment(EquipmentToAdd);
+            return _adminService.AddEquipment(EquipmentToAdd);
         }
 
         [HttpPost]
@@ -155,7 +155,7 @@ namespace EasterneAdventuresApi.Web.Controllers
         [AllowAnonymous]
         public bool DeleteEquipment(int Equipment_Id)
         {
-            return _adminService.deleteEquipment(Equipment_Id);
+            return _adminService.DeleteEquipment(Equipment_Id);
         }
     }
 }

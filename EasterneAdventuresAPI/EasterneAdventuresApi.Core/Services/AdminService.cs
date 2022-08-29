@@ -208,7 +208,7 @@ namespace EasterneAdventuresApi.Core.Services
             return _unitOfWork.Equipment.Query().Select(x => x.DisplayEquipmentDTO).ToList();
         }
 
-        public bool addEquipment(EquipmentDTO equipment)
+        public bool AddEquipment(EquipmentDTO equipment)
         {
             var equipmentToAdd = new Equipment()
             {

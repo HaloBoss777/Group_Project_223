@@ -8,5 +8,9 @@ namespace EasterneAdventuresApi.Core.Interfaces
     public interface IClientArea
     {
         List<ActivityDTO> GetAllActivities();
+
+        //Payment
+
+
     }
 }

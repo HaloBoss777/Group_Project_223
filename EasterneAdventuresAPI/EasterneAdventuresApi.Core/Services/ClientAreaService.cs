@@ -32,10 +32,15 @@ namespace EasterneAdventuresApi.Core.Services
 			_unitOfWork = unitOfWork;
 		}
 		
+		//Activity
+
 		public List<ActivityDTO> GetAllActivities()
         {
 			return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
         }
 		
+		//Booking
+
+		//Payment
 	}
 }
