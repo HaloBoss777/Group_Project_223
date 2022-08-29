@@ -21,6 +21,14 @@ namespace EasterneAdventuresApi.Core.Models
         public virtual Payment Payment { get; set; }
         public virtual Activity Activity { get; set; }
 
-
+        public BookingDTO BookingDisplayDTO => new BookingDTO
+        {
+            Activity_Id = Activity_Id,
+            Emp_Id = Emp_Id,
+            Booking_Id = Booking_Id,
+            Client_Id = Client_Id,
+            Payment_Id = Payment_Id,
+            Date_Booked = Date_Booked,
+        };
     }
 }

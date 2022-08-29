@@ -144,5 +144,61 @@ namespace EasterneAdventuresApi.Core.Services
             _unitOfWork.Save();
             return true;
         }
+
+        //Booking
+
+        public List<BookingDTO> GetAllBookings()
+        {
+            return _unitOfWork.Booking.Query().Select(x => x.BookingDisplayDTO).ToList();
+        }
+
+        public bool AddBooking(BookingDTO booking)
+        {
+            var bookingToAdd = new Booking()
+            {
+                Activity_Id = booking.Activity_Id,
+                Booking_Id = booking.Booking_Id,
+                Emp_Id = booking.Emp_Id,
+                Payment_Id = booking.Payment_Id,
+                Client_Id = booking.Client_Id,
+                Date_Booked = booking.Date_Booked,
+            };
+
+            _unitOfWork.Booking.Add(bookingToAdd);
+            _unitOfWork.Save();
+            return true;
+        }
+
+        public bool UpdateBooking(BookingDTO booking)
+        {
+            var bookingToUpdate = _unitOfWork.Booking.Query(x => x.Emp_Id == booking.Booking_Id).SingleOrDefault();
+            if (bookingToUpdate == null)
+            {
+                return false;
+            }
+
+            bookingToUpdate.Activity_Id = booking.Activity_Id;
+            bookingToUpdate.Booking_Id = booking.Booking_Id;
+            bookingToUpdate.Emp_Id = booking.Emp_Id;
+            bookingToUpdate.Payment_Id = booking.Payment_Id;
+            bookingToUpdate.Client_Id = booking.Client_Id;
+            bookingToUpdate.Date_Booked = booking.Date_Booked;
+            _unitOfWork.Save();
+
+            return true;
+        }
+
+        public bool DeleteBooking(int booking_Id)
+        {
+            var bookingToDelete = _unitOfWork.Booking.Query(x => x.Booking_Id == booking_Id).SingleOrDefault();
+            if (bookingToDelete == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Booking.Delete(bookingToDelete);
+            _unitOfWork.Save();
+            return true;
+        }
     }
 }
