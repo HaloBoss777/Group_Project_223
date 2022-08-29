@@ -1,20 +1,20 @@
 <template>
-  <div ref="HomePage" id="HomePage"> 
-    <NavBar></NavBar>
+  <div ref="NavBar" id="NavBar "> 
+    NavBar
   </div>
 </template> 
 
 
 <script>
-  import NavBar from "../components/Navbar.vue";
 export default {
+  name:'NavBar',
   data() {
     return { 
 
     }
   },
   components:{ 
-    NavBar
+
   },
   watch:{ 
 
@@ -23,9 +23,7 @@ export default {
 
   },
   methods: { 
-    goToOtherPage(){
-      this.$router.push("/Login");
-    }
+
   },
   mounted() { 
 
@@ -34,3 +32,6 @@ export default {
 </script>
 
 
+<style lang="scss"> 
+
+</style>
