@@ -21,6 +21,9 @@
   --filter-shadow: rgba(16, 24, 39, 0.8) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
+
+
+
 .light:root {
   --app-bg: #fff;
   --sidebar: #f3f6fd;
@@ -64,6 +67,7 @@ body {
   max-width: 2000px;
   margin: 0 auto;
 }
+
 
 .sidebar {
   flex-basis: 200px;
@@ -119,7 +123,7 @@ body {
   }
   
   @media screen and (max-width: 1024px) {&{
-      display: none;
+    display: none;
   }}
 }
 

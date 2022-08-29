@@ -1,6 +1,7 @@
 <template>
   <div ref="NavBar" id="NavBar"> 
     <button @click="goToLoginPage">Login/Register</button>
+    <button @click="goToLoginPage">Icon</button>
   </div>
 </template> 
 
