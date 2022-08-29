@@ -13,7 +13,12 @@ var routes = [{
   path:'/Login',
     component:()=>
       import('./pages/Login.vue')
-  },{
+  },
+  ,{
+    path:'/Register',
+      component:()=>
+        import('./pages/Register.vue')
+    },{
     path:'/Dashboard',
       name:"Home",
       component:()=>

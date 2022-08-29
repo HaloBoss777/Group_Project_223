@@ -1,6 +1,6 @@
 <template>
-  <div ref="NavBar" id="NavBar "> 
-    NavBar
+  <div ref="NavBar" id="NavBar"> 
+    <button @click="goToLoginPage">Login/Register</button>
   </div>
 </template> 
 
@@ -23,7 +23,9 @@ export default {
 
   },
   methods: { 
-
+    goToLoginPage(){
+      this.$router.push("/Login");
+    }
   },
   mounted() { 
 
