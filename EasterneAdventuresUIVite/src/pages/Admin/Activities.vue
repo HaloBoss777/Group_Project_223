@@ -157,7 +157,7 @@ export default {
           self.cancelAdd();
         }
       }
-      this.$AjaxPostAnon(`Admin/AddActivity`,dataToSend,onSuccess);
+      this.$AjaxGet(`Admin/AddActivity`,dataToSend,onSuccess);
     },
     activitySelected(dataChosen){
       if(this.deletedActivity){
@@ -185,7 +185,7 @@ export default {
           self.cancelAdd();
         }
       }
-      this.$AjaxPostAnon(`Admin/UpdateActivity`,dataToSend,onSuccess);
+      this.$AjaxGet(`Admin/UpdateActivity`,dataToSend,onSuccess);
     },
     confirmDelete(activity_Id,name){
       this.deletedActivity = true;
@@ -209,7 +209,7 @@ export default {
         this.getActivityList()
         this.deletedActivity = false;
       }
-      this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
+      this.$AjaxGet(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
     }
   },
   mounted() { 

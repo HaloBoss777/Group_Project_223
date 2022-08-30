@@ -20,14 +20,9 @@ app.use(router);
 app.component(VueFeather.name,VueFeather);
 
 
-
-
-
-
 var UrlBuilder = (url) => {
   return `https://localhost:44393/api/${url}`;
 }
-
 
 app.config.globalProperties.$AjaxGetAnon = (url,OnSuccess,onFinally) =>{
   var urlBuilt = UrlBuilder(url);
