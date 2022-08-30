@@ -1,33 +1,32 @@
 import { computed } from 'vue'; // For VUE 3
 import { createAcl, defineAclRules } from 'vue-simple-acl';
 import router from '../router.js'
-
 var user = () => {
-   // ID of authenticated user
   var userData = localStorage.getItem("userData");
   if(!userData){
-    return user = {
+    return {
       isAdmin:false,
-      isEmployee:false
+      isEmployee:false,
+      permissions: ['admin']
     }
   }
-  return user = {
+  return {
     isAdmin: JSON.parse(userData).isAdmin,
-    isEmployee:JSON.parse(userData).isEmployee
-  }
+    isEmployee:!JSON.parse(userData).isClient,
+    permissions: ['admin']
+  };
 }
-
 
 const rules = () => defineAclRules((setRule) => {
   // setRule('unique-ability', callbackFunction(user, arg1, arg2, ...) { });
   // setRule(['unique-ability-1', 'unique-ability-2'], callbackFunction(user, arg1, arg2, ...) { });
-  
+  var ruleToUse = user();
   // Define a simple rule for ability with no argument
-  setRule('admin', (user) => user.isAdmin);
+  setRule('admin', (user) => ruleToUse.isAdmin );
 });
 
 const simpleAcl = createAcl({
-  user, // short for user: user
+  user,
   rules,
   router, // short for rules: rules
   // other optional vue-simple-acl options here... See Vue Simple ACL Options below

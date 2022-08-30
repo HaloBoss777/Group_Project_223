@@ -7,7 +7,7 @@ import VueFeather from 'vue-feather';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import {createPinia} from 'pinia'
-import acl from './acl/acl.js';
+import simpleAcl from './acl/acl.js';
 
 const app = createApp({
   render:()=>h(App)
@@ -16,8 +16,8 @@ const app = createApp({
 const pinia = createPinia();
 app.use(pinia);
 app.use(VueSweetalert2);
+app.use(simpleAcl);
 app.use(router);
-app.use(acl);
 app.component(VueFeather.name,VueFeather);
 
 

@@ -90,7 +90,8 @@ export default {
       localStorage.setItem("userData",JSON.stringify(data));
 
       if(data.isAdmin){
-        this.$router.push("/Dashboard");
+        // this.$router.push("/Dashboard");
+        window.open("/Dashboard","_self")
       }
       else{
         this.$router.push("/Home");

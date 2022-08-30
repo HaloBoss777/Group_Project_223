@@ -1,9 +1,8 @@
 
 <template>
   <div>
-    <NavBar></NavBar>
     <div ref="Unauthorized" id="Unauthorized"> 
-      Whoops What happend
+      <h1 style="color:white" >Code Weasle</h1>
     </div>
   </div>
 </template> 

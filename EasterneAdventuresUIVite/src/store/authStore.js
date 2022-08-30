@@ -10,7 +10,9 @@ export const useAuthStore = defineStore("auth", {
     emp_Id:0
   }),
   getters: {
-    
+    isUserAdmin(){
+      return this.isAdmin;
+    }
   },
   actions: {
     setName(newName){
