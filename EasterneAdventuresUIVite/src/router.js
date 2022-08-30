@@ -12,8 +12,13 @@ var routes = [{
   },{
   path:'/Login',
     component:()=>
-      import('./pages/Login.vue')
+      import('./pages/Login.vue'),
   },
+  {
+    path:'/Unauthorized',
+    component:()=>
+      import('./pages/Unauthorized.vue')
+  }
   ,{
     path:'/Register',
       component:()=>
@@ -23,6 +28,10 @@ var routes = [{
       name:"Home",
       component:()=>
         import('./pages/Admin/Dashboard.vue')
+      ,meta:{
+        can:'admin',
+        onDeniedRoute: '/Unauthorized'
+      }
       ,children:[
         {
           path:'/Activities',
