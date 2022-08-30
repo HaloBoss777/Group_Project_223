@@ -18,6 +18,7 @@ using EasterneAdventuresApi.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.Storage.Shared.Protocol;
+using System.Configuration;
 
 namespace EasterneAdventuresApi.Core.Services
 {
@@ -25,18 +26,18 @@ namespace EasterneAdventuresApi.Core.Services
     {
 
 		private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
+		private readonly IConfiguration _configuration ;
 
-
-		public AuthService(IEasterneAdventuresUnitOfWork unitOfWork)
+		public AuthService(IEasterneAdventuresUnitOfWork unitOfWork, IConfiguration configuration)
 		{
 			_unitOfWork = unitOfWork;
+			_configuration = configuration;
 		}
 
 		private string GenerateJSONWebToken(UserAuthDTO user)
 		{
 			var jwtKey = "b0a63101-30e9-4d6a-bd22-a327c0cf9281";
-			var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-			var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+			var credentials = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
 			var claims = new List<Claim>
 			{
@@ -46,12 +47,12 @@ namespace EasterneAdventuresApi.Core.Services
 				new Claim("isClient", user.IsClient.ToString()),
 			};
 
+			var newclaims = claims.AsEnumerable<Claim>();
 
-			var token = new JwtSecurityToken("EasterneAdventuresApi.Core.Services.AuthenticationService",
-			  "EasterneAdventuresApi.Web.Controllers.Authentication",
-			  claims,
-			  expires: DateTime.Now.AddDays(365),
-			  signingCredentials: credentials);
+			var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+			  _configuration["Jwt:Audience"],
+			  newclaims,
+			  expires: DateTime.Now.AddDays(365));
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}

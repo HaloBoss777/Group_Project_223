@@ -8,6 +8,7 @@ using EasterneAdventuresApi.Web.Filters;
 using EasterneAdventuresApi.Core.Models;
 using System.Collections.Generic;
 using System.Threading;
+using EasterneAdventuresApi.Core.Globals;
 
 namespace EasterneAdventuresApi.Web.Controllers
 {
@@ -26,7 +27,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/ListActivities")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public List<ActivityDTO> GetAllActivities()
         {
             return _adminService.GetAllActivities();

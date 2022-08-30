@@ -19,8 +19,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.11" />
-    <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="5.4.0" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.7" />
+	<PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.7" />
     <PackageReference Include="MySqlConnector" Version="0.59.2" />
     <PackageReference Include="PDFsharp-MigraDoc" Version="1.50.5147" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />

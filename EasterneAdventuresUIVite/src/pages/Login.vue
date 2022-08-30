@@ -1,3 +1,9 @@
+
+<script setup>
+  import { useAuthStore } from '../store/authStore.js'
+  const authStore = useAuthStore();
+</script>
+
 <template>
   <div>
     <NavBar></NavBar>
@@ -69,7 +75,19 @@ export default {
       this.$AjaxPostLogin(`Authentication/SignIn`,dataToSend,onSuccess,onFail);
     },
     handleSigninUser(data){
+      if(data.isClient){
+        this.authStore.setClient_Id(data.id);
+      }
+      else{
+        this.authStore.setEmp_Id(data.id);
+        this.authStore.setIsEmployee(true);
+      }
+      this.authStore.setIsAdmin(data.isAdmin);
+      this.authStore.setIsInstructor(data.isInstructor);
+      this.authStore.setJwtToken(data.apiToken);
+      this.authStore.setName(data.fullName);
 
+      localStorage.setItem("userData",JSON.stringify(data));
     }
   },
   mounted() { 

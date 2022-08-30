@@ -7,6 +7,7 @@ namespace EasterneAdventuresApi.Core.Services
     {
         public int UserId { get; set; }
         public string DisplayName { get; set; }
-        public List<string> Permissions { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsClient { get; set; }
     }
 }

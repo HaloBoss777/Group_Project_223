@@ -49,9 +49,13 @@ app.config.globalProperties.$AjaxGetAnon = (url,OnSuccess,onFinally) =>{
 
 app.config.globalProperties.$AjaxGet = (url,OnSuccess,onFinally) =>{
   var urlBuilt = UrlBuilder(url);
+  var myAccessToken = JSON.parse(localStorage.getItem("userData")).apiToken.toString();
   return axios({
     method:'get',
-    url:urlBuilt
+    url:urlBuilt,
+    headers:{
+      'Authorization': 'Bearer ' + myAccessToken, 
+    }
   }).then(response =>{
     if(OnSuccess){
       OnSuccess(response.data)

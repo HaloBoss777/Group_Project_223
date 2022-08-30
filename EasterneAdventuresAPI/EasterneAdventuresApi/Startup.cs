@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
 using EasterneAdventuresApi.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ using MySql.Data.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EasterneAdventuresApi
 {
@@ -47,6 +51,18 @@ namespace EasterneAdventuresApi
             services.AddDbContext<EasterneAdventuresContext>(options => options
                 .UseSqlServer(mysqlConnectionStr));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    //ValidateLifetime = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                };
+            });
+
             services.AddControllers();
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IEasterneAdventuresContext, EasterneAdventuresContext>();
@@ -59,9 +75,6 @@ namespace EasterneAdventuresApi
 
             services.AddCors(options => 
             {
-
-
-
                 options.AddPolicy("AllowAllHeaders", builder => builder.AllowAnyOrigin()
                                                                 .AllowAnyHeader()
                                                                 .AllowAnyMethod()
@@ -122,7 +135,6 @@ namespace EasterneAdventuresApi
 
             app.UseCors("AllowAllHeaders");
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();

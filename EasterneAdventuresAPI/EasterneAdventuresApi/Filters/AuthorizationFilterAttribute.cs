@@ -16,6 +16,8 @@ using EasterneAdventuresApi.Web.Controllers;
 using EasterneAdventuresApi.Core.DTOs;
 using Newtonsoft.Json;
 using Castle.Core.Internal;
+using System.IdentityModel.Tokens.Jwt;
+using EasterneAdventuresApi.Core.Globals;
 
 namespace EasterneAdventuresApi.Web.Filters
 {
@@ -35,31 +37,27 @@ namespace EasterneAdventuresApi.Web.Filters
 
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
-			// Get the site Id from the request header
-			var siteIdHeader = context.HttpContext.Request.Headers.FirstOrDefault(x => x.Key.ToLower() == "siteid");
-			var siteId = Convert.ToInt32(siteIdHeader.Value);
-
-			// Get all of the user's claims from the HTTP Context
 			var userClaimskeys = context.HttpContext.Request.Headers;
+			var token = userClaimskeys.First(x => x.Key.Contains("Authorization")).Value.ToString().Substring(7);
+			var handler = new JwtSecurityTokenHandler();
+			var jwt = handler.ReadJwtToken(token);
+			var fullname = jwt.Claims.First(claim => claim.Type == "fullName").Value;
+			var userId = Int32.Parse(jwt.Claims.First(claim => claim.Type == "userId").Value);
+			var isAdmin =	Convert.ToBoolean(jwt.Claims.First(claim => claim.Type == "isAdmin").Value);
+			var IsClient = Convert.ToBoolean(jwt.Claims.First(claim => claim.Type == "isClient").Value);
 
-			var userId = Convert.ToInt32(userClaimskeys.First(x=>x.Key.Contains("userid")).Value);
-			var displayName = (userClaimskeys.First(x=>x.Key.Contains("name")).Value).ToString();
+            if (_permission != null)
+            {
+				if (_permission.Equals(Permission.Admin) && !isAdmin)
+				{
+					throw new UnauthorizedAccessException();
+				}
+			}
 
-
-            //var userId = Convert.ToInt32(userClaims.First(x => x.Type.ToLower() == "userid").Value);
-            //var displayName = userClaims.First(x => x.Type.ToLower() == "name").Value;
-
-
-            //If the user does not have the appropriate permissions, deny access
-            //if (currentSitePermissionList != null && (!(currentSitePermissionList.Any(x => x == _permission) || _permission.IsNullOrEmpty())))
-            //{
-            //    context.Result = new UnauthorizedResult();
-            //    return;
-            //}
-
-            //((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).Permissions = currentSitePermissionList;
-            ((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).DisplayName = displayName;
+            ((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).DisplayName = fullname;
 			((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).UserId = userId;
+			((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).IsAdmin = isAdmin;
+			((IAuthInfo)context.HttpContext.RequestServices.GetService(typeof(IAuthInfo))).IsClient = IsClient;
 		}
 	}
 }

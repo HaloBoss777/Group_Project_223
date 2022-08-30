@@ -6,6 +6,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
     {
         int UserId { get; set; }
         string DisplayName { get; set; }
-        List<string> Permissions { get; set; }
+        bool IsAdmin { get; set; }
+        bool IsClient { get; set; }
     }
 }
