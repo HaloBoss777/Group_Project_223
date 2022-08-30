@@ -17,7 +17,8 @@ namespace EasterneAdventuresApi.Core.Models
         public string  CellNum { get; set; }
         public bool Instructor { get; set; }
         public bool Admin { get; set; }
-        public string RSA_Id { get; set; }
+        public string RSA_Id { get; set;}
+        public string PasswordHash { get; set; }
 
         public virtual List<Booking> Bookings { get; set; }
 

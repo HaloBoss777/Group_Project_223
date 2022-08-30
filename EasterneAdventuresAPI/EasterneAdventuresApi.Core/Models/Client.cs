@@ -13,6 +13,8 @@ namespace EasterneAdventuresApi.Core.Models
         public string Email { get; set; }
         public string CellNum { get; set; }
         public string RSA_ID { get; set; }
+        public string PasswordHash { get; set; }
+
 
         public virtual List<Booking> Bookings { get; set; }
         public virtual List<Payment> Payments { get; set; }
