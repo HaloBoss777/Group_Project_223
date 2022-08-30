@@ -88,6 +88,13 @@ export default {
       this.authStore.setName(data.fullName);
 
       localStorage.setItem("userData",JSON.stringify(data));
+
+      if(data.isAdmin){
+        this.$router.push("/Dashboard");
+      }
+      else{
+        this.$router.push("/Home");
+      }
     }
   },
   mounted() { 
