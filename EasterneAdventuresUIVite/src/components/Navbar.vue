@@ -1,7 +1,15 @@
+
+<script setup>
+import { useAuthStore } from '../store/authStore.js'
+const authStore = useAuthStore();
+</script>
+
 <template>
-  <div ref="NavBar" id="NavBar"> 
+  <div ref="NavBar" id="NavBar">
+    <button @click="goToHomePage">Home</button>
+    <button @click="goToDashboardPage">Dashboard</button>
     <button @click="goToLoginPage">Login/Register</button>
-    <button @click="goToLoginPage">Icon</button>
+    <button @click="changeNameHere">{{authStore.fullName}}</button>
   </div>
 </template> 
 
@@ -11,6 +19,7 @@ export default {
   name:'NavBar',
   data() {
     return { 
+      
 
     }
   },
@@ -26,6 +35,15 @@ export default {
   methods: { 
     goToLoginPage(){
       this.$router.push("/Login");
+    },
+    goToHomePage(){
+      this.$router.push("/Home");
+    },
+    goToDashboardPage(){
+      this.$router.push("/Dashboard");
+    },
+    changeNameHere(){
+      this.authStore.setName("Whoop Whoop");
     }
   },
   mounted() { 

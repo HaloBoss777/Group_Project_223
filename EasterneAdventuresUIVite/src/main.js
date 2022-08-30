@@ -6,14 +6,23 @@ import axios from 'axios'
 import VueFeather from 'vue-feather';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import {createPinia} from 'pinia'
 
 const app = createApp({
   render:()=>h(App)
 });
-app.use(VueSweetalert2);
 
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(VueSweetalert2);
 app.use(router);
 app.component(VueFeather.name,VueFeather);
+
+
+
+
+
 
 var UrlBuilder = (url) => {
   return `https://localhost:44393/api/${url}`;
