@@ -1,7 +1,13 @@
 import { defineStore } from "pinia";
 export const useAuthStore = defineStore("auth", {
   state: () => ({ 
-    fullName: "Eduardo",
+    fullName: "",
+    isEmployee:false,
+    isAdmin:false,
+    isInstructor:false,
+    jwtToken:"",
+    client_Id:0,
+    emp_Id:0
   }),
   getters: {
     
@@ -9,6 +15,24 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     setName(newName){
       this.fullName = newName;
+    },
+    setIsEmployee(isEmployee){
+      this.isEmployee = isEmployee;
+    },
+    setIsAdmin(isAdmin){
+      this.isAdmin = isAdmin;
+    },
+    setIsInstructor(isInstructor){
+      this.isInstructor = isInstructor;
+    },
+    setJwtToken(jwtToken){
+      this.jwtToken = jwtToken;
+    },
+    setClient_Id(client_Id){
+      this.client_Id = client_Id;
+    },
+    setEmp_Id(emp_Id){
+      this.emp_Id = emp_Id;
     },
   },
 });
