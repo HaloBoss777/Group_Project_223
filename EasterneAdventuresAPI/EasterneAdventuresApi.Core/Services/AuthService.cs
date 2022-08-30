@@ -40,10 +40,10 @@ namespace EasterneAdventuresApi.Core.Services
 
 			var claims = new List<Claim>
 			{
-				new Claim("name",user.DisplayName),
+				new Claim("fullName",user.FullName),
 				new Claim("isAdmin", user.IsAdmin.ToString()),
 				new Claim("userId", user.Id.ToString()),
-				new Claim("SiteId",user.SitePermissions.First(x=>x.SiteId != 0).SiteId.ToString()),
+				new Claim("isClient", user.IsClient.ToString()),
 			};
 
 
@@ -55,6 +55,42 @@ namespace EasterneAdventuresApi.Core.Services
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
-		
+
+		public UserAuthDTO Login(UserAuthLoginDTO loginDetails)
+        {
+			var employee = _unitOfWork.Employee.Query(x=>x.RSA_Id == loginDetails.UserName && x.PasswordHash == loginDetails.PasswordHash).SingleOrDefault();
+			var client = _unitOfWork.Client.Query(x => x.Email == loginDetails.UserName && x.PasswordHash == loginDetails.PasswordHash).SingleOrDefault();
+
+            if (employee != null)
+            {
+				var employeeDetails = new UserAuthDTO
+				{
+					FullName = employee.Full_Name,
+					Id = employee.Emp_Id,
+					IsAdmin = employee.Admin,
+					IsClient = false,
+					IsInstructor = employee.Instructor
+				};
+				employeeDetails.ApiToken = GenerateJSONWebToken(employeeDetails);
+
+				return employeeDetails;
+			}
+            if (client != null)
+            {
+				var clientDetails = new UserAuthDTO
+				{
+					FullName = client.Full_Name,
+					Id = client.Client_Id,
+					IsAdmin = false,
+					IsClient = true,
+					IsInstructor = false,
+				};
+				clientDetails.ApiToken = GenerateJSONWebToken(clientDetails);
+				return clientDetails;
+			}
+			throw new UnauthorizedAccessException("Details Incorrect");
+        }
+
+
 	}
 }

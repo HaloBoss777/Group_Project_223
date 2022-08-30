@@ -84,4 +84,22 @@ app.config.globalProperties.$AjaxPostAnon = (url,sendData,OnSuccess,onFinally) =
   })
 }
 
+app.config.globalProperties.$AjaxPostLogin = (url,sendData,OnSuccess,onFail) =>{
+  var urlBuilt = UrlBuilder(url);
+  return axios({
+    method:'post',
+    url:urlBuilt,
+    data:sendData,
+  }).then(response =>{
+    if(OnSuccess){
+      OnSuccess(response.data)
+    }
+  }).catch(error =>{
+    onFail(error)
+  }).finally(response =>{
+  })
+}
+
+
+
 app.mount('#app')

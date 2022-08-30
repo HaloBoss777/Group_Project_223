@@ -9,7 +9,7 @@ namespace EasterneAdventuresApi.Core.Models
     public class Client : BaseModel
     {
         public int Client_Id { get; set; }
-        public string FullName { get; set; }
+        public string Full_Name { get; set; }
         public string Email { get; set; }
         public string CellNum { get; set; }
         public string RSA_ID { get; set; }
@@ -22,7 +22,7 @@ namespace EasterneAdventuresApi.Core.Models
         public ClientDTO DisplayCLientDTO => new ClientDTO()
         {
             Client_Id = Client_Id,
-            FullName = FullName,
+            Full_Name = Full_Name,
             Email = Email,
             CellNum = CellNum,
             RSA_ID = RSA_ID,

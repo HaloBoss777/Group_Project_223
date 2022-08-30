@@ -23,15 +23,13 @@ namespace EasterneAdventuresApi.Web.Controllers
             _authService = authService;
         }
 
-        //[HttpPost]
-        //[Route("~/api/Authentication/SignIn")]
-        //[AllowAnonymous]
-        //public UserAuthDTO SignIn(UserAuthDTO user)
-        //{
-        //    var serviceData = _authService.signIn(user);
-            
-        //    return serviceData;
-        //}
+        [HttpPost]
+        [Route("~/api/Authentication/SignIn")]
+        [AllowAnonymous]
+        public UserAuthDTO SignIn(UserAuthLoginDTO loginDetails)
+        {
+            return _authService.Login(loginDetails);
+        }
 
 
         //[HttpGet]
