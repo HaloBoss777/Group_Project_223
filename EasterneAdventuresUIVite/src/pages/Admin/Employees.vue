@@ -59,29 +59,36 @@
     <div v-if="addActivivityOpen">
       <div class="Input-Section">
         <label for="name" class="inp">
-          <input v-model="formData.name" @input="formData.name = $event.target.value" type="text" id="name" placeholder="&nbsp;">
+          <input v-model="formData.full_Name" @input="formData.full_Name = $event.target.value" type="text" id="name" placeholder="&nbsp;">
           <span class="label">Full Name</span>
           <span class="focus-bg"></span>
         </label>
-        <label for="description" class="inp">
-          <textarea cols="20"  v-model="formData.description" @input="formData.description = $event.target.value" type="text" id="description" placeholder="&nbsp;"></textarea>
-          <span class="label">Description</span>
+        <label for="rsa" class="inp">
+          <textarea cols="20"  v-model="formData.rSA_Id" @input="formData.rSA_Id = $event.target.value" type="text" id="rsa" placeholder="&nbsp;"></textarea>
+          <span class="label">RSA ID</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="cell" class="inp">
+          <textarea cols="20"  v-model="formData.cellNum" @input="formData.cellNum = $event.target.value" type="text" id="cell" placeholder="&nbsp;"></textarea>
+          <span class="label">Cell Number</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="PO" class="inp">
+          <textarea cols="20"  v-model="formData.pO_BOX" @input="formData.pO_BOX = $event.target.value" type="text" id="PO" placeholder="&nbsp;"></textarea>
+          <span class="label">PO BOX</span>
           <span class="focus-bg"></span>
         </label>
         <label for="price" class="inp">
-          <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value" type="text" id="price" placeholder="&nbsp;">
-          <span class="label">Price PP</span>
+          <input v-model="formData.street" @input="formData.street = $event.target.value" type="text" id="price" placeholder="&nbsp;">
+          <span class="label">Street</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="area" class="inp">
+          <input v-model="formData.area_Num" @input="formData.area_Num = $event.target.value" type="text" id="area" placeholder="&nbsp;">
+          <span class="label">Area Number</span>
           <span class="focus-bg"></span>
         </label>
       </div>
-            <!-- <div class="input-Section">
-        <label for="ActivityName">Name</label>
-        <input v-model="formData.name" @input="formData.name = $event.target.value"  id="ActivityName" type="text" placeholder="Name" class="FancyInput">
-        <label for="Description">Description</label>
-        <input v-model="formData.description" @input="formData.description = $event.target.value" id="Description" type="text" placeholder="Description">
-        <label for="Price">Price</label>
-        <input v-model="formData.price_PP" @input="formData.price_PP = $event.target.value" id="Price"  type="text" placeholder="Price_PP">
-      </div> -->
       <div class="right-side">
         <button class="app-content-cancelButton mr-2" @click="cancelAdd">Cancel</button>
         <button v-if="!editActivivityOpen" class="app-content-headerButton" @click="addNewItem">Add</button>
@@ -147,7 +154,7 @@ export default {
         self.activityList = response;
         self.filteredActivityList = self.activityList;
       }
-      this.$AjaxGet(`Admin/ListActivities`,onSuccess);
+      this.$AjaxGet(`Admin/ListEmployee`,onSuccess);
     },
     addNewActivity(){
       this.addActivivityOpen = true;
