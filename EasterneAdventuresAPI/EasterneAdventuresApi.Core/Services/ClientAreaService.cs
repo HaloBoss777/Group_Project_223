@@ -41,6 +41,22 @@ namespace EasterneAdventuresApi.Core.Services
 		
 		//Booking
 
+		public bool CreateBooking(BookingDTO New_Booking)
+        {
+            var create_Booking = new Booking()
+            {
+                Activity_Id = New_Booking.Activity_Id,
+                Booking_Id = New_Booking.Booking_Id,
+                Emp_Id = New_Booking.Emp_Id,
+                Client_Id = New_Booking.Client_Id,
+                Date_Booked = New_Booking.Date_Booked,
+            };
+
+            _unitOfWork.Booking.Add(create_Booking);
+            _unitOfWork.Save();
+            return true;
+        }
+
 		//Payment
 	}
 }

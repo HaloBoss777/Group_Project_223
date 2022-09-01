@@ -7,10 +7,14 @@ namespace EasterneAdventuresApi.Core.Interfaces
 {
     public interface IClientArea
     {
+        //Activities
+
         List<ActivityDTO> GetAllActivities();
 
-        //Payment
+        //Bookings
+        bool CreateBooking(BookingDTO New_Booking);
 
+        //Payment
 
     }
 }
