@@ -24,13 +24,19 @@
           </button>
         </div>
         <div class="product-cell image">
-          Description
+          Cell
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
         <div class="product-cell image">
-          Price
+          RSA ID
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">
+          Admin
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
@@ -40,13 +46,16 @@
       </div>
       <div class="products-row ItemBelow" v-for="(activity, index) in filteredActivityList" :key="index" @click.prevent="activitySelected(activity)">
         <div class="product-cell category">
-          <span>{{activity.name}}</span>
+          <span>{{activity.full_Name}}</span>
         </div>
         <div class="product-cell category">
-          <span>{{activity.description}}</span>
+          <span>{{activity.cellNum}}</span>
         </div>
         <div class="product-cell category">
-          <span>R{{activity.price_PP}}</span>
+          <span>{{activity.rsA_Id}}</span>
+        </div>
+        <div class="product-cell category">
+          <span>{{activity.admin}}</span>
         </div>
         <div class="product-cell">
           <button class="sort-button ItemAbove" @click.prevent="deleteActivity(activity.activity_Id)">
@@ -64,7 +73,7 @@
           <span class="focus-bg"></span>
         </label>
         <label for="rsa" class="inp">
-          <textarea cols="20"  v-model="formData.rSA_Id" @input="formData.rSA_Id = $event.target.value" type="text" id="rsa" placeholder="&nbsp;"></textarea>
+          <textarea cols="20"  v-model="formData.rsA_Id" @input="formData.rsA_Id = $event.target.value" type="text" id="rsa" placeholder="&nbsp;"></textarea>
           <span class="label">RSA ID</span>
           <span class="focus-bg"></span>
         </label>
@@ -74,7 +83,7 @@
           <span class="focus-bg"></span>
         </label>
         <label for="PO" class="inp">
-          <textarea cols="20"  v-model="formData.pO_BOX" @input="formData.pO_BOX = $event.target.value" type="text" id="PO" placeholder="&nbsp;"></textarea>
+          <textarea cols="20"  v-model="formData.pO_Box" @input="formData.pO_Box = $event.target.value" type="text" id="PO" placeholder="&nbsp;"></textarea>
           <span class="label">PO BOX</span>
           <span class="focus-bg"></span>
         </label>
@@ -112,12 +121,12 @@ export default {
       formData:{
         emp_Id:0,
         full_Name : "",
-        pO_BOX: null,
+        pO_Box: null,
         street:"",
         str_Num:0,
         area_Num:"",
         cellNum:"",
-        rSA_Id:"",
+        rsA_Id:"",
         instructor:false,
         admin:false,
       },
@@ -178,16 +187,22 @@ export default {
           self.cancelAdd();
         }
       }
-      this.$AjaxGet(`Admin/AddActivity`,dataToSend,onSuccess);
+      this.$AjaxGet(`Admin/AddEmployee`,dataToSend,onSuccess);
     },
     activitySelected(dataChosen){
       if(this.deletedActivity){
         return
       }
-      this.formData.activity_Id =dataChosen.activity_Id,
-      this.formData.name = dataChosen.name,
-      this.formData.description= dataChosen.description,
-      this.formData.price_PP= dataChosen.price_PP
+      this.formData.emp_Id = dataChosen.emp_Id;
+      this.formData.pO_Box = dataChosen.pO_Box;
+      this.formData.street= dataChosen.street;
+      this.formData.str_Num= dataChosen.str_Num;
+      this.formData.cellNum= dataChosen.cellNum;
+      this.formData.instructor= dataChosen.instructor;
+      this.formData.admin= dataChosen.admin;
+      this.formData.rsA_Id= dataChosen.rsA_Id;
+      this.formData.area_Num= dataChosen.area_Num;
+      this.formData.full_Name= dataChosen.full_Name;
       this.addActivivityOpen = true;
       this.editActivivityOpen = true;
     },
@@ -206,7 +221,7 @@ export default {
           self.cancelAdd();
         }
       }
-      this.$AjaxGet(`Admin/UpdateActivity`,dataToSend,onSuccess);
+      this.$AjaxGet(`Admin/UpdateEmployee`,dataToSend,onSuccess);
     },
     deleteActivity(activity_Id){
       this.deletedActivity = true;

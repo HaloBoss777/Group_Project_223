@@ -10,5 +10,6 @@ namespace EasterneAdventuresApi.Core.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price_PP { get; set; }
+        public int? Attending { get; set; }
     }
 }

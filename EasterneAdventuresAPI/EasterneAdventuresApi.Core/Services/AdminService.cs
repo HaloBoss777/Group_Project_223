@@ -36,7 +36,13 @@ namespace EasterneAdventuresApi.Core.Services
 
         public List<ActivityDTO> GetAllActivities()
         {
-            return _unitOfWork.Activity.Query().Select(x => x.DisplayActivityDTO).ToList();
+            var activityList = _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
+            foreach (var item in activityList)
+            {
+                item.Attending = _unitOfWork.Booking.Query(x=>x.Activity_Id == item.Activity_Id).Sum(y=>y.Attendees);
+            }
+            return activityList;
+
         }
 
         public bool AddActivity(ActivityDTO activity)
@@ -46,6 +52,7 @@ namespace EasterneAdventuresApi.Core.Services
                 Name = activity.Name,
                 Description = activity.Description,
                 Price_PP = Convert.ToDecimal(activity.Price_PP),
+                
             };
             _unitOfWork.Activity.Add(activityToAdd);
             _unitOfWork.Save();

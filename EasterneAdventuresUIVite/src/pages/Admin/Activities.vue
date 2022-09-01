@@ -36,6 +36,12 @@
           </button>
         </div>
         <div class="product-cell image">
+          Attending
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">
         </div>
       </div>
       <div class="products-row ItemBelow" v-for="(activity, index) in filteredActivityList" :key="index" @click.prevent="activitySelected(activity)">
@@ -47,6 +53,10 @@
         </div>
         <div class="product-cell category">
           <span>R{{activity.price_PP}}</span>
+        </div>
+        <div class="product-cell category">
+          <span v-if="activity.attending" >{{activity.attending}}</span>
+          <span v-else >0</span>
         </div>
         <div class="product-cell">
           <button class="sort-button ItemAbove" @click.prevent="confirmDelete(activity.activity_Id,activity.name)">
