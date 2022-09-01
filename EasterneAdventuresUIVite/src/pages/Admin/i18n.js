@@ -28,10 +28,5 @@ export default {
       routeUrl:"Bookings",
       icon:"users"
     },
-    {
-      routeName:"Payments",
-      routeUrl:"Payments",
-      icon:"users"
-    },
   ]
 }
