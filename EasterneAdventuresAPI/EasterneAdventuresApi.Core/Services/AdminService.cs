@@ -39,7 +39,7 @@ namespace EasterneAdventuresApi.Core.Services
             var activityList = _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
             foreach (var item in activityList)
             {
-                item.Attending = _unitOfWork.Booking.Query(x=>x.Activity_Id == item.Activity_Id).Sum(y=>y.Attendees);
+                item.Attending = _unitOfWork.Booking.Query(x=>x.Activity_Id == item.Activity_Id && x.Payment_Id != null).Sum(y=>y.Attendees);
             }
             return activityList;
 

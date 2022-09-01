@@ -9,13 +9,28 @@ export default {
       icon:"home"
     },
     {
+      routeName:"Employees",
+      routeUrl:"Employees",
+      icon:"users"
+    },
+    {
       routeName:"Activities",
       routeUrl:"Activities",
       icon:"map"
     },
     {
-      routeName:"Employees",
-      routeUrl:"Employees",
+      routeName:"Equipment",
+      routeUrl:"Equipment",
+      icon:"users"
+    },
+    {
+      routeName:"Bookings",
+      routeUrl:"Bookings",
+      icon:"users"
+    },
+    {
+      routeName:"Payments",
+      routeUrl:"Payments",
       icon:"users"
     },
   ]
