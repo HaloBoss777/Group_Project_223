@@ -12,7 +12,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
         List<ActivityDTO> GetAllActivities();
 
         //Bookings
-        bool CreateBooking(BookingDTO New_Booking);
+        bool CreateBooking(ClientBookingDTO New_Booking);
 
         //Payment
 

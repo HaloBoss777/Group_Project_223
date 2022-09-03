@@ -42,15 +42,16 @@ namespace EasterneAdventuresApi.Core.Services
 		
 		//Booking
 
-		public bool CreateBooking(BookingDTO New_Booking)
+		public bool CreateBooking(ClientBookingDTO New_Booking)
         {
             var create_Booking = new Booking()
             {
+                Client_Id = _authInfo.UserId,
+                Payment_Id = New_Booking.Payment_Id,
+                Attendees = New_Booking.Atendees,
+                Date_Booked = New_Booking.DateBooked,
                 Activity_Id = New_Booking.Activity_Id,
-                Booking_Id = New_Booking.Booking_Id,
-                Emp_Id = New_Booking.Emp_Id,
-                Client_Id = New_Booking.Client_Id,
-                Date_Booked = New_Booking.Date_Booked,
+                Emp_Id = _unitOfWork.Employee.Query().First().Emp_Id,
             };
 
             _unitOfWork.Booking.Add(create_Booking);
