@@ -1,58 +1,101 @@
-
 <script setup>
-import { useAuthStore } from '../store/authStore.js'
+import { useAuthStore } from "../store/authStore.js";
 const authStore = useAuthStore();
 </script>
 
 <template>
-  <div ref="NavBar" id="NavBar">
+  <!-- <div ref="NavBar" id="NavBar">
     <button @click="goToHomePage">Home</button>
     <button @click="goToDashboardPage">Dashboard</button>
     <button @click="goToLoginPage">Login/Register</button>
     <button @click="changeNameHere">{{authStore.fullName}}</button>
-  </div>
-</template> 
-
+  </div> -->
+  <nav>
+    <div class="logo">
+      <h4>The nav</h4>
+    </div>
+    <ul class="nav-links">
+      <li><a @click="goToHomePage" href="#">Home</a></li>
+      <li v-if="authStore.isAdmin">
+        <a @click="goToDashboardPage" href="#">Dashboard</a>
+      </li>
+      <li v-if="!authStore.fullName">
+        <a @click="goToLoginPage" href="#">Login</a>
+      </li>
+      <li v-if="authStore.fullName">
+        <a href="#">{{ authStore.fullName }}</a>
+      </li>
+    </ul>
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+</template>
 
 <script>
 export default {
-  name:'NavBar',
+  name: "NavBar",
   data() {
-    return { 
-      
-
-    }
+    return {
+      navOpen: false,
+      windowWidth: window.innerWidth
+    };
   },
-  components:{ 
-
-  },
-  watch:{ 
-
-  },
-  computed: { 
-
-  },
-  methods: { 
-    goToLoginPage(){
+  components: {},
+  watch: {},
+  computed: {},
+  methods: {
+    clickBurgerMenu() {
+      if(this.windowWidth <= 768){
+        const burger = document.querySelector(".burger").click();
+      }
+    },
+    goToLoginPage() {
       this.$router.push("/Login");
+      this.clickBurgerMenu();
     },
-    goToHomePage(){
+    goToHomePage() {
       this.$router.push("/Home");
+      this.clickBurgerMenu();
     },
-    goToDashboardPage(){
+    goToDashboardPage() {
       this.$router.push("/Dashboard");
+      this.clickBurgerMenu();
     },
-    changeNameHere(){
+    changeNameHere() {
       this.authStore.setName("Whoop Whoop");
-    }
-  },
-  mounted() { 
+    },
+    toggleNav() {
+      const burger = document.querySelector(".burger");
+      const nav = document.querySelector(".nav-links");
+      const navLinks = document.querySelectorAll(".nav-links li");
 
+      //Toggle Nav
+      burger.addEventListener("click", () => {
+        nav.classList.toggle("nav-active");
+        this.navOpen = true;
+        //Animate Links
+        navLinks.forEach((link, index) => {
+          if (link.style.animation) {
+            link.style.animation = "";
+          } else {
+            link.style.animation = `navLinkFade 0.5s ease forwards ${
+              index / 7 + 0.5
+            }s`;
+          }
+        });
+
+        //burger animation
+        burger.classList.toggle("toggle");
+      });
+    },
   },
-}
+  mounted() {
+    this.toggleNav();
+  },
+};
 </script>
 
-
-<style lang="scss"> 
-
-</style>
+<style lang="scss"></style>

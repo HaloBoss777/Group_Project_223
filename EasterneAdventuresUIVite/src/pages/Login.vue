@@ -6,7 +6,6 @@
 
 <template>
   <div>
-    <NavBar></NavBar>
     <div ref="LoginPage" id="LoginPage"> 
       <div class="login-Page">
         <h2 class="Title">Login</h2>
@@ -30,7 +29,6 @@
 
 
 <script>
-import NavBar from "../components/Navbar.vue";
 import md5 from "md5"
 export default {
   data() {
@@ -43,7 +41,6 @@ export default {
     }
   },
   components:{ 
-    NavBar
   },
   watch:{ 
 

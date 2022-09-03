@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar></NavBar>
     <div ref="LoginPage" id="LoginPage"> 
       <div class="login-Page">
         <h2 class="Title">Register</h2>
@@ -23,7 +22,6 @@
 
 
 <script>
-import NavBar from "../components/Navbar.vue";
 export default {
   data() {
     return { 
@@ -34,7 +32,6 @@ export default {
     }
   },
   components:{ 
-    NavBar
   },
   watch:{ 
 
