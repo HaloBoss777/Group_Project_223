@@ -65,6 +65,29 @@ app.config.globalProperties.$AjaxGet = (url,OnSuccess,onFinally) =>{
   })
 }
 
+app.config.globalProperties.$AjaxPost = (url,sendData,OnSuccess,onFinally) =>{
+  var urlBuilt = UrlBuilder(url);
+  var myAccessToken = JSON.parse(localStorage.getItem("userData")).apiToken.toString();
+  return axios({
+    method:'post',
+    url:urlBuilt,
+    data:sendData,
+    headers:{
+      'Authorization': 'Bearer ' + myAccessToken, 
+    }
+  }).then(response =>{
+    if(OnSuccess){
+      OnSuccess(response.data)
+    }
+  }).catch(error =>{
+
+  }).finally(response =>{
+    if(onFinally){
+      onFinally(response);
+    }
+  })
+}
+
 app.config.globalProperties.$AjaxPostAnon = (url,sendData,OnSuccess,onFinally) =>{
   var urlBuilt = UrlBuilder(url);
   return axios({
