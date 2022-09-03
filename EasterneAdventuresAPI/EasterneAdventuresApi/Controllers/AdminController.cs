@@ -180,9 +180,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Admin/DeleteActivityEquipment")]
         [AuthorizationFilter(Permission.Admin)]
-        public bool DeleteActivityEquipment(int Equipment_Id, int Activity_Id)
+        public bool DeleteActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd)
         {
-            return _adminService.DeleteActivityEquipment(Equipment_Id, Activity_Id);
+            return _adminService.DeleteActivityEquipment(ActivityEquipmentToAdd);
         }
     }
 }

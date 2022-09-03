@@ -293,16 +293,16 @@ namespace EasterneAdventuresApi.Core.Services
             return true;
         }
 
-        public bool DeleteActivityEquipment(int Equipment_Id, int Activity_Id)
+        public bool DeleteActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd)
         {
-            var activityEquipToDelete = _unitOfWork.ActivityEquipment.Query(x => x.Equipment_Id == Equipment_Id && x.Activity_Id == Activity_Id).SingleOrDefault();
+            var activityEquipToDelete = _unitOfWork.ActivityEquipment.Query(x => x.Equipment_Id == ActivityEquipmentToAdd.Equipment_Id && x.Activity_Id == ActivityEquipmentToAdd.Activity_Id).SingleOrDefault();
 
             if(activityEquipToDelete == null)
             {
                 return false;
             }
 
-            _unitOfWork.ActivityEquipment.Add(activityEquipToDelete);
+            _unitOfWork.ActivityEquipment.Delete(activityEquipToDelete);
             _unitOfWork.Save();
             return true;
         }

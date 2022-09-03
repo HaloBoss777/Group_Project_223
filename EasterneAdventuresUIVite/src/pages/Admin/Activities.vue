@@ -198,7 +198,7 @@
           </div>
         </div>
       </div>
-      <h2 style="margin-top: 20px;color: white;">
+      <h2 style="margin-top: 20px; color: white">
         Equipment Allocated to {{ this.formData.name }}
       </h2>
       <div
@@ -440,6 +440,17 @@ export default {
       );
       this.equipmentList[index].activity_Id = this.formData.activity_Id;
       this.filteredEquipmentList = this.equipmentList;
+
+      var equipmentToAdd={
+        equipment_Id:equipment_Id,
+        activity_Id:this.formData.activity_Id
+      }
+
+      var onSuccess = response =>{
+
+      }
+
+      this.$AjaxPost(`Admin/AddActivityEquipment`,equipmentToAdd,onSuccess);
     },
     confirmDeleteEquipment(equipment_Id, name) {
       this.deletedActivity = true;
@@ -466,6 +477,17 @@ export default {
       );
       this.equipmentList[index].activity_Id = null;
       this.filteredEquipmentList = this.equipmentList;
+
+      var equipmentToAdd={
+        equipment_Id:equipment_Id,
+        activity_Id:this.formData.activity_Id
+      }
+
+      var onSuccess = response =>{
+
+      }
+
+      this.$AjaxPost(`Admin/DeleteActivityEquipment`,equipmentToAdd,onSuccess);
     },
   },
   mounted() {

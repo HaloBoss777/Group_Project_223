@@ -49,6 +49,6 @@ namespace EasterneAdventuresApi.Core.Interfaces
         List<EquipmentDTO> ListActivityEquipment(int activity_Id);
 
         bool addActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd);
-        bool DeleteActivityEquipment(int Equipment_Id, int Activity_Id);
+        bool DeleteActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd);
     }
 }
