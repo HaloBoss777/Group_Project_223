@@ -127,7 +127,7 @@
         <div class="product-cell">
           <button
             class="sort-button ItemAbove"
-            @click.prevent="deleteActivity(activity.activity_Id)"
+            @click.prevent="confirmDelete(activity.emp_ID,activity.full_Name)"
           >
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
@@ -323,6 +323,7 @@ export default {
       this.formData.rsA_Id = "";
       this.formData.area_Num = "";
       this.formData.full_Name ="";
+      this.formData.passwordHash ="";
     },
     changeViews() {
       this.listViewActive = !this.listViewActive;
@@ -424,14 +425,30 @@ export default {
 
       this.$AjaxPost(`Admin/UpdateEmployee`, dataToSend, onSuccess);
     },
-    deleteActivity(activity_Id) {
+    confirmDelete(employee_Id,name){
       this.deletedActivity = true;
-      // var onSuccess=response=>{
-      //   this.getActivityList()
-      //   this.deletedActivity = false;
-      // }
-      // this.$AjaxGetAnon(`Admin/DeleteActivity?activity_Id=${activity_Id}`,onSuccess)
+      this.$swal.fire({
+        title: `Are you sure you want to Delete ${name} ?`,
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Delete',
+        denyButtonText: `Don't Delete`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$swal.fire(`Deleted ${name}`, '', 'success')
+          this.deleteActivity(employee_Id);
+        } else if (result.isDenied) {
+          this.$swal.fire(`${name} not deleted`, '', 'info')
+        }
+      })
     },
+    deleteActivity(employee_Id){
+      var onSuccess=response=>{
+        this.getActivityList()
+        this.deletedActivity = false;
+      }
+      this.$AjaxGet(`Admin/DeleteEmployee?employee_Id=${employee_Id}`,onSuccess)
+    }
   },
   mounted() {
     this.getActivityList();
