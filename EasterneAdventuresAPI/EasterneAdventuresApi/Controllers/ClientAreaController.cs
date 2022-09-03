@@ -31,6 +31,14 @@ namespace EasterneAdventuresApi.Web.Controllers
             return  _clientArea.GetAllActivities();
         }
 
-        
+        [HttpPost]
+        [Route("~/api/Client/CreateBooking")]
+        [AuthorizationFilter]
+        public bool CreateBooking(ClientBookingDTO New_Booking)
+        {
+            return _clientArea.CreateBooking(New_Booking);
+        }
+
+
     }
 }
