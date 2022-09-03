@@ -25,11 +25,13 @@ namespace EasterneAdventuresApi.Core.Services
     {
 
         private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
+        private readonly IAuthInfo _authInfo;
 
 
-        public AdminService(IEasterneAdventuresUnitOfWork unitOfWork)
+        public AdminService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo)
         {
             _unitOfWork = unitOfWork;
+            _authInfo = authInfo;
         }
 
         //Activities
