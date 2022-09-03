@@ -172,6 +172,18 @@
             <span class="label">Cell Number</span>
             <span class="focus-bg"></span>
           </label>
+          <label for="cell" class="inp">
+            <input
+              cols="20"
+              v-model="formData.passwordHash"
+              @input="formData.passwordHash = $event.target.value"
+              type="text"
+              id="cell"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Password</span>
+            <span class="focus-bg"></span>
+          </label>
         </div>
         <div class="row">
           <label for="PO" class="inp">
@@ -259,6 +271,7 @@
 </template>
 
 <script>
+import md5 from "md5"
 export default {
   data() {
     return {
@@ -279,6 +292,7 @@ export default {
         rsA_Id: "",
         instructor: false,
         admin: false,
+        passwordHash:""
       },
       filterValue: "",
     };
@@ -335,7 +349,12 @@ export default {
         rsA_Id: this.formData.rsA_Id,
         instructor: this.formData.instructor,
         admin: this.formData.admin,
+        passwordHash : this.formData.passwordHash
       };
+
+      if(dataToSend.passwordHash){
+        dataToSend.passwordHash = md5(dataToSend.passwordHash);
+      }
 
       var onSuccess = (response) => {
         if (response) {
@@ -375,6 +394,7 @@ export default {
         rsA_Id: this.formData.rsA_Id,
         instructor: this.formData.instructor,
         admin: this.formData.admin,
+        passwordHash: this.formData.passwordHash
       };
 
       var onSuccess = (response) => {
@@ -383,6 +403,11 @@ export default {
           self.cancelAdd();
         }
       };
+
+      if(dataToSend.passwordHash){
+        dataToSend.passwordHash = md5(dataToSend.passwordHash);
+      }
+
       this.$AjaxPost(`Admin/UpdateEmployee`, dataToSend, onSuccess);
     },
     deleteActivity(activity_Id) {

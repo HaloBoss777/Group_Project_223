@@ -16,5 +16,6 @@ namespace EasterneAdventuresApi.Core.DTOs
         public bool Instructor { get; set; }
         public bool Admin { get; set; }
         public string RSA_Id { get; set; }
+        public string PasswordHash { get; set; }
     }
 }

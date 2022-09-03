@@ -109,6 +109,7 @@ namespace EasterneAdventuresApi.Core.Services
                 Instructor = employee.Instructor,
                 Admin = employee.Admin,
                 RSA_Id = employee.RSA_Id,
+                PasswordHash = employee.PasswordHash,
             };
 
             _unitOfWork.Employee.Add(employeeToAdd);
@@ -134,6 +135,10 @@ namespace EasterneAdventuresApi.Core.Services
             employeeToUpdate.Instructor = employee.Instructor;
             employeeToUpdate.Admin = employee.Admin;
             employeeToUpdate.RSA_Id = employee.RSA_Id;
+            if (employee.PasswordHash.Length != 0)
+            {
+                employeeToUpdate.PasswordHash = employee.PasswordHash;
+            }
             _unitOfWork.Save();
 
             return true;
