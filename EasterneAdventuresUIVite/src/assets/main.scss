@@ -1,23 +1,21 @@
 @import "./dashboard.scss";
 @import "./navbar.scss";
 
-img{
+img {
   border-radius: 50%;
 }
 
-
-.ItemBelow{
+.ItemBelow {
   z-index: 2;
 }
 
-.ItemAbove{
+.ItemAbove {
   z-index: 1;
 }
 
-
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
-  transition-delay:0.3s ;
+  transition-delay: 0.3s;
 }
 
 .slide-fade-leave-active {
@@ -32,42 +30,36 @@ img{
   opacity: 0;
 }
 
-.app-container{
+.app-container {
   min-height: 100vh;
 }
 
-
-
-.right-side{
+.right-side {
   width: 95%;
   display: flex;
   justify-content: end;
 }
 
-
-.ml-2{
+.ml-2 {
   margin-left: 20px;
 }
 
-
-.mr-2{
+.mr-2 {
   margin-right: 20px;
 }
 
-.ml-1{
+.ml-1 {
   margin-left: 10px;
 }
 
-
-.mr-1{
+.mr-1 {
   margin-right: 10px;
 }
 
-$primary: #0077FF;
+$primary: #0077ff;
 $dark: #fff;
 
-
-.inp{
+.inp {
   position: relative;
   width: 100%;
   max-width: 280px;
@@ -75,34 +67,34 @@ $dark: #fff;
   overflow: hidden;
   margin-top: 10px;
 
-  .label{
+  .label {
     position: absolute;
     top: 15px;
     left: 12px;
     font-size: 16px;
-    color: rgba($dark,.5);
+    color: rgba($dark, 0.5);
     font-weight: 500;
     transform-origin: 0 0;
-    transform: translate3d(0,0,0);
-    transition: all .2s ease;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
     pointer-events: none;
   }
-  .focus-bg{
+  .focus-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba($dark,.05);
+    background: rgba($dark, 0.05);
     z-index: -1;
     transform: scaleX(0);
     transform-origin: left;
   }
-  textarea{
+  textarea {
     height: 150px !important;
-
   }
-  input,textarea{
+  input,
+  textarea {
     -webkit-appearance: none;
     appearance: none;
     width: 100% !important;
@@ -112,56 +104,57 @@ $dark: #fff;
     height: 56px;
     font-size: 16px;
     font-weight: 400;
-    background: rgba($dark,.02);
-    box-shadow: inset 0 -1px 0 rgba($dark,.3);
+    background: rgba($dark, 0.02);
+    box-shadow: inset 0 -1px 0 rgba($dark, 0.3);
     color: $dark;
-    transition: all .15s ease;
+    transition: all 0.15s ease;
 
-    &:hover{
-      background: rgba($dark,.04);
-      box-shadow: inset 0 -1px 0 rgba($dark,.5);
+    &:hover {
+      background: rgba($dark, 0.04);
+      box-shadow: inset 0 -1px 0 rgba($dark, 0.5);
     }
-    &:not(:placeholder-shown){
-      +.label{
-        color: rgba($dark,.5);
-        transform: translate3d(0,-12px,0) scale(.75);
+    &:not(:placeholder-shown) {
+      + .label {
+        color: rgba($dark, 0.5);
+        transform: translate3d(0, -12px, 0) scale(0.75);
       }
     }
-    &:focus{
-      background: rgba($dark,.05);
+    &:focus {
+      background: rgba($dark, 0.05);
       outline: none;
       box-shadow: inset 0 -2px 0 $primary;
-      + .label{
+      + .label {
         color: $primary;
-        transform: translate3d(0,-12px,0) scale(.75);
-        + .focus-bg{
+        transform: translate3d(0, -12px, 0) scale(0.75);
+        + .focus-bg {
           transform: scaleX(1);
-          transition: all .1s ease;
+          transition: all 0.1s ease;
         }
       }
     }
   }
 }
-.Cover-Text{
+.Cover-Text {
   color: #fff;
 }
 
-
-.Input-Section{
+.Input-Section {
   display: flex;
-  width: 100%; 
+  width: 100%;
   flex-direction: column;
+  label{
+    margin-right: 20px;
+  }
 }
 
-
-#LoginPage{
+#LoginPage {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
-  .login-Page{
+
+  .login-Page {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -171,21 +164,152 @@ $dark: #fff;
     max-width: 500px;
     min-width: 200px;
     height: 300px;
-    box-shadow: 0px 16px 8px 0px rgba(0,0,0,0.5);
-    border: 1px solid rgba(0,0,0,0.5);
+    box-shadow: 0px 16px 8px 0px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 20px;
     margin-left: 10px;
     margin-right: 10px;
   }
-  .Title{
+  .Title {
     text-align: center;
     color: white;
   }
-  label{
+  label {
     max-width: none !important;
   }
 }
 
-.mb-2{
+.mb-2 {
   margin-bottom: 20px;
+}
+
+.checkbox {
+  --background: #fff;
+  --border: #d1d6ee;
+  --border-hover: #bbc1e1;
+  --border-active: #008516;
+  --tick: #fff;
+  position: relative;
+  input,
+  svg {
+    width: 21px;
+    height: 21px;
+    display: block;
+  }
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    outline: none;
+    background: var(--background);
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: box-shadow 0.3s;
+    box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
+    &:hover {
+      --s: 2px;
+      --b: var(--border-hover);
+    }
+    &:checked {
+      --b: var(--border-active);
+    }
+  }
+  svg {
+    pointer-events: none;
+    fill: none;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: var(--stroke, var(--border-active));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 21px;
+    height: 21px;
+    transform: scale(var(--scale, 1)) translateZ(0);
+  }
+  &.path {
+    input {
+      &:checked {
+        --s: 2px;
+        transition-delay: 0.4s;
+        & + svg {
+          --a: 16.1 86.12;
+          --o: 102.22;
+        }
+      }
+    }
+    svg {
+      stroke-dasharray: var(--a, 86.12);
+      stroke-dashoffset: var(--o, 86.12);
+      transition: stroke-dasharray 0.6s, stroke-dashoffset 0.6s;
+    }
+  }
+  &.bounce {
+    --stroke: var(--tick);
+    input {
+      &:checked {
+        --s: 11px;
+        & + svg {
+          animation: bounce 0.4s linear forwards 0.2s;
+        }
+      }
+    }
+    svg {
+      --scale: 0;
+    }
+  }
+}
+
+@keyframes bounce {
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.checkbox-label{
+  color: white;
+  margin-left: 10px;
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.double-column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 2;
+}
+
+@media screen and (min-width: 800px) {
+  .column {
+    flex: 1
+  }
+
+  .double-column {
+    flex: 2
+  }
 }
