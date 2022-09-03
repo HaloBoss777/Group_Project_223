@@ -310,11 +310,8 @@ export default {
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredEmployeeList = this.activityList.filter((x) => {
-        var stringValue = x.price_PP.toString();
         return (
-          x.name.includes(value) ||
-          x.description.includes(value) ||
-          stringValue.includes(value)
+          x.full_Name.includes(value)
         );
       });
     },

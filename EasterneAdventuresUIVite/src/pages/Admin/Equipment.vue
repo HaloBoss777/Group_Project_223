@@ -189,11 +189,8 @@ export default {
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredEquipmentList = this.equipmentList.filter((x) => {
-        var stringValue = x.price_PP.toString();
         return (
-          x.name.includes(value) ||
-          x.description.includes(value) ||
-          stringValue.includes(value)
+          x.name.includes(value)
         );
       });
     },
