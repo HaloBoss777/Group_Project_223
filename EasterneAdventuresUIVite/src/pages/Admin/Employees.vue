@@ -127,7 +127,7 @@
         <div class="product-cell">
           <button
             class="sort-button ItemAbove"
-            @click.prevent="confirmDelete(employee.emp_ID,employee.full_Name)"
+            @click.prevent="confirmDelete(employee.emp_ID, employee.full_Name)"
           >
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
@@ -209,7 +209,7 @@
             <span class="label">Street Number</span>
             <span class="focus-bg"></span>
           </label>
-            <label for="price" class="inp">
+          <label for="price" class="inp">
             <input
               v-model="formData.street"
               @input="formData.street = $event.target.value"
@@ -235,8 +235,7 @@
         <h3 style="color: white">Roles</h3>
         <div style="display: flex">
           <label class="checkbox path">
-            <input type="checkbox" 
-              v-model="formData.admin"/>
+            <input type="checkbox" v-model="formData.admin" />
             <svg viewBox="0 0 21 21">
               <path
                 d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"
@@ -247,8 +246,7 @@
         </div>
         <div style="display: flex">
           <label class="checkbox path">
-            <input type="checkbox"
-              v-model="formData.instructor"/>
+            <input type="checkbox" v-model="formData.instructor" />
             <svg viewBox="0 0 21 21">
               <path
                 d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"
@@ -282,7 +280,7 @@
 </template>
 
 <script>
-import md5 from "md5"
+import md5 from "md5";
 export default {
   data() {
     return {
@@ -303,7 +301,7 @@ export default {
         rsA_Id: "",
         instructor: false,
         admin: false,
-        passwordHash:""
+        passwordHash: "",
       },
       filterValue: "",
     };
@@ -323,7 +321,7 @@ export default {
   },
   computed: {},
   methods: {
-    initFormData(){
+    initFormData() {
       this.formData.emp_Id = 0;
       this.formData.pO_Box = null;
       this.formData.street = "";
@@ -333,8 +331,8 @@ export default {
       this.formData.admin = false;
       this.formData.rsA_Id = "";
       this.formData.area_Num = "";
-      this.formData.full_Name ="";
-      this.formData.passwordHash ="";
+      this.formData.full_Name = "";
+      this.formData.passwordHash = "";
     },
     changeViews() {
       this.listViewActive = !this.listViewActive;
@@ -368,16 +366,16 @@ export default {
         full_Name: this.formData.full_Name,
         pO_Box: this.formData.pO_Box,
         street: this.formData.street,
-        str_Num: this.formData.str_Num,
+        str_Num: parseInt(this.formData.str_Num),
         area_Num: this.formData.area_Num,
         cellNum: this.formData.cellNum,
         rsA_Id: this.formData.rsA_Id,
         instructor: this.formData.instructor,
         admin: this.formData.admin,
-        passwordHash : this.formData.passwordHash
+        passwordHash: this.formData.passwordHash,
       };
 
-      if(dataToSend.passwordHash){
+      if (dataToSend.passwordHash) {
         dataToSend.passwordHash = md5(dataToSend.passwordHash);
       }
 
@@ -397,7 +395,7 @@ export default {
       this.formData.emp_Id = dataChosen.emp_ID;
       this.formData.pO_Box = dataChosen.pO_Box;
       this.formData.street = dataChosen.street;
-      this.formData.str_Num = dataChosen.str_Num;
+      this.formData.str_Num = parseInt(dataChosen.str_Num);
       this.formData.cellNum = dataChosen.cellNum;
       this.formData.instructor = dataChosen.instructor;
       this.formData.admin = dataChosen.admin;
@@ -414,13 +412,13 @@ export default {
         full_Name: this.formData.full_Name,
         pO_Box: this.formData.pO_Box,
         street: this.formData.street,
-        str_Num: this.formData.str_Num,
+        str_Num: parseInt(this.formData.str_Num),
         area_Num: this.formData.area_Num,
         cellNum: this.formData.cellNum,
         rsA_Id: this.formData.rsA_Id,
         instructor: this.formData.instructor,
         admin: this.formData.admin,
-        passwordHash: this.formData.passwordHash
+        passwordHash: this.formData.passwordHash,
       };
 
       var onSuccess = (response) => {
@@ -430,36 +428,41 @@ export default {
         }
       };
 
-      if(dataToSend.passwordHash){
+      if (dataToSend.passwordHash) {
         dataToSend.passwordHash = md5(dataToSend.passwordHash);
       }
 
       this.$AjaxPost(`Admin/UpdateEmployee`, dataToSend, onSuccess);
     },
-    confirmDelete(employee_Id,name){
+    confirmDelete(employee_Id, name) {
       this.deletedEmployee = true;
-      this.$swal.fire({
-        title: `Are you sure you want to Delete ${name} ?`,
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: `Don't Delete`,
-        denyButtonText: `Delete`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$swal.fire(`${name} was not deleted`, '', 'info')
-        } else if (result.isDenied) {
-          this.$swal.fire(`Deleted ${name}`, '', 'success')
-          this.deleteEmployee(employee_Id);
-        }
-      })
+      this.$swal
+        .fire({
+          title: `Are you sure you want to Delete ${name} ?`,
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: `Don't Delete`,
+          denyButtonText: `Delete`,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$swal.fire(`${name} was not deleted`, "", "info");
+          } else if (result.isDenied) {
+            this.$swal.fire(`Deleted ${name}`, "", "success");
+            this.deleteEmployee(employee_Id);
+          }
+        });
     },
-    deleteEmployee(employee_Id){
-      var onSuccess=response=>{
-        this.getEmployeeList()
+    deleteEmployee(employee_Id) {
+      var onSuccess = (response) => {
+        this.getEmployeeList();
         this.deletedEmployee = false;
-      }
-      this.$AjaxGet(`Admin/DeleteEmployee?employee_Id=${employee_Id}`,onSuccess)
-    }
+      };
+      this.$AjaxGet(
+        `Admin/DeleteEmployee?employee_Id=${employee_Id}`,
+        onSuccess
+      );
+    },
   },
   mounted() {
     this.getEmployeeList();
