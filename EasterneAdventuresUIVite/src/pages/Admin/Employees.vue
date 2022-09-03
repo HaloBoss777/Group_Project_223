@@ -312,6 +312,18 @@ export default {
   },
   computed: {},
   methods: {
+    initFormData(){
+      this.formData.emp_Id = 0;
+      this.formData.pO_Box = null;
+      this.formData.street = "";
+      this.formData.str_Num = 0;
+      this.formData.cellNum = "";
+      this.formData.instructor = false;
+      this.formData.admin = false;
+      this.formData.rsA_Id = "";
+      this.formData.area_Num = "";
+      this.formData.full_Name ="";
+    },
     changeViews() {
       this.listViewActive = !this.listViewActive;
     },
@@ -330,6 +342,7 @@ export default {
       this.$AjaxGet(`Admin/ListEmployee`, onSuccess);
     },
     addNewActivity() {
+      this.initFormData();
       this.addActivivityOpen = true;
     },
     cancelAdd() {
@@ -365,6 +378,7 @@ export default {
       this.$AjaxPost(`Admin/AddEmployee`, dataToSend, onSuccess);
     },
     activitySelected(dataChosen) {
+      this.initFormData();
       if (this.deletedActivity) {
         return;
       }
