@@ -2,8 +2,9 @@
   <div ref="HomePage" id="HomePage"> 
     <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
     <h1 class="Cover-Text">THE JOY OF LIFE</h1>
-    <img src="../assets/Esterne.png" alt="">
-    <button @click="goToOtherPage" >Click here</button>
+    <div v-for="(activity, index) in activityList" :key="index">
+      <h3 style="color: white;">{{activity.name}}</h3>
+    </div>
   </div>
 </template> 
 
@@ -12,8 +13,8 @@
 export default {
   data() {
     return { 
-
-    }
+      activityList:[],
+    } 
   },
   components:{ 
   },
@@ -26,10 +27,17 @@ export default {
   methods: { 
     goToOtherPage(){
       this.$router.push("/Login");
-    }
+    },
+    getActivities(){
+      var self = this;
+      var onSuccess = (response) => {
+        self.activityList = response;
+      };
+      this.$AjaxGet(`Client/ListActivities`, onSuccess);
+    },
   },
   mounted() { 
-
+    this.getActivities();
   },
 }
 </script>

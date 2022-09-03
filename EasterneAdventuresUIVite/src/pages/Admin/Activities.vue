@@ -180,7 +180,7 @@
             @focusout="setDropDownClosed"
             class="inputActiveHere"
             type="text"
-            placeholder="Equipment.."
+            placeholder="Add Equipment.."
             id="myInput"
           />
           <div
@@ -198,10 +198,12 @@
           </div>
         </div>
       </div>
-      <h2 style="margin-top: 20px">Equipment Allocated to {{this.formData.name}}</h2>
+      <h2 style="margin-top: 20px;color: white;">
+        Equipment Allocated to {{ this.formData.name }}
+      </h2>
       <div
         class="products-area-wrapper"
-        style="height: fit-content; margin-bottom: 20px;"
+        style="height: fit-content; margin-bottom: 20px"
         :class="listViewActive ? 'tableView' : 'gridView'"
       >
         <div class="products-header">
@@ -439,7 +441,7 @@ export default {
       this.equipmentList[index].activity_Id = this.formData.activity_Id;
       this.filteredEquipmentList = this.equipmentList;
     },
-    confirmDeleteEquipment(equipment_Id, name){
+    confirmDeleteEquipment(equipment_Id, name) {
       this.deletedActivity = true;
       this.$swal
         .fire({
@@ -458,9 +460,13 @@ export default {
           }
         });
     },
-    removeEquipment(equipment_Id){
-      debugger
-    }
+    removeEquipment(equipment_Id) {
+      var index = this.equipmentList.findIndex(
+        (x) => x.equipment_Id == equipment_Id
+      );
+      this.equipmentList[index].activity_Id = null;
+      this.filteredEquipmentList = this.equipmentList;
+    },
   },
   mounted() {
     this.getActivityList();
