@@ -18,7 +18,7 @@ namespace EasterneAdventuresApi.Web.Controllers
     {
         public readonly IAdminService _adminService;
 
-        public AdminController(IAdminService adminService) 
+        public AdminController(IAdminService adminService)
         {
             _adminService = adminService;
         }
@@ -159,12 +159,30 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _adminService.DeleteEquipment(Equipment_Id);
         }
 
+        //Activity Equipment
+
         [HttpGet]
         [Route("~/api/Admin/ListActivityEquipment")]
         [AuthorizationFilter(Permission.Admin)]
         public List<EquipmentDTO> ListActivityEquipment(int activity_Id)
         {
             return _adminService.ListActivityEquipment(activity_Id);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/AddActivityEquipment")]
+        [AuthorizationFilter(Permission.Admin)]
+        public bool addActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd)
+        {
+            return _adminService.addActivityEquipment(ActivityEquipmentToAdd);
+        }
+
+        [HttpPost]
+        [Route("~/api/Admin/DeleteActivityEquipment")]
+        [AuthorizationFilter(Permission.Admin)]
+        public bool DeleteActivityEquipment(int Equipment_Id, int Activity_Id)
+        {
+            return _adminService.DeleteActivityEquipment(Equipment_Id, Activity_Id);
         }
     }
 }
