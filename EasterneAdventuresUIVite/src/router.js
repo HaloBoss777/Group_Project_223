@@ -45,6 +45,12 @@ var routes = [{
           component: ()=>
             import("./pages/Admin/Employees.vue")
         },
+        {
+          path:'/Equipment',
+          name:"Equipment",
+          component: ()=>
+            import("./pages/Admin/Equipment.vue")
+        },
       ]
     },
 ]
