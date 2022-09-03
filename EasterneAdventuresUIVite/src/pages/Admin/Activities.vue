@@ -203,14 +203,14 @@ export default {
         title: `Are you sure you want to Delete ${name} ?`,
         showDenyButton: true,
         showCancelButton: false,
-        confirmButtonText: 'Delete',
-        denyButtonText: `Don't Delete`,
+        confirmButtonText: `Don't Delete`,
+        denyButtonText: `Delete`,
       }).then((result) => {
         if (result.isConfirmed) {
+          this.$swal.fire(`${name} was not deleted`, '', 'info')
+        } else if (result.isDenied) {
           this.$swal.fire(`Deleted ${name}`, '', 'success')
           this.deleteActivity(activity_Id);
-        } else if (result.isDenied) {
-          this.$swal.fire(`${name} not deleted`, '', 'info')
         }
       })
     },

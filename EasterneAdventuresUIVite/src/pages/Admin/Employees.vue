@@ -4,7 +4,7 @@
       <h1 class="app-content-headerText">Employees</h1>
       <button
         v-if="!addActivivityOpen"
-        @click="addNewActivity"
+        @click="addNewEmployee"
         class="app-content-headerButton"
       >
         Add Employees
@@ -108,26 +108,26 @@
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(activity, index) in filteredActivityList"
+        v-for="(employee, index) in filteredEmployeeList"
         :key="index"
-        @click.prevent="activitySelected(activity)"
+        @click.prevent="activitySelected(employee)"
       >
         <div class="product-cell category">
-          <span>{{ activity.full_Name }}</span>
+          <span>{{ employee.full_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ activity.cellNum }}</span>
+          <span>{{ employee.cellNum }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ activity.rsA_Id }}</span>
+          <span>{{ employee.rsA_Id }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ activity.admin }}</span>
+          <span>{{ employee.admin }}</span>
         </div>
         <div class="product-cell">
           <button
             class="sort-button ItemAbove"
-            @click.prevent="confirmDelete(activity.emp_ID,activity.full_Name)"
+            @click.prevent="confirmDelete(employee.emp_ID,employee.full_Name)"
           >
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
@@ -261,7 +261,7 @@
         <button
           v-if="editActivivityOpen"
           class="app-content-headerButton"
-          @click="updateActivity"
+          @click="updateEmployee"
         >
           Update
         </button>
@@ -277,10 +277,10 @@ export default {
     return {
       listViewActive: true,
       activityList: [],
-      filteredActivityList: [],
+      filteredEmployeeList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
-      deletedActivity: false,
+      deletedEmployee: false,
       formData: {
         emp_Id: 0,
         full_Name: "",
@@ -300,7 +300,7 @@ export default {
   components: {},
   watch: {
     filterValue: function UpdateFilter(value) {
-      this.filteredActivityList = this.activityList.filter((x) => {
+      this.filteredEmployeeList = this.activityList.filter((x) => {
         var stringValue = x.price_PP.toString();
         return (
           x.name.includes(value) ||
@@ -334,15 +334,15 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
-    getActivityList() {
+    getEmployeeList() {
       var self = this;
       var onSuccess = (response) => {
         self.activityList = response;
-        self.filteredActivityList = self.activityList;
+        self.filteredEmployeeList = self.activityList;
       };
       this.$AjaxGet(`Admin/ListEmployee`, onSuccess);
     },
-    addNewActivity() {
+    addNewEmployee() {
       this.initFormData();
       this.addActivivityOpen = true;
     },
@@ -372,7 +372,7 @@ export default {
 
       var onSuccess = (response) => {
         if (response) {
-          self.getActivityList();
+          self.getEmployeeList();
           self.cancelAdd();
         }
       };
@@ -380,7 +380,7 @@ export default {
     },
     activitySelected(dataChosen) {
       this.initFormData();
-      if (this.deletedActivity) {
+      if (this.deletedEmployee) {
         return;
       }
       this.formData.emp_Id = dataChosen.emp_ID;
@@ -396,7 +396,7 @@ export default {
       this.addActivivityOpen = true;
       this.editActivivityOpen = true;
     },
-    updateActivity() {
+    updateEmployee() {
       var self = this;
       var dataToSend = {
         emp_Id: this.formData.emp_Id,
@@ -414,7 +414,7 @@ export default {
 
       var onSuccess = (response) => {
         if (response) {
-          self.getActivityList();
+          self.getEmployeeList();
           self.cancelAdd();
         }
       };
@@ -426,32 +426,32 @@ export default {
       this.$AjaxPost(`Admin/UpdateEmployee`, dataToSend, onSuccess);
     },
     confirmDelete(employee_Id,name){
-      this.deletedActivity = true;
+      this.deletedEmployee = true;
       this.$swal.fire({
         title: `Are you sure you want to Delete ${name} ?`,
         showDenyButton: true,
         showCancelButton: false,
-        confirmButtonText: 'Delete',
-        denyButtonText: `Don't Delete`,
+        confirmButtonText: `Don't Delete`,
+        denyButtonText: `Delete`,
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$swal.fire(`Deleted ${name}`, '', 'success')
-          this.deleteActivity(employee_Id);
+          this.$swal.fire(`${name} was not deleted`, '', 'info')
         } else if (result.isDenied) {
-          this.$swal.fire(`${name} not deleted`, '', 'info')
+          this.$swal.fire(`Deleted ${name}`, '', 'success')
+          this.deleteEmployee(employee_Id);
         }
       })
     },
-    deleteActivity(employee_Id){
+    deleteEmployee(employee_Id){
       var onSuccess=response=>{
-        this.getActivityList()
-        this.deletedActivity = false;
+        this.getEmployeeList()
+        this.deletedEmployee = false;
       }
       this.$AjaxGet(`Admin/DeleteEmployee?employee_Id=${employee_Id}`,onSuccess)
     }
   },
   mounted() {
-    this.getActivityList();
+    this.getEmployeeList();
   },
 };
 </script>
