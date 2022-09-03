@@ -35,7 +35,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/AddActivity")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool AddActivity(ActivityDTO itemToAdd)
         {
             return _adminService.AddActivity(itemToAdd);
@@ -43,7 +43,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/UpdateActivity")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool UpdateActivity(ActivityDTO itemToUpdate)
         {
             return _adminService.UpdateActivity(itemToUpdate);
@@ -51,7 +51,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/DeleteActivity")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool DeleteActivity(int activity_Id)
         {
             return _adminService.DeleteActivity(activity_Id);
@@ -61,7 +61,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/ListEmployee")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public List<EmployeeDTO> GetAllEmployee()
         {
             return _adminService.GetAllEmployee();
@@ -69,7 +69,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/AddEmployee")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool AddEmployee(EmployeeDTO empToAdd)
         {
             return _adminService.AddEmployee(empToAdd);
@@ -77,7 +77,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/UpdateEmployee")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool UpdateEmployee(EmployeeDTO empToUpdate)
         {
             return _adminService.UpdateEmployee(empToUpdate);
@@ -85,7 +85,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/DeleteEmployee")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool DeleteEmployee(int employee_Id)
         {
             return _adminService.DeleteEmployee(employee_Id);
@@ -95,7 +95,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/ListBookings")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public List<BookingDTO> GetAllBookings()
         {
             return _adminService.GetAllBookings();
@@ -103,7 +103,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/AddBooking")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool AddBooking(BookingDTO BookingToAdd)
         {
             return _adminService.AddBooking(BookingToAdd);
@@ -111,7 +111,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/UpdateBooking")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool UpdateBooking(BookingDTO BookingToUpdate)
         {
             return _adminService.UpdateBooking(BookingToUpdate);
@@ -119,7 +119,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/DeleteBooking")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool DeleteBooking(int Booking_Id)
         {
             return _adminService.DeleteBooking(Booking_Id);
@@ -129,7 +129,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/ListEquipment")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public List<EquipmentDTO> GetAllEquipment()
         {
             return _adminService.GetAllEquipment();
@@ -137,7 +137,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/AddEquipmnet")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool AddEquipment(EquipmentDTO EquipmentToAdd)
         {
             return _adminService.AddEquipment(EquipmentToAdd);
@@ -145,7 +145,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpPost]
         [Route("~/api/Admin/UpdateEquipment")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool UpdateEquipment(EquipmentDTO EquipmentToUpdate)
         {
             return _adminService.UpdateEquipment(EquipmentToUpdate);
@@ -153,7 +153,7 @@ namespace EasterneAdventuresApi.Web.Controllers
 
         [HttpGet]
         [Route("~/api/Admin/DeleteEquipment")]
-        [AllowAnonymous]
+        [AuthorizationFilter(Permission.Admin)]
         public bool DeleteEquipment(int Equipment_Id)
         {
             return _adminService.DeleteEquipment(Equipment_Id);
