@@ -158,5 +158,13 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.DeleteEquipment(Equipment_Id);
         }
+
+        [HttpGet]
+        [Route("~/api/Admin/ListActivityEquipment")]
+        [AuthorizationFilter(Permission.Admin)]
+        public List<EquipmentDTO> ListActivityEquipment(int activity_Id)
+        {
+            return _adminService.ListActivityEquipment(activity_Id);
+        }
     }
 }

@@ -263,5 +263,16 @@ namespace EasterneAdventuresApi.Core.Services
             return true;
 
         }
+
+        public List<EquipmentDTO> ListActivityEquipment(int activity_Id)
+        {
+            var equipment = _unitOfWork.Equipment.Query().Select(x=>x.DisplayEquipmentDTO).ToList();
+            var activityEquipment = _unitOfWork.ActivityEquipment.Query(x=>x.Activity_Id == activity_Id).ToList();
+            foreach (var item in equipment)
+            {
+                item.Activity_Id = activityEquipment.Where(x=>x.Equipment_Id == item.Equipment_Id).SingleOrDefault()?.Activity_Id;
+            }
+            return equipment;
+        }
     }
 }

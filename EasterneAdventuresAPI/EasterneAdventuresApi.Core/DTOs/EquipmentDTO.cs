@@ -9,6 +9,7 @@ namespace EasterneAdventuresApi.Core.DTOs
         public int Equipment_Id { get; set; }
         public string Name { get; set; }
         public bool Broken { get; set; }
+        public int? Activity_Id { get; set; }
 
     }
 }
