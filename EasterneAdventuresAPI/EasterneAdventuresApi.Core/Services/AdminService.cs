@@ -36,10 +36,10 @@ namespace EasterneAdventuresApi.Core.Services
 
         public List<ActivityDTO> GetAllActivities()
         {
-            var activityList = _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
+            var activityList = _unitOfWork.Activity.Query().Select(x => x.DisplayActivityDTO).ToList();
             foreach (var item in activityList)
             {
-                item.Attending = _unitOfWork.Booking.Query(x=>x.Activity_Id == item.Activity_Id && x.Payment_Id != null).Sum(y=>y.Attendees);
+                item.Attending = _unitOfWork.Booking.Query(x => x.Activity_Id == item.Activity_Id && x.Payment_Id != null).Sum(y => y.Attendees);
             }
             return activityList;
 
@@ -52,7 +52,7 @@ namespace EasterneAdventuresApi.Core.Services
                 Name = activity.Name,
                 Description = activity.Description,
                 Price_PP = Convert.ToDecimal(activity.Price_PP),
-                
+
             };
             _unitOfWork.Activity.Add(activityToAdd);
             _unitOfWork.Save();
@@ -237,7 +237,7 @@ namespace EasterneAdventuresApi.Core.Services
         public bool UpdateEquipment(EquipmentDTO equipment)
         {
             var equipmentToUpdate = _unitOfWork.Equipment.Query(x => x.Equipment_Id == equipment.Equipment_Id).SingleOrDefault();
-            if(equipmentToUpdate == null)
+            if (equipmentToUpdate == null)
             {
                 return false;
             }
@@ -264,15 +264,46 @@ namespace EasterneAdventuresApi.Core.Services
 
         }
 
+        //Activity Equipment
+
         public List<EquipmentDTO> ListActivityEquipment(int activity_Id)
         {
-            var equipment = _unitOfWork.Equipment.Query().Select(x=>x.DisplayEquipmentDTO).ToList();
-            var activityEquipment = _unitOfWork.ActivityEquipment.Query(x=>x.Activity_Id == activity_Id).ToList();
+            var equipment = _unitOfWork.Equipment.Query().Select(x => x.DisplayEquipmentDTO).ToList();
+            var activityEquipment = _unitOfWork.ActivityEquipment.Query(x => x.Activity_Id == activity_Id).ToList();
             foreach (var item in equipment)
             {
-                item.Activity_Id = activityEquipment.Where(x=>x.Equipment_Id == item.Equipment_Id).SingleOrDefault()?.Activity_Id;
+                item.Activity_Id = activityEquipment.Where(x => x.Equipment_Id == item.Equipment_Id).SingleOrDefault()?.Activity_Id;
             }
             return equipment;
         }
+
+        public bool addActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd)
+        {
+            var activityEquipToAdd = new ActivityEquipment()
+            {
+                ActivityEquipment_Id = ActivityEquipmentToAdd.ActivityEquipment_Id,
+                Activity_Id = ActivityEquipmentToAdd.Activity_Id,
+                Equipment_Id = ActivityEquipmentToAdd.Equipment_Id,
+            };
+
+            _unitOfWork.ActivityEquipment.Add(activityEquipToAdd);
+            _unitOfWork.Save();
+            return true;
+        }
+
+        public bool DeleteActivityEquipment(int Equipment_Id, int Activity_Id)
+        {
+            var activityEquipToDelete = _unitOfWork.ActivityEquipment.Query(x => x.Equipment_Id == Equipment_Id && x.Activity_Id == Activity_Id).SingleOrDefault();
+
+            if(activityEquipToDelete == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.ActivityEquipment.Add(activityEquipToDelete);
+            _unitOfWork.Save();
+            return true;
+        }
+
     }
 }
