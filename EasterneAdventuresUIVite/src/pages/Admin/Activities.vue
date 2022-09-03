@@ -180,7 +180,7 @@
             @focusout="setDropDownClosed"
             class="inputActiveHere"
             type="text"
-            placeholder="Equipment.."
+            placeholder="Add Equipment.."
             id="myInput"
           />
           <div
