@@ -200,6 +200,17 @@
           </label>
           <label for="price" class="inp">
             <input
+              v-model="formData.str_Num"
+              @input="formData.str_Num = $event.target.value"
+              type="text"
+              id="price"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Street Number</span>
+            <span class="focus-bg"></span>
+          </label>
+            <label for="price" class="inp">
+            <input
               v-model="formData.street"
               @input="formData.street = $event.target.value"
               type="text"
