@@ -35,7 +35,7 @@ export default {
       var onSuccess = (response) => {
         self.activityList = response;
       };
-      this.$AjaxGet(`Client/ListActivities`, onSuccess);
+      this.$AjaxGetAnon(`Client/ListActivities`, onSuccess);
     },
   },
   mounted() { 

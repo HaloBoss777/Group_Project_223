@@ -1,18 +1,13 @@
 <script setup>
 import { useAuthStore } from "../store/authStore.js";
+import icon from "../assets/Esterne.png";
 const authStore = useAuthStore();
 </script>
 
 <template>
-  <!-- <div ref="NavBar" id="NavBar">
-    <button @click="goToHomePage">Home</button>
-    <button @click="goToDashboardPage">Dashboard</button>
-    <button @click="goToLoginPage">Login/Register</button>
-    <button @click="changeNameHere">{{authStore.fullName}}</button>
-  </div> -->
   <nav>
     <div class="logo">
-      <h4>The nav</h4>
+      <img class="logo-image" :src="icon" alt="">
     </div>
     <ul class="nav-links">
       <li><a @click="goToHomePage" href="#">Home</a></li>
