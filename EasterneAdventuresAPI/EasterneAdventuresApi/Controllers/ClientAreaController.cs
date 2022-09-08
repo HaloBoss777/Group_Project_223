@@ -47,5 +47,13 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _clientArea.PayForCart(cartItems);
         }
 
+        [HttpPost]
+        [Route("~/api/PaymentComplete")]
+        [PayFastDomainValidationAtribute]
+        [AllowAnonymous]
+        public void RecieveNotificationFromPayFast([FromHeader] PayFastNotifyDTO data)
+        {
+            _clientArea.HandlePayfastNotification(data);
+        }
     }
 }

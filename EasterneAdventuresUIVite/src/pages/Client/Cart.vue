@@ -151,8 +151,16 @@ const authStore = useAuthStore();
       <form id="payfastForm" :action="payfastData.serveURL" method="post">
         <input type="hidden" name="merchant_id" :value="payfastData.merchantId">
         <input type="hidden" name="merchant_key" :value="payfastData.merchantKey">
-        <input type="hidden" name="amount" :value="payfastData.amount">
+        <input type="hidden" name="return_url" :value="payfastData.returnUrl">
+        <input type="hidden" name="cancel_url" :value="payfastData.cancelUrl">
+        <input type="hidden" name="notify_url" :value="payfastData.notifyUrl">
+        <input type="hidden" name="name_first" :value="payfastData.name">
+        <input type="hidden" name="name_last" :value="payfastData.surname">
+        <input type="hidden" name="email_address" :value="payfastData.email">
+        <input type="hidden" name="m_payment_id" :value="payfastData.transactionId">
         <input type="hidden" name="item_name" value="Test Product">
+        <input type="hidden" name="amount" :value="payfastData.amount">
+        <input type="hidden" name="signature" :value="payfastData.hash">
         <input type="submit">
       </form>
     </div>
@@ -171,7 +179,15 @@ export default {
         serveURL:"",
         merchantId:0,
         merchantKey:0,
-        amount:0.00
+        amount:0.00,
+        returnUrl:"",
+        notifyUrl:"",
+        cancelUrl:"",
+        email:"",
+        name : "",
+        surname : "",
+        hash: "",
+        transactionId:0
       }
     };
   },
@@ -244,6 +260,7 @@ export default {
       var onSuccess = (response) => {
         self.payfastData = response;
         setTimeout(() => {
+          debugger
           document.getElementById('payfastForm').submit();
         }, 100);
       };

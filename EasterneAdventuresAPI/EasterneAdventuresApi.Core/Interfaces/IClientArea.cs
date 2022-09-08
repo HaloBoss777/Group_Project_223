@@ -14,7 +14,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
         //Bookings
         bool CreateBooking(ClientBookingDTO New_Booking);
         ShoppingCartPayDTO PayForCart(List<PayActivityDTO> cartItems);
-
+        void HandlePayfastNotification(PayFastNotifyDTO data);
         //Payment
 
     }

@@ -116,14 +116,14 @@ namespace EasterneAdventuresApi.Core.Services
 
             _unitOfWork.Save();
 
-            var cancelUrl = "https://127.0.0.1:5173/Cart?status=Canceled";
-            var returnUrl = "https://127.0.0.1:5173/Cart?status=Success";
-            var notifyUrl = "https://lateralscaffoldingpre.azurewebsites.net/subscriptions?transactionId=";
+            var cancelUrl = "http://127.0.0.1:5173/Cart?status=Canceled";
+            var returnUrl = "http://127.0.0.1:5173/Cart?status=Success";
+            var notifyUrl = "https://tallgreyphone18.conveyor.cloud/api/PaymentComplete";
 
             var valuesDict = new Dictionary<string, string>
             {
-                { "merchant_id", "10026285"},
-                { "merchant_key", "rdgxv9mt28vbg"},
+                { "merchant_id", "10027224"},
+                { "merchant_key", "e0xnk43xuw9ff"},
 
                 { "return_url", returnUrl},
                 { "cancel_url", cancelUrl},
@@ -135,7 +135,7 @@ namespace EasterneAdventuresApi.Core.Services
 
                 { "m_payment_id", genereatePayment.Payment_Id.ToString()},
                 { "amount", totalPrice.ToString().Replace(",",".")},
-                { "item_name", "Buy Subscriptions"},
+                { "item_name", "Test Product"},
             };
 
             var hashedString = _cryptoService.GenerateHashedStringForPayFast(valuesDict);
@@ -151,10 +151,17 @@ namespace EasterneAdventuresApi.Core.Services
                 NotifyUrl = notifyUrl,
                 ReturnUrl = returnUrl,
                 Surname = firstName,
-                MerchantId = "10026285",
-                MerchantKey = "rdgxv9mt28vbg",
+                MerchantId = "10027224",
+                MerchantKey = "e0xnk43xuw9ff",
                 ServeURL = "https://sandbox.payfast.co.za/eng/process"
             };
+        }
+
+        public void HandlePayfastNotification(PayFastNotifyDTO data)
+        {
+            var paymentToUpdate = _unitOfWork.Payment.Query(x=>x.Payment_Id == Convert.ToInt32(data.m_payment_id)).Single();
+            paymentToUpdate.Paid = DateTime.Now;
+            _unitOfWork.Save();
         }
 
     }
