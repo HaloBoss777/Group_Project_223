@@ -27,17 +27,19 @@ namespace EasterneAdventuresApi.Core.Services
 		private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
         private readonly IAuthInfo _authInfo;
         private readonly ICryptographyHelper _cryptoService;
+        private readonly IEmailService _emailService;
 
-        public ClientAreaService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo, ICryptographyHelper cryptographyHelper)
-		{
-			_unitOfWork = unitOfWork;
+        public ClientAreaService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo, ICryptographyHelper cryptographyHelper, IEmailService emailService)
+        {
+            _unitOfWork = unitOfWork;
             _authInfo = authInfo;
             _cryptoService = cryptographyHelper;
+            _emailService = emailService;
         }
-		
-		//Activity
 
-		public List<ActivityDTO> GetAllActivities()
+        //Activity
+
+        public List<ActivityDTO> GetAllActivities()
         {
 			return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
         }
@@ -118,7 +120,7 @@ namespace EasterneAdventuresApi.Core.Services
 
             var cancelUrl = "http://127.0.0.1:5173/Cart?status=Canceled";
             var returnUrl = "http://127.0.0.1:5173/Cart?status=Success";
-            var notifyUrl = "https://tallgreyphone18.conveyor.cloud/api/PaymentComplete";
+            var notifyUrl = "https://esterneadventuresapi.azurewebsites.net/api/PaymentComplete";
 
             var valuesDict = new Dictionary<string, string>
             {
@@ -162,6 +164,28 @@ namespace EasterneAdventuresApi.Core.Services
             var paymentToUpdate = _unitOfWork.Payment.Query(x=>x.Payment_Id == Convert.ToInt32(data.m_payment_id)).Single();
             paymentToUpdate.Paid = DateTime.Now;
             _unitOfWork.Save();
+            var userDetails = _unitOfWork.Client.Query(x=>x.Client_Id == paymentToUpdate.Client_Id).Single();
+
+            var bookings = _unitOfWork.Booking.Query(x=>x.Payment_Id == Convert.ToInt32(data.m_payment_id)).ToList();
+
+            var body = $"<h1>Thank you for Booking with us</h1><br>";
+            body += $"<h2>Your adventure Awaits</h2> <br><br>";
+            body += $"<h3>Booked</h3>";
+            var activities = new List<Activity>();
+            foreach (var item in bookings)
+            {
+                var name = _unitOfWork.Activity.Query(x=>x.Activity_Id == item.Activity_Id).Select(c=>c.Name).Single();
+                body+= $"{name} <br>";
+            }
+
+
+            _emailService.SendEmail(new MessageDTO
+            {
+                SendEmail = userDetails.Email,
+                Body = body,
+                Subject = "Payment Complete EsterneAdventures"
+            });
+
         }
 
     }

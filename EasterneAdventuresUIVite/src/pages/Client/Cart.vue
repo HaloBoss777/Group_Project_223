@@ -260,7 +260,6 @@ export default {
       var onSuccess = (response) => {
         self.payfastData = response;
         setTimeout(() => {
-          debugger
           document.getElementById('payfastForm').submit();
         }, 100);
       };
