@@ -7,7 +7,6 @@
   <div ref="HomePage" id="HomePage"> 
     <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
     <h1 class="Cover-Text">Adventure starts here 🚀</h1>
-    <h3 style="color: white;">{{cartStore.getCartItems}}</h3>
     <input type="text" placeholder="search for Activity">
     <div class="activity-area">
       <div class="activity-List-Item" v-for="(activity, index) in activityList" :key="index">

@@ -4,28 +4,30 @@
 </script>
 
 <template>
-  <div ref="Cart" id="Cart"> 
-    <h1 class="Cover-Text">Cart Section</h1>
-    <h1 class="Cover-Text">Adventure starts here 🚀</h1>
-    <input type="text" placeholder="search for Activity">
-    <div class="activity-area">
-      <div class="activity-List-Item" v-for="(activity, index) in activityList" :key="index">
-        <div class="content-divider">
-          <div class="column">
-            <h2 style="color: white;">{{activity.name}}</h2>
-            <p style="color: white;">{{activity.description}}</p>
-          </div>
-          <div class="price-area">
-            <div class="price">
-              <h3 style="color: white;">R{{activity.price_PP}}</h3>
-              <p style="color: white;">pp</p>
+  <div ref="CartPage" id="CartPage"> 
+    <h1 class="Cover-Text">Checkout</h1>
+    <div class="cart-area">
+      <div class="activity-area">
+        <div class="activity-List-Item" v-for="(activity, index) in cartItemList" :key="index">
+          <div class="content-divider">
+            <div class="column">
+              <h2 style="color: white;">{{activity.name}}</h2>
+              <p style="color: white;">{{activity.description}}</p>
             </div>
-            <h2 style="color: white;">{{activity.name}}</h2>
-            <button class="cart-button" v-if="isItemInStore(activity.activity_Id)" >Add to cart</button>
-            <button class="cart-button" v-else :disabled="true" @click="addItemToCart(activity)" >In Cart</button>
+            <div class="price-area">
+              <div class="price">
+                <h3 style="color: white;">R{{activity.price_PP}}</h3>
+                <p style="color: white;">pp</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <aside class="Cost-Section">
+        <div class="card">
+          Cost
+        </div>
+      </aside>
     </div>
   </div>
 </template> 
@@ -35,7 +37,7 @@
 export default {
   data() {
     return { 
-      activityList:[],
+      cartItemList:[],
     } 
   },
   components:{ 
@@ -61,8 +63,12 @@ export default {
       this.cartStore.addCartItem(activity);
       this.$toast.success(`Added ${activity.name} to Cart.`);
     },
+    getCartItems(){
+      this.cartItemList = this.cartStore.getCartItems;
+    }
   },
   mounted() { 
+    this.getCartItems();
   },
 }
 </script>
