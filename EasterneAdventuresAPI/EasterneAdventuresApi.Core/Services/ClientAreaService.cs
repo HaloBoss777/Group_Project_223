@@ -43,7 +43,9 @@ namespace EasterneAdventuresApi.Core.Services
 
         public List<ActivityDTO> GetAllActivities()
         {
-			return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
+
+            var temp = _unitOfWork.FetchDtoList<MonthlyIncomeDTO>("GetMonthlyIncome", null);
+            return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
         }
 		
 		//Booking
@@ -197,6 +199,7 @@ namespace EasterneAdventuresApi.Core.Services
             {
                 throw new Exception("User exists");
             }
+
 
             var clientToAdd = new Client
             {

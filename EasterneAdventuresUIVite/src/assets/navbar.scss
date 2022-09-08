@@ -26,9 +26,13 @@ nav{
 }
 
 .nav-links li{
-  margin-right: 10px;
+  margin-right: 0px;
   list-style:none;
 }
+.nav-links li:has(a){
+  margin-right: 10px;
+}
+
 .nav-links a{
   color: rgb(226,226,226);
   text-decoration: none;

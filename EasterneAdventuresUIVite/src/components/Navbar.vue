@@ -14,17 +14,17 @@ const authStore = useAuthStore();
     <ul class="nav-links toggle">
       <li class="cartIcon"><a  @click="goToCart" href="#"><vue-feather type="shopping-cart" size="20"></vue-feather><p>{{cartStore.getCartCount}}</p></a></li>
       <li><a @click="goToHomePage" href="#">Home</a></li>
-      <li v-if="authStore.isAdmin">
-        <a @click="goToDashboardPage" href="#">Dashboard</a>
+      <li >
+        <a v-if="isAdmin" @click="goToDashboardPage" href="#">Dashboard</a>
       </li>
-      <li v-if="!authStore.fullName.length">
-        <a @click="goToLoginPage" href="#">Login</a>
+      <li >
+        <a v-if="!isLoggedIn" @click="goToLoginPage" href="#">Login</a>
       </li>
-      <li v-else >
-        <a href="#">{{ authStore.fullName }}</a>
+      <li >
+        <a v-if="isLoggedIn" href="#">{{ authStore.fullName }}</a>
       </li>
-      <li @click="logout" v-if="authStore.fullName" >
-        <a href="#">Logout</a>
+      <li  >
+        <a v-if="isLoggedIn" @click="logout" href="#">Logout</a>
       </li>
     </ul>
     <div class="burger">
@@ -41,12 +41,20 @@ export default {
   data() {
     return {
       navOpen: false,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      loggedIn:false,
     };
   },
   components: {},
   watch: {},
-  computed: {},
+  computed: {
+    isLoggedIn(){
+      return this.authStore.jwtToken.length != 0;
+    },
+    isAdmin(){
+      return this.authStore.isAdmin;
+    }
+  },
   methods: {
     clickBurgerMenu() {
       if(this.windowWidth <= 768){
