@@ -7,12 +7,12 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <nav>
+  <nav class="nav-bar">
     <div class="logo">
       <img class="logo-image" :src="icon" alt="">
     </div>
-    <ul class="nav-links">
-      <li><a @click="goToCart" href="#"><vue-feather type="shopping-cart" size="16"></vue-feather>{{cartStore.getCartCount}}</a></li>
+    <ul class="nav-links toggle">
+      <li class="cartIcon"><a  @click="goToCart" href="#"><vue-feather type="shopping-cart" size="20"></vue-feather><p>{{cartStore.getCartCount}}</p></a></li>
       <li><a @click="goToHomePage" href="#">Home</a></li>
       <li v-if="authStore.isAdmin">
         <a @click="goToDashboardPage" href="#">Dashboard</a>
