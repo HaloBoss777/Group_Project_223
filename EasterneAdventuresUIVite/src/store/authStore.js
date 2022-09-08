@@ -36,5 +36,14 @@ export const useAuthStore = defineStore("auth", {
     setEmp_Id(emp_Id){
       this.emp_Id = emp_Id;
     },
+    logout(){
+      this.fullName= "",
+      this.isEmployee=false,
+      this.isAdmin=false,
+      this.isInstructor=false,
+      this.jwtToken="",
+      this.client_Id=0,
+      this.emp_Id=0
+    }
   },
 });

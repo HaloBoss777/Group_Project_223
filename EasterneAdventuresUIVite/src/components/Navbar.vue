@@ -17,11 +17,14 @@ const authStore = useAuthStore();
       <li v-if="authStore.isAdmin">
         <a @click="goToDashboardPage" href="#">Dashboard</a>
       </li>
-      <li v-if="!authStore.fullName">
+      <li v-if="!authStore.fullName.length">
         <a @click="goToLoginPage" href="#">Login</a>
       </li>
-      <li v-if="authStore.fullName">
+      <li v-else >
         <a href="#">{{ authStore.fullName }}</a>
+      </li>
+      <li @click="logout" v-if="authStore.fullName" >
+        <a href="#">Logout</a>
       </li>
     </ul>
     <div class="burger">
@@ -68,6 +71,11 @@ export default {
     goToCart(){
       this.$router.push("/Cart");
     },
+    logout(){
+      localStorage.clear();
+      this.authStore.logout();
+      window.open("/Home","_self");
+    },
     toggleNav() {
       const burger = document.querySelector(".burger");
       const nav = document.querySelector(".nav-links");
@@ -94,7 +102,9 @@ export default {
     },
   },
   mounted() {
-    this.toggleNav();
+    setTimeout(() => {
+      this.toggleNav();
+    }, 100);
   },
 };
 </script>
