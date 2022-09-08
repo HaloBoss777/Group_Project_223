@@ -83,7 +83,7 @@ namespace EasterneAdventuresApi.Core.Services
                     Attendees = item.Attending,
                     Activity_Id= item.Activity_Id,
                     Client_Id = _authInfo.UserId,
-                    Date_Booked = DateTime.Now,
+                    Date_Booked = (DateTime)item.Date,
                     Payment_Id = null,
                     Emp_Id = 6
                 };
@@ -94,7 +94,6 @@ namespace EasterneAdventuresApi.Core.Services
                 _unitOfWork.Save();
                 bookingList.Add(createBooking.Booking_Id);
             }
-
 
 
 

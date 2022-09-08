@@ -70,6 +70,15 @@ const authStore = useAuthStore();
                   </button>
                 </div>
               </div>
+              <div style="margin-top: 20px;" class="row date-selector-are">
+                <vue-feather
+                  class="dateSelect"
+                  type="calendar"
+                  size="16"
+                ></vue-feather>
+                <p style="margin: 0;color: white; margin-right: 10px;">Pick Date</p>
+                <datepicker v-model="activity.date" />
+              </div>
             </div>
             <div class="price-area">
               <div class="price">
@@ -149,25 +158,37 @@ const authStore = useAuthStore();
     </aside>
     <div>
       <form id="payfastForm" :action="payfastData.serveURL" method="post">
-        <input type="hidden" name="merchant_id" :value="payfastData.merchantId">
-        <input type="hidden" name="merchant_key" :value="payfastData.merchantKey">
-        <input type="hidden" name="return_url" :value="payfastData.returnUrl">
-        <input type="hidden" name="cancel_url" :value="payfastData.cancelUrl">
-        <input type="hidden" name="notify_url" :value="payfastData.notifyUrl">
-        <input type="hidden" name="name_first" :value="payfastData.name">
-        <input type="hidden" name="name_last" :value="payfastData.surname">
-        <input type="hidden" name="email_address" :value="payfastData.email">
-        <input type="hidden" name="m_payment_id" :value="payfastData.transactionId">
-        <input type="hidden" name="item_name" value="Test Product">
-        <input type="hidden" name="amount" :value="payfastData.amount">
-        <input type="hidden" name="signature" :value="payfastData.hash">
-        <input type="submit">
+        <input
+          type="hidden"
+          name="merchant_id"
+          :value="payfastData.merchantId"
+        />
+        <input
+          type="hidden"
+          name="merchant_key"
+          :value="payfastData.merchantKey"
+        />
+        <input type="hidden" name="return_url" :value="payfastData.returnUrl" />
+        <input type="hidden" name="cancel_url" :value="payfastData.cancelUrl" />
+        <input type="hidden" name="notify_url" :value="payfastData.notifyUrl" />
+        <input type="hidden" name="name_first" :value="payfastData.name" />
+        <input type="hidden" name="name_last" :value="payfastData.surname" />
+        <input type="hidden" name="email_address" :value="payfastData.email" />
+        <input
+          type="hidden"
+          name="m_payment_id"
+          :value="payfastData.transactionId"
+        />
+        <input type="hidden" name="item_name" value="Test Product" />
+        <input type="hidden" name="amount" :value="payfastData.amount" />
+        <input type="hidden" name="signature" :value="payfastData.hash" />
       </form>
     </div>
   </div>
 </template>
 
 <script>
+  import Datepicker from 'vue3-datepicker'
 export default {
   data() {
     return {
@@ -175,23 +196,25 @@ export default {
       cartListActive: true,
       registerPage: false,
       paymentPage: false,
-      payfastData:{
-        serveURL:"",
-        merchantId:0,
-        merchantKey:0,
-        amount:0.00,
-        returnUrl:"",
-        notifyUrl:"",
-        cancelUrl:"",
-        email:"",
-        name : "",
-        surname : "",
+      payfastData: {
+        serveURL: "",
+        merchantId: 0,
+        merchantKey: 0,
+        amount: 0.0,
+        returnUrl: "",
+        notifyUrl: "",
+        cancelUrl: "",
+        email: "",
+        name: "",
+        surname: "",
         hash: "",
-        transactionId:0
-      }
+        transactionId: 0,
+      },
     };
   },
-  components: {},
+  components: {
+    Datepicker
+  },
   watch: {},
   computed: {
     calculatePrice() {
@@ -230,6 +253,9 @@ export default {
     },
     getCartItems() {
       this.cartItemList = this.cartStore.getCartItems;
+      this.cartItemList.forEach(element => {
+        element.date = new Date();
+      });
     },
     removeCartItem(activity) {
       this.cartStore.removeCartItem(activity);
@@ -260,7 +286,7 @@ export default {
       var onSuccess = (response) => {
         self.payfastData = response;
         setTimeout(() => {
-          document.getElementById('payfastForm').submit();
+          document.getElementById("payfastForm").submit();
         }, 100);
       };
 
@@ -268,13 +294,46 @@ export default {
         return {
           activity_Id: x.activity_Id,
           attending: x.attending,
-          date: null,
+          date: x.date,
         };
       });
       this.$AjaxPost(`Client/PayForCart`, dataList, onSuccess);
     },
+    checkForPayment() {
+      if (!this.$route.query) {
+        return;
+      }
+      switch (this.$route.query.status) {
+        case "Canceled":
+          this.canclePopup();
+          break;
+        case "Success":
+          this.successPOPUP();
+          break;
+        default:
+          break;
+      }
+    },
+    successPOPUP() {
+      this.cartStore.clearCart();
+      this.$swal
+        .fire({
+          title: `Your Transaction was Successfull`,
+          showCancelButton: false,
+          confirmButtonText: `Thank you`,
+        })
+    },
+    canclePopup(){
+      this.$swal
+        .fire({
+          title: `Your Transaction was canceled`,
+          showCancelButton: false,
+          confirmButtonText: `Ok`,
+        })
+    }
   },
   mounted() {
+    this.checkForPayment();
     this.getCartItems();
   },
 };

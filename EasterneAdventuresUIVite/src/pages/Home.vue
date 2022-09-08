@@ -58,7 +58,6 @@ export default {
     },
     addItemToCart(activity){
       this.cartStore.addCartItem(activity);
-      this.carList.push(activity);
       this.$toast.success(`Added ${activity.name} to Cart.`);
     },
     isItemInStore(activity_Id){
