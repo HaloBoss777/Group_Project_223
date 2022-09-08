@@ -12,4 +12,11 @@ namespace EasterneAdventuresApi.Core.DTOs
         public decimal Price_PP { get; set; }
         public int? Attending { get; set; }
     }
+
+    public class PayActivityDTO
+    {
+        public int Activity_Id { get; set; }
+        public int Attending { get; set; }
+    }
+
 }

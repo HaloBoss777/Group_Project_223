@@ -19,7 +19,7 @@
         <h3 :class="registerPage ? 'active' :''">Register</h3>
       </div>
       <h3 v-if="!authStore.fullName" class="arrows">></h3>
-      <div @click="goToPayment" class="sections">
+      <div @click="proseedToPayment" class="sections">
         <vue-feather style="margin-right: 5px;" type="dollar-sign" size="16"></vue-feather>
         <h3 :class="paymentPage ? 'active' :''">Checkout</h3>
       </div>
@@ -73,6 +73,28 @@
         </div>
       </aside>
     </div>
+    <aside v-if="paymentPage" class="Cost-Section Payment-Area-Final">
+        <div class="card">
+          <h2 style="color: white; margin: unset;">Cost</h2>
+          <div class="row">
+            <h3 class="column">Activities</h3>
+            <h3 class="column">Attending</h3>
+            <h3 class="column">Price</h3>
+          </div>
+          <div class="row" v-for="(activity, index) in cartItemList" :key="index">
+            <p class="column">{{activity.name}}</p>
+            <p class="column">{{activity.attending}}</p>
+            <p class="column">R{{(activity.price_PP * activity.attending).toFixed(2)}}</p>
+          </div>
+          <div>
+            <p style="color: white;">Total</p>
+            <p style="color: white;">R {{calculatePrice}}</p>
+          </div>
+          <div>
+            <button @click="PayWithPayFast" class="checkout-Btn">Pay With Payfast</button>
+          </div>
+        </div>
+      </aside>
   </div>
 </template> 
 
@@ -138,15 +160,12 @@ export default {
       this.cartListActive = false;
       if(!this.authStore.fullName){
         this.registerPage = true;
+        this.paymentPage = false;
       }
       else{
         this.paymentPage = true;
+        this.registerPage = false;
       }
-    },
-    goToPayment(){
-      this.paymentPage = true;
-      this.cartListActive = false;
-      this.registerPage = false;
     },
     goToRegiseter(){
       this.paymentPage = false;
@@ -157,6 +176,9 @@ export default {
       this.paymentPage = false;
       this.cartListActive = true;
       this.registerPage = false;
+    },
+    PayWithPayFast(){
+      
     }
   },
   mounted() { 

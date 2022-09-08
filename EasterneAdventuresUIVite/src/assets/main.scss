@@ -577,3 +577,12 @@ h1,h2,h3,h4,h5,h6,span{
     margin-left:0px;
   }
 }
+
+.Payment-Area-Final{
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  @media screen and (max-width:1000px){
+    width: 80% !important;
+  }
+}

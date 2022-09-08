@@ -39,6 +39,13 @@ namespace EasterneAdventuresApi.Web.Controllers
             return _clientArea.CreateBooking(New_Booking);
         }
 
+        [HttpPost]
+        [Route("~/api/Client/PayForCart")]
+        [AuthorizationFilter]
+        public void PayWithPayFast([FromBody] List<PayActivityDTO> cartItems)
+        {
+            _clientArea.CreateBooking(cartItems);
+        }
 
     }
 }

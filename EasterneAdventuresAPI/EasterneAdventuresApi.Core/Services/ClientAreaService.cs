@@ -59,6 +59,11 @@ namespace EasterneAdventuresApi.Core.Services
             return true;
         }
 
-		//Payment
-	}
+
+        public void PayForCart(List<PayActivityDTO> chartItems)
+        {
+            
+        }
+
+    }
 }
