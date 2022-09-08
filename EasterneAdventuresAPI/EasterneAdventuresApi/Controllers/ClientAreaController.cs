@@ -32,6 +32,14 @@ namespace EasterneAdventuresApi.Web.Controllers
         }
 
         [HttpPost]
+        [Route("~/api/Client/Register")]
+        [AllowAnonymous]
+        public UserAuthDTO Register(RegisterClient clientDetails)
+        {
+            return _clientArea.Register(clientDetails);
+        }
+
+        [HttpPost]
         [Route("~/api/Client/CreateBooking")]
         [AuthorizationFilter]
         public bool CreateBooking(ClientBookingDTO New_Booking)

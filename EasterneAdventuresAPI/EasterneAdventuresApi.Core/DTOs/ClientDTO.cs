@@ -12,4 +12,13 @@ namespace EasterneAdventuresApi.Core.DTOs
         public string CellNum { get; set; }
         public string RSA_ID { get; set; }
     }
+
+    public class RegisterClient
+    {
+        public string Full_Name { get; set; }
+        public string Email { get; set; }
+        public string CellNum { get; set; }
+        public string RSA_ID { get; set; }
+        public string PasswordHash { get; set; }
+    }
 }

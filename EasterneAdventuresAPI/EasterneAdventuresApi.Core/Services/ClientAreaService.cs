@@ -28,13 +28,15 @@ namespace EasterneAdventuresApi.Core.Services
         private readonly IAuthInfo _authInfo;
         private readonly ICryptographyHelper _cryptoService;
         private readonly IEmailService _emailService;
+        private readonly IAuthService _authService;
 
-        public ClientAreaService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo, ICryptographyHelper cryptographyHelper, IEmailService emailService)
+        public ClientAreaService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo, ICryptographyHelper cryptographyHelper, IEmailService emailService,IAuthService authService)
         {
             _unitOfWork = unitOfWork;
             _authInfo = authInfo;
             _cryptoService = cryptographyHelper;
             _emailService = emailService;
+            _authService = authService;
         }
 
         //Activity
@@ -185,6 +187,35 @@ namespace EasterneAdventuresApi.Core.Services
                 Subject = "Payment Complete EsterneAdventures"
             });
 
+        }
+
+        public UserAuthDTO Register(RegisterClient registerClient)
+        {
+            var existingClient = _unitOfWork.Client.Query(x=>x.Email == registerClient.Email).SingleOrDefault();
+
+            if (existingClient != null)
+            {
+                throw new Exception("User exists");
+            }
+
+            var clientToAdd = new Client
+            {
+                Email= registerClient.Email,
+                Full_Name = registerClient.Full_Name,
+                PasswordHash = registerClient.PasswordHash,
+                RSA_ID = registerClient.RSA_ID,
+                CellNum = registerClient.CellNum,
+            };
+
+            _unitOfWork.Client.Add(clientToAdd);
+            _unitOfWork.Save();
+
+
+            return _authService.Login(new UserAuthLoginDTO
+            {
+                PasswordHash = registerClient.PasswordHash,
+                UserName = registerClient.Email
+            });
         }
 
     }
