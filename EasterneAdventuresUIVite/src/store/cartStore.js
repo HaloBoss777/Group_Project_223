@@ -30,8 +30,13 @@ export const useCartStore = defineStore("cart", {
       localStorage.setItem("CartItems",JSON.stringify(this.cartItems));
     },
     removeCartItem(item){
-      this.cartItems = this.cartItems.filter(!item);
+      this.cartItems = this.cartItems.filter(x=>x.activity_Id != item.activity_Id);
       this.count--;
+      localStorage.setItem("CartItems",JSON.stringify(this.cartItems));
+    },
+    updateCartItem(item){
+      var index = this.cartItems.findIndex(x=>x.activity_Id == item.activity_Id);
+      this.cartItems[index].attending = item.attending;
       localStorage.setItem("CartItems",JSON.stringify(this.cartItems));
     },
     isItemInCart(item){

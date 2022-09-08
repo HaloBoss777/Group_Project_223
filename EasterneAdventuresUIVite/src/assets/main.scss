@@ -319,6 +319,24 @@ $dark: #fff;
   text-align: center;
   width: 100vw !important;
   flex-grow: 1;
+
+  button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .add-Btn{
+    background-color: #161d31!important;
+    border-color: transparent;
+  }
+
   .activity-area{
     display: flex;
     flex-grow: 2;
@@ -384,7 +402,7 @@ $dark: #fff;
   }
   .activity-area{
     display: flex;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
     width: 60%;
     @media screen and (max-width:1000px){
@@ -438,14 +456,124 @@ $dark: #fff;
   margin-right: 10px;
   width: 38%;
   margin: 10px;
+  text-align: left;
   .card{
     padding: 10px;
+    color: white;
     background-color: #283046;
     box-shadow: 0px 8px 14px 0px black;
     border-radius: 13px;
+  }
+  h5{
+
   }
 }
 
 .cart-button{
   
+}
+
+
+#CartPage{
+  button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .remove-Btn{
+    background-color: red!important;
+    border-color: transparent;
+  }
+  .checkout-Btn{
+    background-color: green!important;
+    border-color: transparent;
+    box-shadow: 0px 4px 8px 0px black ;
+  }
+}
+
+.counter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  border-radius: 0.357rem;
+  background-color: #283046;
+  border-color: #404656;
+  color: #b4b7bd;
+  text-align: center;
+  background-image: none;
+  padding: 0;
+  border: 1px solid #d8d6de;
+  margin-left: 0.75rem!important;
+  button{
+    padding: unset;
+    padding: 0.25rem 0.5rem !important;
+    cursor: pointer;
+    box-shadow: none!important;
+    margin: 0;
+    border: unset;
+    border-color: #404656;
+    border-right: 1px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  output{
+    border-color: #3b4253!important;
+    width: 40px;
+  }
+}
+
+h1,h2,h3,h4,h5,h6,span{
+  color: white;
+}
+
+.Process-Section{
+  display: flex;
+  flex-direction: row;
+  div{
+    margin: 10px;
+  }
+  .sections{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    svg{
+      color: white;
+      padding: 10px;
+    }
+  }
+  .sections:has(.active){
+    h3{
+      color: #0077ff;
+    }
+    svg{
+      background-color: #0077ff;
+      border-radius: 5px;
+    } 
+  }
+}
+
+.arrows{
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.activity-card{
+  margin-left: 100px;
+  @media screen and (max-width:1000px){
+    margin-left:0px;
+  }
 }

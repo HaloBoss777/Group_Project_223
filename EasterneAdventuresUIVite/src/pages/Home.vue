@@ -17,10 +17,10 @@
           </div>
           <div class="price-area">
             <div class="price">
-              <h3 style="color: white;">R{{activity.price_PP}}</h3>
+              <h3 style="color: white;">R{{activity.price_PP.toFixed(2)}}</h3>
               <p style="color: white;">pp</p>
             </div>
-            <button class="cart-button" v-if="!isItemInStore(activity.activity_Id)" @click="addItemToCart(activity)" >Add to cart</button>
+            <button class="cart-button add-Btn" v-if="!isItemInStore(activity.activity_Id)" @click="addItemToCart(activity)" >Add to cart</button>
             <button class="cart-button" v-else :disabled="true" @click="addItemToCart(activity)">In Cart</button>
           </div>
         </div>

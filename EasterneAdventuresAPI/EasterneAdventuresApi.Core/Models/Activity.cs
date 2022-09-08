@@ -23,6 +23,7 @@ namespace EasterneAdventuresApi.Core.Models
             Description = Description,
             Price_PP = Price_PP,
             Name = Name,
+            Attending = 1
         };
 
     }
