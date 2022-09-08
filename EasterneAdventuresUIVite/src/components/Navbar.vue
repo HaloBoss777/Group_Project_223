@@ -66,7 +66,7 @@ export default {
       this.authStore.setName("Whoop Whoop");
     },
     goToCart(){
-
+      this.$router.push("/Cart");
     },
     toggleNav() {
       const burger = document.querySelector(".burger");

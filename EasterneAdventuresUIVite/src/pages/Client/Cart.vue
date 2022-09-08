@@ -1,13 +1,12 @@
 <script setup>
-  import { useCartStore } from "../store/cartStore.js";
+  import { useCartStore } from "../../store/cartStore.js";
   const cartStore = useCartStore();
 </script>
 
 <template>
-  <div ref="HomePage" id="HomePage"> 
-    <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
+  <div ref="Cart" id="Cart"> 
+    <h1 class="Cover-Text">Cart Section</h1>
     <h1 class="Cover-Text">Adventure starts here 🚀</h1>
-    <h3 style="color: white;">{{cartStore.getCartItems}}</h3>
     <input type="text" placeholder="search for Activity">
     <div class="activity-area">
       <div class="activity-List-Item" v-for="(activity, index) in activityList" :key="index">
@@ -21,8 +20,9 @@
               <h3 style="color: white;">R{{activity.price_PP}}</h3>
               <p style="color: white;">pp</p>
             </div>
-            <button class="cart-button" v-if="!isItemInStore(activity.activity_Id)" @click="addItemToCart(activity)" >Add to cart</button>
-            <button class="cart-button" v-else :disabled="true" @click="addItemToCart(activity)">In Cart</button>
+            <h2 style="color: white;">{{activity.name}}</h2>
+            <button class="cart-button" v-if="isItemInStore(activity.activity_Id)" >Add to cart</button>
+            <button class="cart-button" v-else :disabled="true" @click="addItemToCart(activity)" >In Cart</button>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default {
 
   },
   computed: { 
-
+    
   },
   methods: { 
     goToOtherPage(){
@@ -59,15 +59,10 @@ export default {
     },
     addItemToCart(activity){
       this.cartStore.addCartItem(activity);
-      this.carList.push(activity);
       this.$toast.success(`Added ${activity.name} to Cart.`);
-    },
-    isItemInStore(activity_Id){
-      return this.cartStore.cartItems.some(x=>x.activity_Id== activity_Id);
     },
   },
   mounted() { 
-    this.getActivities();
   },
 }
 </script>

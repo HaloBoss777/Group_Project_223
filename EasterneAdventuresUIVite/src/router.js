@@ -15,6 +15,11 @@ var routes = [{
       import('./pages/Login.vue'),
   },
   {
+    path:'/Cart',
+    component: ()=>
+      import("./pages/Client/Cart.vue"),
+  },
+  {
     path:'/Unauthorized',
     component:()=>
       import('./pages/Unauthorized.vue')

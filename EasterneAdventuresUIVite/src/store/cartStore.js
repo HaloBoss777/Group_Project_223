@@ -14,7 +14,7 @@ export const useCartStore = defineStore("cart", {
   },
   actions: {
     addCartItem(item){
-      if(this.cartItems.includes(item)){
+      if(this.cartItems.some(x=>x.activity_Id == item.activity_Id)){
         return;
       }
       this.cartItems.push(item);
@@ -28,5 +28,8 @@ export const useCartStore = defineStore("cart", {
       this.cartItems = this.cartItems.filter(!item);
       this.count--;
     },
+    isItemInCart(item){
+      return this.cartItems.some(x=>x.activity_Id == item.activity_Id);
+    }
   },
 });
