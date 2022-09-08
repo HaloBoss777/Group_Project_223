@@ -69,6 +69,8 @@ namespace EasterneAdventuresApi.Core.Services
 
             var firstName = user.Full_Name.Split()[0];
 
+            var bookingList = new List<int>();
+
             decimal totalPrice = 0.00m;
             foreach (var item in cartItems)
             {
@@ -88,22 +90,34 @@ namespace EasterneAdventuresApi.Core.Services
 
                 _unitOfWork.Booking.Add(createBooking);
                 _unitOfWork.Save();
+                bookingList.Add(createBooking.Booking_Id);
             }
+
+
 
 
             var genereatePayment = new Payment
             {
                 Client_Id= _authInfo.UserId,
                 TotalPrice = totalPrice,
-                Paid = false,
-                Booking_Id = (int)_unitOfWork.Booking.Query(x=>x.Client_Id ==_authInfo.UserId).Select(z=>z.Booking_Id).Last(),
+                Paid = null,
+                Booking_Id = bookingList.Last(),
             };
 
             _unitOfWork.Payment.Add(genereatePayment);
             _unitOfWork.Save();
 
-            var cancelUrl = "https://lateralscaffoldingpre.azurewebsites.net/subscriptions?transactionId=";
-            var returnUrl = "https://lateralscaffoldingpre.azurewebsites.net/subscriptions?transactionId=";
+            var bookingsToUpdate = _unitOfWork.Booking.Query(x=> bookingList.Contains(x.Booking_Id)).ToList();
+
+            foreach (var item in bookingsToUpdate)
+            {
+                item.Payment_Id = genereatePayment.Payment_Id;
+            }
+
+            _unitOfWork.Save();
+
+            var cancelUrl = "https://127.0.0.1:5173/Cart?status=Canceled";
+            var returnUrl = "https://127.0.0.1:5173/Cart?status=Success";
             var notifyUrl = "https://lateralscaffoldingpre.azurewebsites.net/subscriptions?transactionId=";
 
             var valuesDict = new Dictionary<string, string>

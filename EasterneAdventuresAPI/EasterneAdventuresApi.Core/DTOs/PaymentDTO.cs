@@ -10,6 +10,6 @@ namespace EasterneAdventuresApi.Core.DTOs
         public int Booking_Id { get; set; }
         public int Client_Id { get; set; }
         public decimal TotalPrice { get; set; }
-        public bool Paid { get; set; }
+        public DateTime? Paid { get; set; }
     }
 }
