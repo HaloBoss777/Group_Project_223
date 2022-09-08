@@ -60,7 +60,7 @@ namespace EasterneAdventuresApi.Core.Services
         }
 
 
-        public void PayForCart(List<PayActivityDTO> chartItems)
+        public void PayForCart(List<PayActivityDTO> cartItems)
         {
             
         }

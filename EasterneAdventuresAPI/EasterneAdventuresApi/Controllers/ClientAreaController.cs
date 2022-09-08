@@ -44,7 +44,7 @@ namespace EasterneAdventuresApi.Web.Controllers
         [AuthorizationFilter]
         public void PayWithPayFast([FromBody] List<PayActivityDTO> cartItems)
         {
-            _clientArea.CreateBooking(cartItems);
+            _clientArea.PayForCart(cartItems);
         }
 
     }
