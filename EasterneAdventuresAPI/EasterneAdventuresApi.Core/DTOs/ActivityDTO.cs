@@ -17,6 +17,7 @@ namespace EasterneAdventuresApi.Core.DTOs
     {
         public int Activity_Id { get; set; }
         public int Attending { get; set; }
+        public DateTime? Date { get; set; }
     }
 
 }

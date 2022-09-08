@@ -45,7 +45,7 @@ namespace EasterneAdventuresApi.Infrastructure.Database
 		{
 
             base.OnModelCreating(modelBuilder);
-            var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+			var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
               .Where(type => !String.IsNullOrEmpty(type.Namespace))
               .Where(type => type.BaseType != null && type.BaseType.IsGenericType)
               .Where(type => type.Namespace == "EasterneAdventuresApi.Infrastructure.Database.Mappings");

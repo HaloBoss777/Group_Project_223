@@ -15,7 +15,7 @@ namespace EasterneAdventuresApi.Core.Models
         public bool Paid { get; set; }
 
         public virtual Client Client { get; set; }
-        public virtual Booking Booking { get; set; }
+        public virtual List<Booking> Bookings { get; set; }
 
         public PaymentDTO DisplayPaymentDTO => new PaymentDTO()
         {

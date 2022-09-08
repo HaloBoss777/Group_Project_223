@@ -42,9 +42,9 @@ namespace EasterneAdventuresApi.Web.Controllers
         [HttpPost]
         [Route("~/api/Client/PayForCart")]
         [AuthorizationFilter]
-        public void PayWithPayFast([FromBody] List<PayActivityDTO> cartItems)
+        public ShoppingCartPayDTO PayWithPayFast([FromBody] List<PayActivityDTO> cartItems)
         {
-            _clientArea.PayForCart(cartItems);
+            return _clientArea.PayForCart(cartItems);
         }
 
     }
