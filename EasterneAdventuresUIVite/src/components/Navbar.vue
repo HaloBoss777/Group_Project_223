@@ -1,6 +1,8 @@
 <script setup>
 import { useAuthStore } from "../store/authStore.js";
+import { useCartStore } from "../store/cartStore.js";
 import icon from "../assets/Esterne.png";
+const cartStore = useCartStore();
 const authStore = useAuthStore();
 </script>
 
@@ -10,6 +12,7 @@ const authStore = useAuthStore();
       <img class="logo-image" :src="icon" alt="">
     </div>
     <ul class="nav-links">
+      <li><a @click="goToCart" href="#"><vue-feather type="shopping-cart" size="16"></vue-feather>{{cartStore.getCartCount}}</a></li>
       <li><a @click="goToHomePage" href="#">Home</a></li>
       <li v-if="authStore.isAdmin">
         <a @click="goToDashboardPage" href="#">Dashboard</a>
@@ -61,6 +64,9 @@ export default {
     },
     changeNameHere() {
       this.authStore.setName("Whoop Whoop");
+    },
+    goToCart(){
+
     },
     toggleNav() {
       const burger = document.querySelector(".burger");
