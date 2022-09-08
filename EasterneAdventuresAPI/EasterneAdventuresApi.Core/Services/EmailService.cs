@@ -28,7 +28,7 @@ namespace EasterneAdventuresApi.Core.Services
 
                     using (System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587))
                     {
-                        smtp.Credentials = new NetworkCredential("esterneadventuresconfirmation@gmail.com", "mctvhbixgdzcjbcc");
+                        smtp.Credentials = new NetworkCredential("esterneadventuresconfirmation@gmail.com", "ftpvjcnotjuzjlmu");
                         smtp.EnableSsl = true;
                         smtp.Send(mail);
                     }
