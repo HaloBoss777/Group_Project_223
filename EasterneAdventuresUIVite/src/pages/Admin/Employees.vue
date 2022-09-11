@@ -151,7 +151,6 @@
           </button>
         </div>
       </div>
-      <!-- v-if="pageNumber != 1" -->
       <div class="pageSection">
         <vue-feather
           @click="goToFirstPage"
