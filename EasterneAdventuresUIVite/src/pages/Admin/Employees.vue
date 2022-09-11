@@ -126,7 +126,7 @@
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(employee, index) in filteredEmployeeList"
+        v-for="(employee, index) in pageAbleEmployeeList"
         :key="index"
         @click.prevent="activitySelected(employee)"
       >
@@ -333,6 +333,7 @@ export default {
       listViewActive: true,
       activityList: [],
       filteredEmployeeList: [],
+      pageAbleEmployeeList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
       deletedEmployee: false,
@@ -360,19 +361,26 @@ export default {
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredEmployeeList = this.activityList.filter((x) => {
-        return x.full_Name.includes(value);
+        var nameToLookFor = x.full_Name.toLowerCase();
+        return nameToLookFor.includes(value.toLowerCase());
       });
+      this.pageNumber = 1;
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+      this.maxPages = Math.ceil(this.filteredEmployeeList.length / this.maxItems);
     },
     maxItems: function UpdatePaging(value) {
       value = parseInt(value);
       if (value < 1) {
         value = 1;
       }
-      this.filteredEmployeeList = this.activityList.slice(
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
         (this.pageNumber - 1) * value,
         this.pageNumber * value
       );
-      this.maxPages = Math.ceil(this.activityList.length / value);
+      this.maxPages = Math.ceil(this.filteredEmployeeList.length / value);
       this.pageNumber = 1;
     },
   },
@@ -403,7 +411,7 @@ export default {
     nextPage() {
       if (this.pageNumber != this.maxPages) {
         this.pageNumber++;
-        this.filteredEmployeeList = this.activityList.slice(
+        this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
           (this.pageNumber - 1) * this.maxItems,
           this.pageNumber * this.maxItems
         );
@@ -412,7 +420,7 @@ export default {
     prevPage() {
       if (this.pageNumber != 1) {
         this.pageNumber--;
-        this.filteredEmployeeList = this.activityList.slice(
+        this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
           (this.pageNumber - 1) * this.maxItems,
           this.pageNumber * this.maxItems
         );
@@ -420,14 +428,14 @@ export default {
     },
     goToFirstPage() {
       this.pageNumber = 1;
-      this.filteredEmployeeList = this.activityList.slice(
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
         (this.pageNumber - 1) * this.maxItems,
         this.pageNumber * this.maxItems
       );
     },
     goToLastPage() {
       this.pageNumber = this.maxPages;
-      this.filteredEmployeeList = this.activityList.slice(
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
         (this.pageNumber - 1) * this.maxItems,
         this.pageNumber * this.maxItems
       );
@@ -441,7 +449,7 @@ export default {
         self.maxPages = Math.ceil(
           self.filteredEmployeeList.length / self.maxItems
         );
-        self.filteredEmployeeList = self.filteredEmployeeList.slice(
+        self.pageAbleEmployeeList = self.filteredEmployeeList.slice(
           0,
           self.maxItems
         );
