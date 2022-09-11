@@ -1,11 +1,3 @@
-<script setup>
-import { useAuthStore } from "../store/authStore.js";
-import { useCartStore } from "../store/cartStore.js";
-import icon from "../assets/Esterne.png";
-const cartStore = useCartStore();
-const authStore = useAuthStore();
-</script>
-
 <template>
   <nav class="nav-bar">
     <div class="logo">
@@ -36,10 +28,15 @@ const authStore = useAuthStore();
 </template>
 
 <script>
+import { useAuthStore } from "../store/authStore.js";
+import { useCartStore } from "../store/cartStore.js";
+import icon from "../assets/Esterne.png";
 export default {
   name: "NavBar",
   data() {
     return {
+      cartStore:useCartStore(),
+      authStore:useAuthStore(),
       navOpen: false,
       windowWidth: window.innerWidth,
       loggedIn:false,

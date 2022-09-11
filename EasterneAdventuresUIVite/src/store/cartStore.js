@@ -1,8 +1,9 @@
-import { defineStore } from "pinia";
+import { defineStore, acceptHMRUpdate  } from "pinia";
 
 var cartItemsLocal = localStorage.getItem("CartItems");
 
-export const useCartStore = defineStore("cart", {
+export const useCartStore = defineStore({
+  id:"cart",
   state: () => ({ 
     cartItems: cartItemsLocal? JSON.parse(cartItemsLocal) : [],
     count:cartItemsLocal? JSON.parse(cartItemsLocal).length : 0,
@@ -44,3 +45,7 @@ export const useCartStore = defineStore("cart", {
     }
   },
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useCartStore, import.meta.hot))
+}

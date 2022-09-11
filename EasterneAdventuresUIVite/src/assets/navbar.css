@@ -1,0 +1,209 @@
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #071a2c;
+  font-family: 'Poppins', sans-serif;
+  height: 65px;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 22px;
+}
+
+.nav-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  width: 35%;
+}
+
+.nav-links li {
+  margin-right: 0px;
+  list-style: none;
+}
+
+.nav-links li:has(a) {
+  margin-right: 10px;
+}
+
+.nav-links a {
+  color: #e2e2e2;
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-links {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hideNav {
+    display: none !important;
+  }
+  body {
+    overflow-x: hidden !important;
+  }
+  .nav-links {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 8vh;
+    background-color: #071a2c;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    width: 50%;
+    -webkit-transform: translateX(-252%);
+            transform: translateX(-252%);
+    -webkit-transition: -webkit-transform 0.5s ease-in;
+    transition: -webkit-transform 0.5s ease-in;
+    transition: transform 0.5s ease-in;
+    transition: transform 0.5s ease-in, -webkit-transform 0.5s ease-in;
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+  }
+  .nav-links li {
+    margin-right: 0px;
+    margin-top: 10px;
+    opacity: 0;
+  }
+  .burger {
+    display: block;
+  }
+}
+
+.nav-active {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+
+@-webkit-keyframes navLinkFade {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+.toggle .line1 {
+  -webkit-transform: rotate(-40deg) translate(-5px, 6px);
+          transform: rotate(-40deg) translate(-5px, 6px);
+}
+
+.toggle .line2 {
+  -webkit-transform: rotate(90deg) translate(0px, 0px);
+          transform: rotate(90deg) translate(0px, 0px);
+}
+
+.toggle .line3 {
+  -webkit-transform: rotate(35deg) translate(-5px, -6px);
+          transform: rotate(35deg) translate(-5px, -6px);
+}
+
+.logo-image {
+  width: 50px;
+}
+
+.cartIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.cartIcon a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cartIcon p {
+  margin-left: 5px;
+  text-align: center;
+}
+
+.nav-bar li {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=navbar.css.map */

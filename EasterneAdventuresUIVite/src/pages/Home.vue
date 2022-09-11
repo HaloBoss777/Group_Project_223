@@ -1,17 +1,10 @@
-<script setup>
-import { useCartStore } from "../store/cartStore.js";
-const cartStore = useCartStore();
-</script>
-
 <template>
   <div ref="HomePage" id="HomePage">
-    
-
     <div class="home-content">
       <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
       <h1 class="Cover-Text">Your Adventure starts here 🚀</h1>
       <div style="display: flex; justify-content: center">
-        <label v-if="!haveAnAccount" for="password" class="inp">
+        <label  for="password" class="inp">
           <input
             v-model="activitySearch"
             @input="activitySearch = $event.target.value"
@@ -65,9 +58,11 @@ const cartStore = useCartStore();
 </template>
 
 <script>
+import { useCartStore } from "../store/cartStore.js";
 export default {
   data() {
     return {
+      cartStore:useCartStore(),
       activityList: [],
       filteredActivityList: [],
       activitySearch: "",
