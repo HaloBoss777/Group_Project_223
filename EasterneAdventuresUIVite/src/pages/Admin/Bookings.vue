@@ -1,14 +1,8 @@
 <template>
   <div>
     <div class="app-content-header">
-      <h1 class="app-content-headerText">Activity</h1>
-      <button
-        v-if="!addActivivityOpen"
-        @click="addNewActivity"
-        class="app-content-headerButton"
-      >
-        Add Activity
-      </button>
+      <h1 class="app-content-headerText">Bookings</h1>
+      
     </div>
     <div v-if="!addActivivityOpen" class="app-content-actions">
       <input
@@ -95,7 +89,7 @@
     >
       <div class="products-header">
         <div class="product-cell image">
-          Name
+          Activity
           <button class="sort-button">
             <vue-feather
               class="small-Icon"
@@ -105,7 +99,7 @@
           </button>
         </div>
         <div class="product-cell image">
-          Description
+          Client
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
@@ -122,34 +116,29 @@
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
-        <div class="product-cell image"></div>
+        <div class="product-cell image">Booked For</div>
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(activity, index) in pageAbleActivityList"
+        v-for="(booking, index) in pageAbleBookingList"
         :key="index"
-        @click.prevent="activitySelected(activity)"
+        @click.prevent="activitySelected(booking)"
       >
         <div class="product-cell category">
-          <span>{{ activity.name }}</span>
+          <span>{{ booking.activity_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ activity.description }}</span>
+          <span>{{ booking.client_Full_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>R{{ activity.price_PP }}</span>
+          <span>R{{ booking.payment_Amount }}</span>
         </div>
         <div class="product-cell category">
-          <span v-if="activity.attending">{{ activity.attending }}</span>
+          <span v-if="booking.attendees">{{ booking.attendees }}</span>
           <span v-else>0</span>
         </div>
         <div class="product-cell">
-          <button
-            class="sort-button ItemAbove"
-            @click.prevent="confirmDelete(activity.activity_Id, activity.name)"
-          >
-            <vue-feather type="trash-2" size="24"></vue-feather>
-          </button>
+          <span>{{ booking.date_Booked}}</span>
         </div>
       </div>
       <div class="pageSection">
@@ -309,7 +298,7 @@
         <button
           v-if="editActivivityOpen"
           class="app-content-headerButton"
-          @click="updateActivity"
+          @click="updateBooking"
         >
           Update
         </button>
@@ -323,12 +312,12 @@ export default {
   data() {
     return {
       listViewActive: true,
-      activityList: [],
-      filteredActivityList: [],
-      pageAbleActivityList: [],
+      bookingList: [],
+      filteredBookingList: [],
+      pageAbleBookingList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
-      deletedActivity: false,
+      deletedBooking: false,
       formData: {
         activity_Id: 0,
         name: null,
@@ -343,13 +332,13 @@ export default {
       windowWidth:window.innerWidth,
       maxItems: 10,
       pageNumber: 1,
-      maxPages: 10,
+      maxPages: 1,
     };
   },
   components: {},
   watch: {
     filterValue: function UpdateFilter(value) {
-      this.filteredActivityList = this.activityList.filter((x) => {
+      this.filteredBookingList = this.bookingList.filter((x) => {
         var stringValue = x.price_PP.toString();
         return (
           x.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -358,27 +347,22 @@ export default {
         );
       });
       this.pageNumber = 1;
-      this.pageAbleActivityList = this.filteredActivityList.slice(
+      this.pageAbleBookingList = this.filteredBookingList.slice(
         (this.pageNumber - 1) * this.maxItems,
         this.pageNumber * this.maxItems
       );
-      this.maxPages = Math.ceil(this.filteredActivityList.length / this.maxItems);
-    },
-    filerEquipment: function UpdateFilerEquipment(value) {
-      this.filteredEquipmentList = this.equipmentList.filter((x) => {
-        return x.name.includes(value);
-      });
+      this.maxPages = Math.ceil(this.filteredBookingList.length / this.maxItems);
     },
     maxItems: function UpdatePaging(value) {
       value = parseInt(value);
       if (value < 1) {
         value = 1;
       }
-      this.pageAbleActivityList = this.filteredActivityList.slice(
+      this.pageAbleBookingList = this.filteredBookingList.slice(
         (this.pageNumber - 1) * value,
         this.pageNumber * value
       );
-      this.maxPages = Math.ceil(this.filteredActivityList.length / value);
+      this.maxPages = Math.ceil(this.filteredBookingList.length / value);
       this.pageNumber = 1;
     },
   },
@@ -405,7 +389,7 @@ export default {
       this.setPage();
     },
     setPage(){
-      this.pageAbleActivityList = this.filteredActivityList.slice(
+      this.pageAbleBookingList = this.filteredBookingList.slice(
         (this.pageNumber - 1) * this.maxItems,
         this.pageNumber * this.maxItems
       );
@@ -427,17 +411,18 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
-    getActivityList() {
+    getBookingList() {
       var self = this;
       var onSuccess = (response) => {
-        self.activityList = response;
-        self.filteredActivityList = self.activityList;
-        self.maxPages = Math.ceil(self.filteredActivityList.length / self.maxItems)
+        debugger
+        self.bookingList = response;
+        self.filteredBookingList = self.bookingList;
+        self.maxPages = Math.ceil(self.filteredBookingList.length / self.maxItems)
         self.setPage();
       };
-      this.$AjaxGet(`Admin/ListActivities`, onSuccess);
+      this.$AjaxGet(`Admin/GetBookings`, onSuccess);
     },
-    addNewActivity() {
+    addNewBooking() {
       this.addActivivityOpen = true;
     },
     cancelAdd() {
@@ -455,14 +440,14 @@ export default {
 
       var onSuccess = (response) => {
         if (response) {
-          self.getActivityList();
+          self.getBookingList();
           self.cancelAdd();
         }
       };
-      this.$AjaxGet(`Admin/AddActivity`, dataToSend, onSuccess);
+      this.$AjaxGet(`Admin/AddBooking`, dataToSend, onSuccess);
     },
     activitySelected(dataChosen) {
-      if (this.deletedActivity) {
+      if (this.deletedBooking) {
         return;
       }
       this.getEquipmentList(dataChosen.activity_Id);
@@ -473,7 +458,7 @@ export default {
       this.addActivivityOpen = true;
       this.editActivivityOpen = true;
     },
-    updateActivity() {
+    updateBooking() {
       var self = this;
       var dataToSend = {
         activity_Id: this.formData.activity_Id,
@@ -484,14 +469,14 @@ export default {
 
       var onSuccess = (response) => {
         if (response) {
-          self.getActivityList();
+          self.getBookingList();
           self.cancelAdd();
         }
       };
-      this.$AjaxGet(`Admin/UpdateActivity`, dataToSend, onSuccess);
+      this.$AjaxGet(`Admin/UpdateBooking`, dataToSend, onSuccess);
     },
     confirmDelete(activity_Id, name) {
-      this.deletedActivity = true;
+      this.deletedBooking = true;
       this.$swal
         .fire({
           title: `Are you sure you want to Delete ${name} ?`,
@@ -505,17 +490,17 @@ export default {
             this.$swal.fire(`${name} was not deleted`, "", "info");
           } else if (result.isDenied) {
             this.$swal.fire(`Deleted ${name}`, "", "success");
-            this.deleteActivity(activity_Id);
+            this.deleteBooking(activity_Id);
           }
         });
     },
-    deleteActivity(activity_Id) {
+    deleteBooking(activity_Id) {
       var onSuccess = (response) => {
-        this.getActivityList();
-        this.deletedActivity = false;
+        this.getBookingList();
+        this.deletedBooking = false;
       };
       this.$AjaxGet(
-        `Admin/DeleteActivity?activity_Id=${activity_Id}`,
+        `Admin/DeleteBooking?activity_Id=${activity_Id}`,
         onSuccess
       );
     },
@@ -526,7 +511,7 @@ export default {
         self.filteredEquipmentList = self.equipmentList;
       };
       this.$AjaxGet(
-        `Admin/ListActivityEquipment?activity_Id=${activity_Id}`,
+        `Admin/ListBookingEquipment?activity_Id=${activity_Id}`,
         onSuccess
       );
     },
@@ -546,10 +531,10 @@ export default {
 
       }
 
-      this.$AjaxPost(`Admin/AddActivityEquipment`,equipmentToAdd,onSuccess);
+      this.$AjaxPost(`Admin/AddBookingEquipment`,equipmentToAdd,onSuccess);
     },
     confirmDeleteEquipment(equipment_Id, name) {
-      this.deletedActivity = true;
+      this.deletedBooking = true;
       this.$swal
         .fire({
           title: `Are you sure you want to Delete ${name} ?`,
@@ -583,14 +568,14 @@ export default {
 
       }
 
-      this.$AjaxPost(`Admin/DeleteActivityEquipment`,equipmentToAdd,onSuccess);
+      this.$AjaxPost(`Admin/DeleteBookingEquipment`,equipmentToAdd,onSuccess);
     },
     resizeHandler(){
       this.windowWidth = window.innerWidth;
     }
   },
   mounted() {
-    this.getActivityList();
+    this.getBookingList();
   },
   created() {
     window.addEventListener("resize", this.resizeHandler);

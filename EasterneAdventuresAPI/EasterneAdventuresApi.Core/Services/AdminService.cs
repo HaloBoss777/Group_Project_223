@@ -47,7 +47,6 @@ namespace EasterneAdventuresApi.Core.Services
                 item.Attending = _unitOfWork.Booking.Query(x => x.Activity_Id == item.Activity_Id && x.Payment_Id != null).Sum(y => y.Attendees);
             }
             return activityList;
-
         }
 
         public bool AddActivity(ActivityDTO activity)
@@ -352,6 +351,14 @@ namespace EasterneAdventuresApi.Core.Services
             }
 
             return returnData;
+        }
+
+
+        //Bookings
+
+        public List<BookingDetailsDTO> GetBookings()
+        {
+            return _unitOfWork.FetchDtoList<BookingDetailsDTO>("Payedbookings", null);
         }
 
         private string GenereateRandomColor()

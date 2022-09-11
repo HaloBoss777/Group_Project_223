@@ -200,5 +200,14 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.PopularActivities();
         }
+
+        //
+        [HttpGet]
+        [Route("~/api/Admin/GetBookings")]
+        [AuthorizationFilter(Permission.Admin)]
+        public List<BookingDetailsDTO> GetBookings()
+        {
+            return _adminService.GetBookings();
+        }
     }
 }

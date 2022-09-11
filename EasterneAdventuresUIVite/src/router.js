@@ -56,6 +56,12 @@ var routes = [{
           component: ()=>
             import("./pages/Admin/Equipment.vue")
         },
+        {
+          path:'/Bookings',
+          name:"Bookings",
+          component: ()=>
+            import("./pages/Admin/Bookings.vue")
+        },
       ]
     },
 ]
