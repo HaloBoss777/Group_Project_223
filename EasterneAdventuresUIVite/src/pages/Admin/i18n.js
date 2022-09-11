@@ -4,7 +4,7 @@
 export default {
   routeList: [
     {
-      routeName: "Home",
+      routeName: "Dashboard",
       routeUrl: "Dashboard",
       icon:"home"
     },
