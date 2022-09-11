@@ -17,11 +17,11 @@
         placeholder="Search..."
         type="text"
       />
-      <div class="app-content-actions-wrapper">
+      <div v-if="windowWidth > 1024"  class="app-content-actions-wrapper">
         <button
           @click="setList"
           class="action-button list"
-          :class="listViewActive ? 'active' : ''"
+          :class="listViewActive &&  windowWidth > 1024 ? 'active' : ''"
           title="List View"
         >
           <svg
@@ -47,7 +47,7 @@
         <button
           @click="setGrid"
           class="action-button grid"
-          :class="!listViewActive ? 'active' : ''"
+          :class="!listViewActive &&  windowWidth > 1024 ? 'active' : ''"
           title="Grid View"
         >
           <svg
@@ -73,7 +73,7 @@
     <div
       v-if="!addActivivityOpen"
       class="products-area-wrapper"
-      :class="listViewActive ? 'tableView' : 'gridView'"
+      :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
     >
       <div class="products-header">
         <div class="product-cell image">
@@ -204,7 +204,7 @@
       <div
         class="products-area-wrapper"
         style="height: fit-content; margin-bottom: 20px"
-        :class="listViewActive ? 'tableView' : 'gridView'"
+        :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
       >
         <div class="products-header">
           <div class="product-cell image">
@@ -294,6 +294,7 @@ export default {
       filteredEquipmentList: [],
       focuedOnDropDown: false,
       filerEquipment: null,
+      windowWidth:window.innerWidth,
     };
   },
   components: {},
@@ -489,9 +490,15 @@ export default {
 
       this.$AjaxPost(`Admin/DeleteActivityEquipment`,equipmentToAdd,onSuccess);
     },
+    resizeHandler(){
+      this.windowWidth = window.innerWidth;
+    }
   },
   mounted() {
     this.getActivityList();
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
   },
 };
 </script>

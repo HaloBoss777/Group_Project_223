@@ -50,5 +50,7 @@ namespace EasterneAdventuresApi.Core.Interfaces
 
         bool addActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd);
         bool DeleteActivityEquipment(ActivityEquipmentDTO ActivityEquipmentToAdd);
+        GraphDTO GetMonthylyIncome();
+        GraphDTO PopularActivities();
     }
 }

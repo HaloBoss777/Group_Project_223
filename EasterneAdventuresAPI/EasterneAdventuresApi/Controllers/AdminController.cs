@@ -184,5 +184,21 @@ namespace EasterneAdventuresApi.Web.Controllers
         {
             return _adminService.DeleteActivityEquipment(ActivityEquipmentToAdd);
         }
+
+        [HttpGet]
+        [Route("~/api/Admin/ChartMonthlyIncome")]
+        [AuthorizationFilter(Permission.Admin)]
+        public GraphDTO ChartMonthlyIncome()
+        {
+            return _adminService.GetMonthylyIncome();
+        }
+
+        [HttpGet]
+        [Route("~/api/Admin/PopularActivities")]
+        [AuthorizationFilter(Permission.Admin)]
+        public GraphDTO PopularActivities()
+        {
+            return _adminService.PopularActivities();
+        }
     }
 }

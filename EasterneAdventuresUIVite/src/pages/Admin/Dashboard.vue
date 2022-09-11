@@ -1,8 +1,15 @@
 <template>
   <div ref="Dashboard" id="Dashboard">
     <div class="app-container">
-      <div class="sidebar" :class="sidebarIsOpen  && windowWidth <= 1024 ? 'show-nav-items' : ''">
-        <div @click="toggleSidebar" v-if="sidebarIsOpen  && windowWidth <= 1024" class="sidebar-header">
+      <div
+        class="sidebar"
+        :class="sidebarIsOpen && windowWidth <= 1024 ? 'show-nav-items' : ''"
+      >
+        <div
+          @click="toggleSidebar"
+          v-if="sidebarIsOpen && windowWidth <= 1024"
+          class="sidebar-header"
+        >
           <div class="app-icon">
             <vue-feather type="menu" size="16"></vue-feather>
           </div>
@@ -52,43 +59,47 @@
         <router-view v-slot="{ Component }">
           <transition name="slide-fade">
             <div>
-              <div  class="app-icon" v-if="windowWidth <= 1024" @click="toggleSidebar">
+              <div
+                class="app-icon"
+                v-if="windowWidth <= 1024"
+                @click="toggleSidebar"
+              >
                 <vue-feather type="menu" size="16"></vue-feather>
               </div>
               <component :is="Component" />
               <div v-if="$route.name == 'Dashboard'">
                 <div class="dashboard-Layout">
                   <div class="headerSection">
-                    <div class="row">
-                      <div class="row ">
+                      <div class="row">
                         <div class="column card">
                           <div class="body">
                             <div class="row header">
-                              <h5>Statistics</h5>
+                              <h5>Monthly Income</h5>
                             </div>
-                            <div class="row">
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
+                            <div >
+                              <LineChart
+                                cssClasses="chartClass"
+                                :options="monthlyIncomeOptions"
+                                :chartData="monthlyIncome"
+                              />
                             </div>
                           </div>
                         </div>
                         <div class="column card">
                           <div class="body">
                             <div class="row header">
-                              <h5>Statistics</h5>
+                              <h5>Activity Popularity by Attendees</h5>
                             </div>
                             <div class="row">
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
-                              <h5 class="column">Statistics</h5>
+                              <DoughnutChart 
+                                cssClasses="chartClass"
+                                :options="popularActivitiesOptions"
+                                :chartData="popularActivities"
+                              />
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -102,15 +113,113 @@
 
 <script>
 import i18n from "./i18n";
+import { LineChart,DoughnutChart  } from "vue-chart-3";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 export default {
   data() {
     return {
       routelistData: [],
-      windowWidth:window.innerWidth,
-      sidebarIsOpen:false,
+      windowWidth: window.innerWidth,
+      sidebarIsOpen: false,
+      popularActivities: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+            fill: false,
+            borderColor: "#4bc0c0",
+          },
+        ],
+      },
+      monthlyIncome: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+            fill: false,
+            borderColor: "#4bc0c0",
+          },
+        ],
+      },
+      popularActivitiesOptions: {
+        plugins: {
+          legend: true,
+          tooltip: true,
+        },
+        scales: {
+          
+          x: {
+            display:false,
+            ticks:{
+              color: "white"
+            },
+            grid: {
+              color: "white",
+              display:false,
+              borderColor: "white", // <-- this line is answer to initial question
+            },
+          },
+          y: {
+            display:false,
+            ticks:{
+              color: "white"
+            },
+            grid: {
+              display:false,
+              color: "white",
+              borderColor: "white", // <-- this line is answer to initial question
+            },
+          },
+        },
+        elements: {
+          line: {
+            fill: false,
+            backgroundColor: "#000",
+            borderColor: "#000",
+          },
+        },
+      },
+      monthlyIncomeOptions: {
+        plugins: {
+          legend: false,
+          tooltip: true,
+        },
+        scales: {
+          x: {
+            ticks:{
+              color: "white"
+            },
+            grid: {
+              color: "white",
+              display:false,
+              borderColor: "white", // <-- this line is answer to initial question
+            },
+          },
+          y: {
+            ticks:{
+              color: "white"
+            },
+            grid: {
+              display:false,
+              color: "white",
+              borderColor: "white", // <-- this line is answer to initial question
+            },
+          },
+        },
+        elements: {
+          line: {
+            fill: false,
+            backgroundColor: "#000",
+            borderColor: "#000",
+          },
+        },
+      },
     };
   },
-  components: {},
+  components: { LineChart,DoughnutChart  },
   watch: {},
   computed: {},
   methods: {
@@ -118,15 +227,33 @@ export default {
       this.sidebarIsOpen = false;
       this.$router.push(`/${route}`);
     },
-    toggleSidebar(){
+    toggleSidebar() {
       this.sidebarIsOpen = !this.sidebarIsOpen;
     },
-    resizeHandler(){
+    resizeHandler() {
       this.windowWidth = window.innerWidth;
+    },
+    getChartData(){
+      var onSuccess = (response) => {
+        this.monthlyIncome.datasets[0].data = response.values;
+        this.monthlyIncome.datasets[0].backgroundColor = response.backgroundColor;
+        this.monthlyIncome.labels = response.labels
+      };
+      this.$AjaxGet(`Admin/ChartMonthlyIncome`,onSuccess);
+    },
+    getpopularActivities(){
+      var onSuccess = (response) => {
+        this.popularActivities.datasets[0].data = response.values;
+        this.popularActivities.datasets[0].backgroundColor = response.backgroundColor;
+        this.popularActivities.labels = response.labels
+      };
+      this.$AjaxGet(`Admin/PopularActivities`,onSuccess);
     }
   },
   mounted() {
     this.routelistData = i18n.routeList;
+    this.getChartData();
+    this.getpopularActivities();
   },
   created() {
     window.addEventListener("resize", this.resizeHandler);

@@ -18,6 +18,7 @@ using EasterneAdventuresApi.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.Storage.Shared.Protocol;
+using System.Globalization;
 
 namespace EasterneAdventuresApi.Core.Services
 {
@@ -26,12 +27,14 @@ namespace EasterneAdventuresApi.Core.Services
 
         private readonly IEasterneAdventuresUnitOfWork _unitOfWork;
         private readonly IAuthInfo _authInfo;
+        private Random random;
 
 
         public AdminService(IEasterneAdventuresUnitOfWork unitOfWork, IAuthInfo authInfo)
         {
             _unitOfWork = unitOfWork;
             _authInfo = authInfo;
+            random = new Random();
         }
 
         //Activities
@@ -305,6 +308,55 @@ namespace EasterneAdventuresApi.Core.Services
             _unitOfWork.ActivityEquipment.Delete(activityEquipToDelete);
             _unitOfWork.Save();
             return true;
+        }
+
+        public GraphDTO GetMonthylyIncome()
+        {
+            var monthlyIncome = _unitOfWork.FetchDtoList<MonthlyIncomeDTO>("GetMonthlyIncome", null);
+
+
+            var returnData = new GraphDTO()
+            {
+                BackgroundColor = new List<string>(),
+                Labels = new List<string>(),
+                Values = new List<decimal>(),
+            };
+
+            foreach (var item in monthlyIncome)
+            {
+                returnData.BackgroundColor.Add("#fff");
+                returnData.Labels.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month));
+                returnData.Values.Add(item.Amount);
+            }
+
+            return returnData;
+        }
+
+        public GraphDTO PopularActivities()
+        {
+            var monthlyIncome = _unitOfWork.FetchDtoList<PopularActivitiesDTO>("PopularActivities", null);
+
+
+            var returnData = new GraphDTO()
+            {
+                BackgroundColor = new List<string>(),
+                Labels = new List<string>(),
+                Values = new List<decimal>(),
+            };
+
+            foreach (var item in monthlyIncome)
+            {
+                returnData.BackgroundColor.Add(GenereateRandomColor());
+                returnData.Labels.Add(item.Name);
+                returnData.Values.Add(item.Attending);
+            }
+
+            return returnData;
+        }
+
+        private string GenereateRandomColor()
+        {
+            return String.Format("#{0:X6}", random.Next(0x1000000));
         }
 
     }
