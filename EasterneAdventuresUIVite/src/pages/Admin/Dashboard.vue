@@ -48,6 +48,7 @@
           </button>
         </div>
       </div>
+      <!-- Put anything like images in above...NOT in app-content -->
       <div class="app-content">
         <router-view v-slot="{ Component }">
           <transition name="slide-fade">
