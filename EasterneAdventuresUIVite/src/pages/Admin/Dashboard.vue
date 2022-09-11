@@ -129,7 +129,7 @@ export default {
             data: [],
             backgroundColor: [],
             fill: false,
-            borderColor: "#4bc0c0",
+            borderColor: "#283046",
           },
         ],
       },
