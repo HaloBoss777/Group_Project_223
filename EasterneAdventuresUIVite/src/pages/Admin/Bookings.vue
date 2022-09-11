@@ -89,7 +89,7 @@
     >
       <div class="products-header">
         <div class="product-cell image">
-          Activity
+          Client
           <button class="sort-button">
             <vue-feather
               class="small-Icon"
@@ -99,7 +99,7 @@
           </button>
         </div>
         <div class="product-cell image">
-          Client
+          Activity
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
@@ -125,10 +125,10 @@
         @click.prevent="activitySelected(booking)"
       >
         <div class="product-cell category">
-          <span>{{ booking.activity_Name }}</span>
+          <span>{{ booking.client_Full_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ booking.client_Full_Name }}</span>
+          <span>{{ booking.activity_Name }}</span>
         </div>
         <div class="product-cell category">
           <span>R{{ booking.payment_Amount }}</span>
@@ -206,84 +206,9 @@
           <span class="focus-bg"></span>
         </label>
       </div>
-      <div class="dropdown">
-        <div id="myDropdown" class="dropdown-content">
-          <input
-            @input="filerEquipment = $event.target.value"
-            @focusin="focuedOnDropDown = true"
-            @focusout="setDropDownClosed"
-            class="inputActiveHere"
-            type="text"
-            placeholder="Add Equipment.."
-            id="myInput"
-          />
-          <div
-            v-for="(equipment, index) in filteredEquipmentList.filter(
-              (x) => !x.activity_Id
-            )"
-            :key="index"
-          >
-            <a
-              @click="addEquipment(equipment.equipment_Id)"
-              :class="focuedOnDropDown ? 'show' : ''"
-              href="#"
-              >{{ equipment.name }}</a
-            >
-          </div>
-        </div>
-      </div>
-      <h2 style="margin-top: 20px; color: white">
-        Equipment Allocated to {{ this.formData.name }}
-      </h2>
-      <div
-        class="products-area-wrapper"
-        style="height: fit-content; margin-bottom: 20px"
-        :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
-      >
-        <div class="products-header">
-          <div class="product-cell image">
-            Name
-            <button class="sort-button">
-              <vue-feather
-                class="small-Icon"
-                type="arrow-up"
-                size="36px"
-              ></vue-feather>
-            </button>
-          </div>
-          <div class="product-cell image">
-            Broken
-            <button class="sort-button">
-              <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
-            </button>
-          </div>
-          <div class="product-cell image"></div>
-        </div>
-        <div
-          class="products-row ItemBelow"
-          v-for="(equipment, index) in equipmentList.filter(
-            (x) => x.activity_Id
-          )"
-          :key="index"
-        >
-          <div class="product-cell category">
-            <span>{{ equipment.name }}</span>
-          </div>
-          <div class="product-cell category">
-            <span>{{ equipment.broken }}</span>
-          </div>
-          <div class="product-cell">
-            <button
-              class="sort-button ItemAbove"
-              @click.prevent="
-                confirmDeleteEquipment(equipment.equipment_Id, equipment.name)
-              "
-            >
-              <vue-feather type="trash-2" size="24"></vue-feather>
-            </button>
-          </div>
-        </div>
-      </div>
+      
+      
+        
       <div class="right-side">
         <button class="app-content-cancelButton mr-2" @click="cancelAdd">
           Cancel
@@ -339,10 +264,14 @@ export default {
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredBookingList = this.bookingList.filter((x) => {
-        var stringValue = x.price_PP.toString();
+        var stringValue = x.payment_Amount.toString();
         return (
-          x.name.toLowerCase().includes(value.toLowerCase()) ||
-          x.description.toLowerCase().includes(value.toLowerCase()) ||
+          x.client_RSA_Id.includes(value) ||
+          x.activity_Name.includes(value) ||
+          x.client_Full_Name.includes(value) ||
+          x.date_Booked.includes(value) ||
+          x.client_Cell.includes(value) ||
+          x.attendees.toString().includes(value) ||
           stringValue.includes(value)
         );
       });
@@ -414,7 +343,6 @@ export default {
     getBookingList() {
       var self = this;
       var onSuccess = (response) => {
-        debugger
         self.bookingList = response;
         self.filteredBookingList = self.bookingList;
         self.maxPages = Math.ceil(self.filteredBookingList.length / self.maxItems)
@@ -450,7 +378,6 @@ export default {
       if (this.deletedBooking) {
         return;
       }
-      this.getEquipmentList(dataChosen.activity_Id);
       (this.formData.activity_Id = dataChosen.activity_Id),
         (this.formData.name = dataChosen.name),
         (this.formData.description = dataChosen.description),
@@ -514,61 +441,6 @@ export default {
         `Admin/ListBookingEquipment?activity_Id=${activity_Id}`,
         onSuccess
       );
-    },
-    addEquipment(equipment_Id) {
-      var index = this.equipmentList.findIndex(
-        (x) => x.equipment_Id == equipment_Id
-      );
-      this.equipmentList[index].activity_Id = this.formData.activity_Id;
-      this.filteredEquipmentList = this.equipmentList;
-
-      var equipmentToAdd={
-        equipment_Id:equipment_Id,
-        activity_Id:this.formData.activity_Id
-      }
-
-      var onSuccess = response =>{
-
-      }
-
-      this.$AjaxPost(`Admin/AddBookingEquipment`,equipmentToAdd,onSuccess);
-    },
-    confirmDeleteEquipment(equipment_Id, name) {
-      this.deletedBooking = true;
-      this.$swal
-        .fire({
-          title: `Are you sure you want to Delete ${name} ?`,
-          showDenyButton: true,
-          showCancelButton: false,
-          confirmButtonText: `Don't Delete`,
-          denyButtonText: `Delete`,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$swal.fire(`${name} was not deleted`, "", "info");
-          } else if (result.isDenied) {
-            this.$swal.fire(`Deleted ${name}`, "", "success");
-            this.removeEquipment(equipment_Id);
-          }
-        });
-    },
-    removeEquipment(equipment_Id) {
-      var index = this.equipmentList.findIndex(
-        (x) => x.equipment_Id == equipment_Id
-      );
-      this.equipmentList[index].activity_Id = null;
-      this.filteredEquipmentList = this.equipmentList;
-
-      var equipmentToAdd={
-        equipment_Id:equipment_Id,
-        activity_Id:this.formData.activity_Id
-      }
-
-      var onSuccess = response =>{
-
-      }
-
-      this.$AjaxPost(`Admin/DeleteBookingEquipment`,equipmentToAdd,onSuccess);
     },
     resizeHandler(){
       this.windowWidth = window.innerWidth;
