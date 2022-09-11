@@ -1,14 +1,8 @@
 <template>
   <div>
     <div class="app-content-header">
-      <h1 class="app-content-headerText">Equipment</h1>
-      <button
-        v-if="!addActivivityOpen"
-        @click="addNewEquipment"
-        class="app-content-headerButton"
-      >
-        Add Equipment
-      </button>
+      <h1 class="app-content-headerText">Bookings</h1>
+      
     </div>
     <div v-if="!addActivivityOpen" class="app-content-actions">
       <input
@@ -35,7 +29,7 @@
           ></vue-feather>
         </button>
       </div>
-      <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
+      <div v-if="windowWidth > 1024"  class="app-content-actions-wrapper">
         <button
           @click="setList"
           class="action-button list"
@@ -95,7 +89,7 @@
     >
       <div class="products-header">
         <div class="product-cell image">
-          Name
+          Client
           <button class="sort-button">
             <vue-feather
               class="small-Icon"
@@ -105,32 +99,55 @@
           </button>
         </div>
         <div class="product-cell image">
-          Broken
+          Activity
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
-        <div class="product-cell image"></div>
+        <div class="product-cell image">
+          Price_PP
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">
+          Attending
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">
+          Paid
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">Booked For</div>
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(equipment, index) in pageAbleEquipmentList"
+        v-for="(booking, index) in pageAbleBookingList"
         :key="index"
-        @click.prevent="equipmentSelected(equipment)"
+        @click.prevent="activitySelected(booking)"
       >
         <div class="product-cell category">
-          <span>{{ equipment.name }}</span>
+          <span>{{ booking.client_Full_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>{{ equipment.broken }}</span>
+          <span>{{ booking.activity_Name }}</span>
+        </div>
+        <div class="product-cell category">
+          <span>R{{ booking.activity_PP }}</span>
+        </div>
+        <div class="product-cell category">
+          <span v-if="booking.attendees">{{ booking.attendees }}</span>
+          <span v-else>0</span>
+        </div>
+        <div class="product-cell category">
+          <span>R{{booking.activity_PP * booking.attendees}}</span>
         </div>
         <div class="product-cell">
-          <button
-            class="sort-button ItemAbove"
-            @click.prevent="confirmDelete(equipment.equipment_Id, equipment.name)"
-          >
-            <vue-feather type="trash-2" size="24"></vue-feather>
-          </button>
+          <span>{{ booking.date_Booked}}</span>
         </div>
       </div>
       <div class="pageSection">
@@ -162,31 +179,79 @@
       </div>
     </div>
     <div v-if="addActivivityOpen">
-      <div class="Input-Section column">
-        <div class="row">
-          <label for="name" class="inp">
-            <input
-              v-model="formData.name"
-              @input="formData.name = $event.target.value"
-              type="text"
-              id="name"
-              placeholder="&nbsp;"
-            />
-            <span class="label">Name</span>
-            <span class="focus-bg"></span>
-          </label>
-        </div>
-        <div style="display: flex;margin-top: 10px;">
-          <label class="checkbox path">
-            <input type="checkbox" v-model="formData.broken" />
-            <svg viewBox="0 0 21 21">
-              <path
-                d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"
-              ></path>
-            </svg>
-          </label>
-          <span class="checkbox-label">Broken</span>
-        </div>
+      <div class="Input-Section">
+        <label for="name" class="inp">
+          <input
+            v-model="formData.activity_Name"
+            @input="formData.activity_Name = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Activity</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.client_Full_Name"
+            @input="formData.client_Full_Name = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Client Full Name</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.client_Cell"
+            @input="formData.client_Cell = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Client Cell</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.client_RSA_Id"
+            @input="formData.client_RSA_Id = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Client RSA Id</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.attendees"
+            @input="formData.attendees = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Attending</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.activity_PP"
+            @input="formData.activity_PP = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Activity Cost PP</span>
+          <span class="focus-bg"></span>
+        </label>
       </div>
       <div class="right-side">
         <button class="app-content-cancelButton mr-2" @click="cancelAdd">
@@ -202,7 +267,7 @@
         <button
           v-if="editActivivityOpen"
           class="app-content-headerButton"
-          @click="updateEquipment"
+          @click="updateBooking"
         >
           Update
         </button>
@@ -212,50 +277,73 @@
 </template>
 
 <script>
-import md5 from "md5";
 export default {
   data() {
     return {
       listViewActive: true,
-      equipmentList: [],
-      filteredEquipmentList: [],
-      pageAbleEquipmentList: [],
+      bookingList: [],
+      filteredBookingList: [],
+      pageAbleBookingList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
-      deletedEquipment: false,
+      deletedBooking: false,
       formData: {
-        equipment_Id: 0,
-        name:"",
-        broken:false,
+        booking_Id:0,
+        client_Id:0,
+        client_Full_Name:"",
+        client_RSA_Id:"",
+        client_Cell:"",
+        activity_Id:0,
+        activity_Name:"",
+        payment_Id :0,
+        payment_Amount:0,
+        date_Booked:"",
+        attendees:0,
+        activity_PP:0
       },
       filterValue: "",
+      equipmentList: [],
+      filteredEquipmentList: [],
+      focuedOnDropDown: false,
+      filerEquipment: null,
       windowWidth:window.innerWidth,
       maxItems: 10,
       pageNumber: 1,
-      maxPages: 10,
+      maxPages: 1,
     };
   },
   components: {},
   watch: {
     filterValue: function UpdateFilter(value) {
-      this.filteredEquipmentList = this.equipmentList.filter((x) => {
+      this.filteredBookingList = this.bookingList.filter((x) => {
+        var stringValue = x.payment_Amount.toString();
         return (
-          x.name.toLowerCase().includes(value)
+          x.client_RSA_Id.includes(value) ||
+          x.activity_Name.includes(value) ||
+          x.client_Full_Name.includes(value) ||
+          x.date_Booked.includes(value) ||
+          x.client_Cell.includes(value) ||
+          x.attendees.toString().includes(value) ||
+          stringValue.includes(value)
         );
       });
-      this.setPage();
-      this.maxPages = Math.ceil(this.filteredEquipmentList.length / this.maxItems);
+      this.pageNumber = 1;
+      this.pageAbleBookingList = this.filteredBookingList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+      this.maxPages = Math.ceil(this.filteredBookingList.length / this.maxItems);
     },
     maxItems: function UpdatePaging(value) {
       value = parseInt(value);
       if (value < 1) {
         value = 1;
       }
-      this.pageAbleEquipmentList = this.filteredEquipmentList.slice(
+      this.pageAbleBookingList = this.filteredBookingList.slice(
         (this.pageNumber - 1) * value,
         this.pageNumber * value
       );
-      this.maxPages = Math.ceil(this.filteredEquipmentList.length / value);
+      this.maxPages = Math.ceil(this.filteredBookingList.length / value);
       this.pageNumber = 1;
     },
   },
@@ -282,15 +370,18 @@ export default {
       this.setPage();
     },
     setPage(){
-      this.pageAbleEquipmentList = this.filteredEquipmentList.slice(
+      this.pageAbleBookingList = this.filteredBookingList.slice(
         (this.pageNumber - 1) * this.maxItems,
         this.pageNumber * this.maxItems
       );
     },
-    initFormData() {
-      this.formData.equipment_Id = 0;
-      this.formData.name = "";
-      this.formData.broken = false;
+    setDropDownClosed() {
+      setTimeout(() => {
+        this.focuedOnDropDown = false;
+      }, 200);
+    },
+    filterFunction() {
+      this.filteredEquipmentList;
     },
     changeViews() {
       this.listViewActive = !this.listViewActive;
@@ -301,103 +392,42 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
-    getEquipmentList() {
+    getBookingList() {
       var self = this;
       var onSuccess = (response) => {
-        self.equipmentList = response;
-        self.filteredEquipmentList = self.equipmentList;
-        self.maxPages = Math.ceil(self.filteredEquipmentList.length / self.maxItems)
+        self.bookingList = response;
+        self.filteredBookingList = self.bookingList;
+        self.maxPages = Math.ceil(self.filteredBookingList.length / self.maxItems)
         self.setPage();
       };
-      this.$AjaxGet(`Admin/ListEquipment`, onSuccess);
-    },
-    addNewEquipment() {
-      this.initFormData();
-      this.addActivivityOpen = true;
+      this.$AjaxGet(`Admin/GetBookings`, onSuccess);
     },
     cancelAdd() {
       this.addActivivityOpen = false;
       this.editActivivityOpen = false;
     },
-    addNewItem() {
-      var self = this;
-      var dataToSend = {
-        equipment_Id: this.formData.equipment_Id,
-        name: this.formData.name,
-        broken: this.formData.broken,
-      };
-
-      var onSuccess = (response) => {
-        if (response) {
-          self.getEquipmentList();
-          self.cancelAdd();
-        }
-      };
-      this.$AjaxPost(`Admin/AddEquipmnet`, dataToSend, onSuccess);
-    },
-    equipmentSelected(dataChosen) {
-      this.initFormData();
-      if (this.deletedEquipment) {
-        return;
-      }
-      this.formData.equipment_Id = dataChosen.equipment_Id;
-      this.formData.name = dataChosen.name;
-      this.formData.broken = dataChosen.broken;
+    activitySelected(dataChosen) {
+      this.formData.booking_Id=dataChosen.booking_Id;
+      this.formData.client_Id=dataChosen.client_Id;
+      this.formData.client_Full_Name=dataChosen.client_Full_Name;
+      this.formData.client_RSA_Id=dataChosen.client_RSA_Id;
+      this.formData.client_Cell=dataChosen.client_Cell;
+      this.formData.activity_Id=dataChosen.activity_Id;
+      this.formData.activity_Name=dataChosen.activity_Name;
+      this.formData.payment_Id =dataChosen.payment_Id;
+      this.formData.payment_Amount=dataChosen.payment_Amount;
+      this.formData.date_Booked=dataChosen.date_Booked;
+      this.formData.attendees=dataChosen.attendees;
+      this.formData.activity_PP=dataChosen.activity_PP;
       this.addActivivityOpen = true;
       this.editActivivityOpen = true;
-    },
-    updateEquipment() {
-      var self = this;
-      var dataToSend = {
-        equipment_Id: this.formData.equipment_Id,
-        name: this.formData.name,
-        broken: this.formData.broken,
-      };
-
-      var onSuccess = (response) => {
-        if (response) {
-          self.getEquipmentList();
-          self.cancelAdd();
-        }
-      };
-
-      this.$AjaxPost(`Admin/UpdateEquipment`, dataToSend, onSuccess);
-    },
-    confirmDelete(equipment_Id, name) {
-      this.deletedEquipment = true;
-      this.$swal
-        .fire({
-          title: `Are you sure you want to Delete ${name} ?`,
-          showDenyButton: true,
-          showCancelButton: false,
-          confirmButtonText: `Don't Delete`,
-          denyButtonText: `Delete`,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$swal.fire(`${name} was not deleted`, "", "info");
-          } else if (result.isDenied) {
-            this.$swal.fire(`Deleted ${name}`, "", "success");
-            this.deleteEquipment(equipment_Id);
-          }
-        });
-    },
-    deleteEquipment(equipment_Id) {
-      var onSuccess = (response) => {
-        this.getEquipmentList();
-        this.deletedEquipment = false;
-      };
-      this.$AjaxGet(
-        `Admin/DeleteEquipment?equipment_Id=${equipment_Id}`,
-        onSuccess
-      );
     },
     resizeHandler(){
       this.windowWidth = window.innerWidth;
     }
   },
   mounted() {
-    this.getEquipmentList();
+    this.getBookingList();
   },
   created() {
     window.addEventListener("resize", this.resizeHandler);

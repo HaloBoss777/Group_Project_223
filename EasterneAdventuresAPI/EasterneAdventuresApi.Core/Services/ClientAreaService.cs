@@ -43,8 +43,6 @@ namespace EasterneAdventuresApi.Core.Services
 
         public List<ActivityDTO> GetAllActivities()
         {
-
-            var temp = _unitOfWork.FetchDtoList<MonthlyIncomeDTO>("GetMonthlyIncome", null);
             return _unitOfWork.Activity.Query().Select(x=>x.DisplayActivityDTO).ToList();
         }
 		

@@ -17,11 +17,29 @@
         placeholder="Search..."
         type="text"
       />
-      <div class="app-content-actions-wrapper">
+      <span style="margin-left: 10px">Items Per Page: </span>
+      <div class="counter counter-icons">
+        <button :disabled="maxItems == 1" @click="maxItems--">
+          <vue-feather
+            style="margin-right: 2px"
+            type="minus"
+            size="16"
+          ></vue-feather>
+        </button>
+        <output>{{ maxItems }}</output>
+        <button @click="maxItems++">
+          <vue-feather
+            style="margin-right: 2px"
+            type="plus"
+            size="16"
+          ></vue-feather>
+        </button>
+      </div>
+      <div v-if="windowWidth > 1024"  class="app-content-actions-wrapper">
         <button
           @click="setList"
           class="action-button list"
-          :class="listViewActive ? 'active' : ''"
+          :class="listViewActive &&  windowWidth > 1024 ? 'active' : ''"
           title="List View"
         >
           <svg
@@ -47,7 +65,7 @@
         <button
           @click="setGrid"
           class="action-button grid"
-          :class="!listViewActive ? 'active' : ''"
+          :class="!listViewActive &&  windowWidth > 1024 ? 'active' : ''"
           title="Grid View"
         >
           <svg
@@ -73,7 +91,7 @@
     <div
       v-if="!addActivivityOpen"
       class="products-area-wrapper"
-      :class="listViewActive ? 'tableView' : 'gridView'"
+      :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
     >
       <div class="products-header">
         <div class="product-cell image">
@@ -108,7 +126,7 @@
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(activity, index) in filteredActivityList"
+        v-for="(activity, index) in pageAbleActivityList"
         :key="index"
         @click.prevent="activitySelected(activity)"
       >
@@ -133,6 +151,33 @@
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
+      </div>
+      <div class="pageSection">
+        <vue-feather
+          @click="goToFirstPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="skip-back"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="prevPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="arrow-left"
+          size="16"
+        ></vue-feather>
+        <h5>{{ pageNumber }} / {{ maxPages }}</h5>
+        <vue-feather
+          @click="nextPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="arrow-right"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="goToLastPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="skip-forward"
+          size="16"
+        ></vue-feather>
       </div>
     </div>
     <div v-if="addActivivityOpen">
@@ -204,7 +249,7 @@
       <div
         class="products-area-wrapper"
         style="height: fit-content; margin-bottom: 20px"
-        :class="listViewActive ? 'tableView' : 'gridView'"
+        :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
       >
         <div class="products-header">
           <div class="product-cell image">
@@ -280,6 +325,7 @@ export default {
       listViewActive: true,
       activityList: [],
       filteredActivityList: [],
+      pageAbleActivityList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
       deletedActivity: false,
@@ -294,6 +340,10 @@ export default {
       filteredEquipmentList: [],
       focuedOnDropDown: false,
       filerEquipment: null,
+      windowWidth:window.innerWidth,
+      maxItems: 10,
+      pageNumber: 1,
+      maxPages: 10,
     };
   },
   components: {},
@@ -302,20 +352,64 @@ export default {
       this.filteredActivityList = this.activityList.filter((x) => {
         var stringValue = x.price_PP.toString();
         return (
-          x.name.includes(value) ||
-          x.description.includes(value) ||
+          x.name.toLowerCase().includes(value.toLowerCase()) ||
+          x.description.toLowerCase().includes(value.toLowerCase()) ||
           stringValue.includes(value)
         );
       });
+      this.pageNumber = 1;
+      this.pageAbleActivityList = this.filteredActivityList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+      this.maxPages = Math.ceil(this.filteredActivityList.length / this.maxItems);
     },
     filerEquipment: function UpdateFilerEquipment(value) {
       this.filteredEquipmentList = this.equipmentList.filter((x) => {
         return x.name.includes(value);
       });
     },
+    maxItems: function UpdatePaging(value) {
+      value = parseInt(value);
+      if (value < 1) {
+        value = 1;
+      }
+      this.pageAbleActivityList = this.filteredActivityList.slice(
+        (this.pageNumber - 1) * value,
+        this.pageNumber * value
+      );
+      this.maxPages = Math.ceil(this.filteredActivityList.length / value);
+      this.pageNumber = 1;
+    },
   },
   computed: {},
   methods: {
+    nextPage() {
+      if (this.pageNumber != this.maxPages) {
+        this.pageNumber++;
+        this.setPage();
+      }
+    },
+    prevPage() {
+      if (this.pageNumber != 1) {
+        this.pageNumber--;
+        this.setPage();
+      }
+    },
+    goToFirstPage() {
+      this.pageNumber = 1;
+      this.setPage();
+    },
+    goToLastPage() {
+      this.pageNumber = this.maxPages;
+      this.setPage();
+    },
+    setPage(){
+      this.pageAbleActivityList = this.filteredActivityList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+    },
     setDropDownClosed() {
       setTimeout(() => {
         this.focuedOnDropDown = false;
@@ -338,6 +432,8 @@ export default {
       var onSuccess = (response) => {
         self.activityList = response;
         self.filteredActivityList = self.activityList;
+        self.maxPages = Math.ceil(self.filteredActivityList.length / self.maxItems)
+        self.setPage();
       };
       this.$AjaxGet(`Admin/ListActivities`, onSuccess);
     },
@@ -489,9 +585,15 @@ export default {
 
       this.$AjaxPost(`Admin/DeleteActivityEquipment`,equipmentToAdd,onSuccess);
     },
+    resizeHandler(){
+      this.windowWidth = window.innerWidth;
+    }
   },
   mounted() {
     this.getActivityList();
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
   },
 };
 </script>

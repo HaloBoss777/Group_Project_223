@@ -12,9 +12,21 @@
 <div class="home-content">
       <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
     <h1 class="Cover-Text">Adventure starts here 🚀</h1>
-    <input type="text" placeholder="search for Activity">
+    <div style="display: flex; justify-content: center;">
+      <label v-if="!haveAnAccount" for="password" class="inp">
+        <input
+          v-model="activitySearch"
+          @input="activitySearch = $event.target.value"
+          type="text"
+          id="password"
+          placeholder="&nbsp;"
+        />
+        <span class="label">Search For An Activity</span>
+        <span class="focus-bg"></span>
+      </label>
+    </div>
     <div class="activity-area">
-      <div class="activity-List-Item" v-for="(activity, index) in activityList" :key="index">
+      <div class="activity-List-Item" v-for="(activity, index) in filteredActivityList" :key="index">
         <div class="content-divider">
           <div class="column">
             <h2 style="color: white;">{{activity.name}}</h2>
@@ -42,12 +54,24 @@ export default {
   data() {
     return { 
       activityList:[],
+      filteredActivityList:[],
+      activitySearch:""
     } 
   },
   components:{ 
   },
   watch:{ 
-
+    activitySearch:function(val){
+      if(val){
+        this.filteredActivityList = this.activityList.filter(x=>{
+          var lowerCase = x.name.toLowerCase();
+          return lowerCase.includes(val.toLowerCase())
+        });
+      }
+      else{
+        this.filteredActivityList = this.activityList
+      }
+    }
   },
   computed: { 
 
@@ -60,6 +84,7 @@ export default {
       var self = this;
       var onSuccess = (response) => {
         self.activityList = response;
+        this.filteredActivityList = this.activityList
       };
       this.$AjaxGetAnon(`Client/ListActivities`, onSuccess);
     },

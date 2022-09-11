@@ -17,11 +17,29 @@
         placeholder="Search..."
         type="text"
       />
-      <div class="app-content-actions-wrapper">
+      <span style="margin-left: 10px">Items Per Page: </span>
+      <div class="counter counter-icons">
+        <button :disabled="maxItems == 1" @click="maxItems--">
+          <vue-feather
+            style="margin-right: 2px"
+            type="minus"
+            size="16"
+          ></vue-feather>
+        </button>
+        <output>{{ maxItems }}</output>
+        <button @click="maxItems++">
+          <vue-feather
+            style="margin-right: 2px"
+            type="plus"
+            size="16"
+          ></vue-feather>
+        </button>
+      </div>
+      <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
         <button
           @click="setList"
           class="action-button list"
-          :class="listViewActive ? 'active' : ''"
+          :class="listViewActive && windowWidth > 1024 ? 'active' : ''"
           title="List View"
         >
           <svg
@@ -47,7 +65,7 @@
         <button
           @click="setGrid"
           class="action-button grid"
-          :class="!listViewActive ? 'active' : ''"
+          :class="!listViewActive && windowWidth > 1024 ? 'active' : ''"
           title="Grid View"
         >
           <svg
@@ -73,7 +91,7 @@
     <div
       v-if="!addActivivityOpen"
       class="products-area-wrapper"
-      :class="listViewActive ? 'tableView' : 'gridView'"
+      :class="listViewActive && windowWidth > 1024 ? 'tableView' : 'gridView'"
     >
       <div class="products-header">
         <div class="product-cell image">
@@ -108,7 +126,7 @@
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(employee, index) in filteredEmployeeList"
+        v-for="(employee, index) in pageAbleEmployeeList"
         :key="index"
         @click.prevent="activitySelected(employee)"
       >
@@ -132,6 +150,33 @@
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
+      </div>
+      <div class="pageSection">
+        <vue-feather
+          @click="goToFirstPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="skip-back"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="prevPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="arrow-left"
+          size="16"
+        ></vue-feather>
+        <h5>{{ pageNumber }} / {{ maxPages }}</h5>
+        <vue-feather
+          @click="nextPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="arrow-right"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="goToLastPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="skip-forward"
+          size="16"
+        ></vue-feather>
       </div>
     </div>
     <div v-if="addActivivityOpen">
@@ -287,6 +332,7 @@ export default {
       listViewActive: true,
       activityList: [],
       filteredEmployeeList: [],
+      pageAbleEmployeeList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
       deletedEmployee: false,
@@ -304,16 +350,37 @@ export default {
         passwordHash: "",
       },
       filterValue: "",
+      windowWidth: window.innerWidth,
+      maxItems: 10,
+      pageNumber: 1,
+      maxPages: 10,
     };
   },
   components: {},
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredEmployeeList = this.activityList.filter((x) => {
-        return (
-          x.full_Name.includes(value)
-        );
+        var nameToLookFor = x.full_Name.toLowerCase();
+        return nameToLookFor.includes(value.toLowerCase()) || x.cellNum.includes(value) || x.rsA_Id.includes(value);
       });
+      this.pageNumber = 1;
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+      this.maxPages = Math.ceil(this.filteredEmployeeList.length / this.maxItems);
+    },
+    maxItems: function UpdatePaging(value) {
+      value = parseInt(value);
+      if (value < 1) {
+        value = 1;
+      }
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
+        (this.pageNumber - 1) * value,
+        this.pageNumber * value
+      );
+      this.maxPages = Math.ceil(this.filteredEmployeeList.length / value);
+      this.pageNumber = 1;
     },
   },
   computed: {},
@@ -340,11 +407,45 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
+    setPage(){
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
+          (this.pageNumber - 1) * this.maxItems,
+          this.pageNumber * this.maxItems
+        );
+    },
+    nextPage() {
+      if (this.pageNumber != this.maxPages) {
+        this.pageNumber++;
+        this.setPage();
+      }
+    },
+    prevPage() {
+      if (this.pageNumber != 1) {
+        this.pageNumber--;
+        this.setPage();
+      }
+    },
+    goToFirstPage() {
+      this.pageNumber = 1;
+      this.setPage();
+    },
+    goToLastPage() {
+      this.pageNumber = this.maxPages;
+      this.setPage();
+    },
     getEmployeeList() {
       var self = this;
       var onSuccess = (response) => {
         self.activityList = response;
         self.filteredEmployeeList = self.activityList;
+        self.pageNumber = 1;
+        self.maxPages = Math.ceil(
+          self.filteredEmployeeList.length / self.maxItems
+        );
+        self.pageAbleEmployeeList = self.filteredEmployeeList.slice(
+          0,
+          self.maxItems
+        );
       };
       this.$AjaxGet(`Admin/ListEmployee`, onSuccess);
     },
@@ -460,9 +561,15 @@ export default {
         onSuccess
       );
     },
+    resizeHandler() {
+      this.windowWidth = window.innerWidth;
+    },
   },
   mounted() {
     this.getEmployeeList();
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
   },
 };
 </script>
