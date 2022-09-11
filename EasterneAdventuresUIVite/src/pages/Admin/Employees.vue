@@ -23,6 +23,7 @@
         style="margin-left: 20px"
         placeholder="Items Per page"
         type="number"
+        min="1" max="100"
       />
       <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
         <button
@@ -356,6 +357,9 @@ export default {
     },
     maxItems:function UpdatePaging(value){
       value = parseInt(value)
+      if(value < 1){
+        value = 1
+      }
       this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* value,(this.pageNumber )*value);
       this.maxPages = Math.ceil(this.activityList.length / value);
       this.pageNumber = 1
