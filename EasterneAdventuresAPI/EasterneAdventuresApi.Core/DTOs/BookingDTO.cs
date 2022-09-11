@@ -24,6 +24,7 @@ namespace EasterneAdventuresApi.Core.DTOs
         public string Client_Cell { get; set; }
         public int Activity_Id { get; set; }
         public string Activity_Name { get; set; }
+        public decimal Activity_PP { get; set; }
         public int? Payment_Id { get; set; }
         public decimal? Payment_Amount { get; set; }
         public string Date_Booked { get; set; }

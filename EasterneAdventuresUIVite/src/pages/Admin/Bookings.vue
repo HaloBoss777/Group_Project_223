@@ -105,13 +105,19 @@
           </button>
         </div>
         <div class="product-cell image">
-          Price
+          Price_PP
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
         </div>
         <div class="product-cell image">
           Attending
+          <button class="sort-button">
+            <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
+          </button>
+        </div>
+        <div class="product-cell image">
+          Paid
           <button class="sort-button">
             <vue-feather class="small-Icon" type="arrow-up"></vue-feather>
           </button>
@@ -131,11 +137,14 @@
           <span>{{ booking.activity_Name }}</span>
         </div>
         <div class="product-cell category">
-          <span>R{{ booking.payment_Amount }}</span>
+          <span>R{{ booking.activity_PP }}</span>
         </div>
         <div class="product-cell category">
           <span v-if="booking.attendees">{{ booking.attendees }}</span>
           <span v-else>0</span>
+        </div>
+        <div class="product-cell category">
+          <span>R{{booking.activity_PP * booking.attendees}}</span>
         </div>
         <div class="product-cell">
           <span>{{ booking.date_Booked}}</span>
@@ -173,42 +182,77 @@
       <div class="Input-Section">
         <label for="name" class="inp">
           <input
-            v-model="formData.name"
-            @input="formData.name = $event.target.value"
+            v-model="formData.activity_Name"
+            @input="formData.activity_Name = $event.target.value"
+            disabled="true"
             type="text"
             id="name"
             placeholder="&nbsp;"
           />
-          <span class="label">Name</span>
+          <span class="label">Activity</span>
           <span class="focus-bg"></span>
         </label>
-        <label for="description" class="inp">
-          <textarea
-            cols="20"
-            v-model="formData.description"
-            @input="formData.description = $event.target.value"
-            type="text"
-            id="description"
-            placeholder="&nbsp;"
-          ></textarea>
-          <span class="label">Description</span>
-          <span class="focus-bg"></span>
-        </label>
-        <label for="price" class="inp">
+        <label for="name" class="inp">
           <input
-            v-model="formData.price_PP"
-            @input="formData.price_PP = $event.target.value"
+            v-model="formData.client_Full_Name"
+            @input="formData.client_Full_Name = $event.target.value"
+            disabled="true"
             type="text"
-            id="price"
+            id="name"
             placeholder="&nbsp;"
           />
-          <span class="label">Price PP</span>
+          <span class="label">Client Full Name</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.client_Cell"
+            @input="formData.client_Cell = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Client Cell</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.client_RSA_Id"
+            @input="formData.client_RSA_Id = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Client RSA Id</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.attendees"
+            @input="formData.attendees = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Attending</span>
+          <span class="focus-bg"></span>
+        </label>
+        <label for="name" class="inp">
+          <input
+            v-model="formData.activity_PP"
+            @input="formData.activity_PP = $event.target.value"
+            disabled="true"
+            type="text"
+            id="name"
+            placeholder="&nbsp;"
+          />
+          <span class="label">Activity Cost PP</span>
           <span class="focus-bg"></span>
         </label>
       </div>
-      
-      
-        
       <div class="right-side">
         <button class="app-content-cancelButton mr-2" @click="cancelAdd">
           Cancel
@@ -244,10 +288,18 @@ export default {
       editActivivityOpen: false,
       deletedBooking: false,
       formData: {
-        activity_Id: 0,
-        name: null,
-        description: null,
-        price_PP: null,
+        booking_Id:0,
+        client_Id:0,
+        client_Full_Name:"",
+        client_RSA_Id:"",
+        client_Cell:"",
+        activity_Id:0,
+        activity_Name:"",
+        payment_Id :0,
+        payment_Amount:0,
+        date_Booked:"",
+        attendees:0,
+        activity_PP:0
       },
       filterValue: "",
       equipmentList: [],
@@ -350,97 +402,25 @@ export default {
       };
       this.$AjaxGet(`Admin/GetBookings`, onSuccess);
     },
-    addNewBooking() {
-      this.addActivivityOpen = true;
-    },
     cancelAdd() {
       this.addActivivityOpen = false;
       this.editActivivityOpen = false;
     },
-    addNewItem() {
-      var self = this;
-      var dataToSend = {
-        activity_Id: this.formData.activity_Id,
-        name: this.formData.name,
-        description: this.formData.description,
-        price_PP: parseFloat(this.formData.price_PP),
-      };
-
-      var onSuccess = (response) => {
-        if (response) {
-          self.getBookingList();
-          self.cancelAdd();
-        }
-      };
-      this.$AjaxGet(`Admin/AddBooking`, dataToSend, onSuccess);
-    },
     activitySelected(dataChosen) {
-      if (this.deletedBooking) {
-        return;
-      }
-      (this.formData.activity_Id = dataChosen.activity_Id),
-        (this.formData.name = dataChosen.name),
-        (this.formData.description = dataChosen.description),
-        (this.formData.price_PP = dataChosen.price_PP);
+      this.formData.booking_Id=dataChosen.booking_Id;
+      this.formData.client_Id=dataChosen.client_Id;
+      this.formData.client_Full_Name=dataChosen.client_Full_Name;
+      this.formData.client_RSA_Id=dataChosen.client_RSA_Id;
+      this.formData.client_Cell=dataChosen.client_Cell;
+      this.formData.activity_Id=dataChosen.activity_Id;
+      this.formData.activity_Name=dataChosen.activity_Name;
+      this.formData.payment_Id =dataChosen.payment_Id;
+      this.formData.payment_Amount=dataChosen.payment_Amount;
+      this.formData.date_Booked=dataChosen.date_Booked;
+      this.formData.attendees=dataChosen.attendees;
+      this.formData.activity_PP=dataChosen.activity_PP;
       this.addActivivityOpen = true;
       this.editActivivityOpen = true;
-    },
-    updateBooking() {
-      var self = this;
-      var dataToSend = {
-        activity_Id: this.formData.activity_Id,
-        name: this.formData.name,
-        description: this.formData.description,
-        price_PP: parseFloat(this.formData.price_PP),
-      };
-
-      var onSuccess = (response) => {
-        if (response) {
-          self.getBookingList();
-          self.cancelAdd();
-        }
-      };
-      this.$AjaxGet(`Admin/UpdateBooking`, dataToSend, onSuccess);
-    },
-    confirmDelete(activity_Id, name) {
-      this.deletedBooking = true;
-      this.$swal
-        .fire({
-          title: `Are you sure you want to Delete ${name} ?`,
-          showDenyButton: true,
-          showCancelButton: false,
-          confirmButtonText: `Don't Delete`,
-          denyButtonText: `Delete`,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$swal.fire(`${name} was not deleted`, "", "info");
-          } else if (result.isDenied) {
-            this.$swal.fire(`Deleted ${name}`, "", "success");
-            this.deleteBooking(activity_Id);
-          }
-        });
-    },
-    deleteBooking(activity_Id) {
-      var onSuccess = (response) => {
-        this.getBookingList();
-        this.deletedBooking = false;
-      };
-      this.$AjaxGet(
-        `Admin/DeleteBooking?activity_Id=${activity_Id}`,
-        onSuccess
-      );
-    },
-    getEquipmentList(activity_Id) {
-      var self = this;
-      var onSuccess = (response) => {
-        self.equipmentList = response;
-        self.filteredEquipmentList = self.equipmentList;
-      };
-      this.$AjaxGet(
-        `Admin/ListBookingEquipment?activity_Id=${activity_Id}`,
-        onSuccess
-      );
     },
     resizeHandler(){
       this.windowWidth = window.innerWidth;

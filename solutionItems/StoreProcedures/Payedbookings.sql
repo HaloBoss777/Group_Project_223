@@ -12,6 +12,7 @@ Select
 	c.CellNum [Client_Cell] ,
 	a.[Activity_Id],
 	a.[Name] [Activity_Name] ,
+	a.Price_PP [Activity_PP] ,
 	p.Payment_Id [Payment_Id] ,
 	p.TotalPrice [Payment_Amount] ,
 	CONVERT(varchar(255),CONVERT(Date,b.Date_Booked)) [Date_Booked] ,
