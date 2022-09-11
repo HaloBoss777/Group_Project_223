@@ -25,4 +25,6 @@ Select
 	JOIN Payment p	
 		on p.Payment_Id = b.Payment_Id
 
+	ORder by p.Payment_Id desc
+
 END
