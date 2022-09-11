@@ -803,6 +803,10 @@ body {
   display: flex;
   margin: 10px;
   flex-direction: row;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   .Disabled{
     svg{
       color: gray;
@@ -816,8 +820,18 @@ body {
     display: flex;
     margin-left:5px ;
     margin-right:5px ;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
   *{
     margin: 0;
+  }
+}
+
+.counter-icons{
+  svg{
+    color: white;
   }
 }

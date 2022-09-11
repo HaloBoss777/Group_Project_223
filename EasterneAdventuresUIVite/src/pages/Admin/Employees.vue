@@ -17,19 +17,29 @@
         placeholder="Search..."
         type="text"
       />
-      <input
-        @input="maxItems = $event.target.value"
-        class="search-bar"
-        style="margin-left: 20px"
-        placeholder="Items Per page"
-        type="number"
-        min="1" max="100"
-      />
+      <span style="margin-left: 10px">Items Per Page: </span>
+      <div class="counter counter-icons">
+        <button :disabled="maxItems == 1" @click="maxItems--">
+          <vue-feather
+            style="margin-right: 2px"
+            type="minus"
+            size="16"
+          ></vue-feather>
+        </button>
+        <output>{{ maxItems }}</output>
+        <button @click="maxItems++">
+          <vue-feather
+            style="margin-right: 2px"
+            type="plus"
+            size="16"
+          ></vue-feather>
+        </button>
+      </div>
       <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
         <button
           @click="setList"
           class="action-button list"
-          :class="listViewActive &&  windowWidth > 1024 ? 'active' : ''"
+          :class="listViewActive && windowWidth > 1024 ? 'active' : ''"
           title="List View"
         >
           <svg
@@ -55,7 +65,7 @@
         <button
           @click="setGrid"
           class="action-button grid"
-          :class="!listViewActive &&  windowWidth > 1024 ? 'active' : ''"
+          :class="!listViewActive && windowWidth > 1024 ? 'active' : ''"
           title="Grid View"
         >
           <svg
@@ -81,7 +91,7 @@
     <div
       v-if="!addActivivityOpen"
       class="products-area-wrapper"
-      :class="listViewActive &&  windowWidth > 1024 ? 'tableView' : 'gridView'"
+      :class="listViewActive && windowWidth > 1024 ? 'tableView' : 'gridView'"
     >
       <div class="products-header">
         <div class="product-cell image">
@@ -155,7 +165,7 @@
           type="arrow-left"
           size="16"
         ></vue-feather>
-        <h5>{{pageNumber}}</h5>
+        <h5>{{ pageNumber }} / {{ maxPages }}</h5>
         <vue-feather
           @click="nextPage"
           :class="pageNumber != maxPages ? '' : 'Disabled'"
@@ -340,30 +350,31 @@ export default {
         passwordHash: "",
       },
       filterValue: "",
-      windowWidth:window.innerWidth,
-      maxItems:3,
-      pageNumber:1,
-      maxPages:10,
+      windowWidth: window.innerWidth,
+      maxItems: 3,
+      pageNumber: 1,
+      maxPages: 10,
     };
   },
   components: {},
   watch: {
     filterValue: function UpdateFilter(value) {
       this.filteredEmployeeList = this.activityList.filter((x) => {
-        return (
-          x.full_Name.includes(value)
-        );
+        return x.full_Name.includes(value);
       });
     },
-    maxItems:function UpdatePaging(value){
-      value = parseInt(value)
-      if(value < 1){
-        value = 1
+    maxItems: function UpdatePaging(value) {
+      value = parseInt(value);
+      if (value < 1) {
+        value = 1;
       }
-      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* value,(this.pageNumber )*value);
+      this.filteredEmployeeList = this.activityList.slice(
+        (this.pageNumber - 1) * value,
+        this.pageNumber * value
+      );
       this.maxPages = Math.ceil(this.activityList.length / value);
-      this.pageNumber = 1
-    }
+      this.pageNumber = 1;
+    },
   },
   computed: {},
   methods: {
@@ -389,25 +400,37 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
-    nextPage(){
-      if(this.pageNumber != this.maxPages){
+    nextPage() {
+      if (this.pageNumber != this.maxPages) {
         this.pageNumber++;
-        this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems,(this.pageNumber )*this.maxItems)
+        this.filteredEmployeeList = this.activityList.slice(
+          (this.pageNumber - 1) * this.maxItems,
+          this.pageNumber * this.maxItems
+        );
       }
     },
-    prevPage(){
-      if(this.pageNumber != 1){
+    prevPage() {
+      if (this.pageNumber != 1) {
         this.pageNumber--;
-        this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+        this.filteredEmployeeList = this.activityList.slice(
+          (this.pageNumber - 1) * this.maxItems,
+          this.pageNumber * this.maxItems
+        );
       }
     },
-    goToFirstPage(){
+    goToFirstPage() {
       this.pageNumber = 1;
-      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+      this.filteredEmployeeList = this.activityList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
     },
-    goToLastPage(){
+    goToLastPage() {
       this.pageNumber = this.maxPages;
-      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+      this.filteredEmployeeList = this.activityList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
     },
     getEmployeeList() {
       var self = this;
@@ -415,8 +438,13 @@ export default {
         self.activityList = response;
         self.filteredEmployeeList = self.activityList;
         self.pageNumber = 1;
-        self.maxPages = Math.ceil(self.filteredEmployeeList.length / self.maxItems);
-        self.filteredEmployeeList = self.filteredEmployeeList.slice(0,self.maxItems)
+        self.maxPages = Math.ceil(
+          self.filteredEmployeeList.length / self.maxItems
+        );
+        self.filteredEmployeeList = self.filteredEmployeeList.slice(
+          0,
+          self.maxItems
+        );
       };
       this.$AjaxGet(`Admin/ListEmployee`, onSuccess);
     },
@@ -532,9 +560,9 @@ export default {
         onSuccess
       );
     },
-    resizeHandler(){
+    resizeHandler() {
       this.windowWidth = window.innerWidth;
-    }
+    },
   },
   mounted() {
     this.getEmployeeList();
