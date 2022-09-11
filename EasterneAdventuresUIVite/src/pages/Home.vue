@@ -5,7 +5,12 @@
 
 <template>
   <div ref="HomePage" id="HomePage"> 
-    <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
+    <div class="background-section">
+      <img src="../assets/Background_Images1.png" alt=""> 
+    </div>
+  
+<div class="home-content">
+      <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
     <h1 class="Cover-Text">Adventure starts here 🚀</h1>
     <input type="text" placeholder="search for Activity">
     <div class="activity-area">
@@ -26,6 +31,8 @@
         </div>
       </div>
     </div>
+  </div>
+
   </div>
 </template> 
 
