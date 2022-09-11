@@ -30,7 +30,7 @@ var routes = [{
         import('./pages/Register.vue')
     },{
     path:'/Dashboard',
-      name:"Home",
+      name:"Dashboard",
       component:()=>
         import('./pages/Admin/Dashboard.vue')
       ,meta:{

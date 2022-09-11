@@ -125,6 +125,15 @@ body {
   @media screen and (max-width: 1024px) {&{
     display: none;
   }}
+  
+}
+
+.app-container{
+  .show-nav-items{
+    display: block !important;
+    position: absolute;
+    z-index: 200;
+  }
 }
 
 .mode-switch {
@@ -739,3 +748,37 @@ body {
 .show{
   display: block !important;
 }
+
+
+
+.dashboard-Layout{
+  *{
+    margin: 0;
+  }
+  h5{
+    font-size: 1.07rem;
+    font-weight: 500;
+  }
+  .card{
+    background-color: #283046;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,.24);
+    border-radius: .428rem;
+    display: flex;
+    min-width: 0;
+    position: relative;
+    flex-direction: column;
+    margin: 10px;
+    .header{
+      margin-bottom: 20px;
+    }
+    .body{
+      padding: 1.5rem;
+      flex: 1 1 auto;
+      min-height: 1px;
+    }
+  }
+  .headerSection{
+
+  }
+}
+
