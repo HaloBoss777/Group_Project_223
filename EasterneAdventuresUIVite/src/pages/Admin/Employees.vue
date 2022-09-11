@@ -407,37 +407,31 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
-    nextPage() {
-      if (this.pageNumber != this.maxPages) {
-        this.pageNumber++;
-        this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
+    setPage(){
+      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
           (this.pageNumber - 1) * this.maxItems,
           this.pageNumber * this.maxItems
         );
+    },
+    nextPage() {
+      if (this.pageNumber != this.maxPages) {
+        this.pageNumber++;
+        this.setPage();
       }
     },
     prevPage() {
       if (this.pageNumber != 1) {
         this.pageNumber--;
-        this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
-          (this.pageNumber - 1) * this.maxItems,
-          this.pageNumber * this.maxItems
-        );
+        this.setPage();
       }
     },
     goToFirstPage() {
       this.pageNumber = 1;
-      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
-        (this.pageNumber - 1) * this.maxItems,
-        this.pageNumber * this.maxItems
-      );
+      this.setPage();
     },
     goToLastPage() {
       this.pageNumber = this.maxPages;
-      this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
-        (this.pageNumber - 1) * this.maxItems,
-        this.pageNumber * this.maxItems
-      );
+      this.setPage();
     },
     getEmployeeList() {
       var self = this;
