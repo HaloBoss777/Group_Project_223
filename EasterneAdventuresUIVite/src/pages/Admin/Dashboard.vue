@@ -90,7 +90,7 @@
                             <div class="row header">
                               <h5>Activity Popularity by Attendees</h5>
                             </div>
-                            <div class="row">
+                            <div>
                               <DoughnutChart 
                                 cssClasses="chartClass"
                                 :options="popularActivitiesOptions"
@@ -127,7 +127,7 @@ export default {
         datasets: [
           {
             data: [],
-            backgroundColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+            backgroundColor: [],
             fill: false,
             borderColor: "#4bc0c0",
           },
