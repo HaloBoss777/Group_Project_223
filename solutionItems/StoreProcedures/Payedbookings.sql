@@ -14,7 +14,7 @@ Select
 	a.[Name] [Activity_Name] ,
 	p.Payment_Id [Payment_Id] ,
 	p.TotalPrice [Payment_Amount] ,
-	CONVERT(varchar(255),b.Date_Booked) [Date_Booked] ,
+	CONVERT(varchar(255),CONVERT(Date,b.Date_Booked)) [Date_Booked] ,
 	b.Attendees [Attendees]
 	FROM Booking b
 	JOIN Client c
