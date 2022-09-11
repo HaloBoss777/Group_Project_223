@@ -257,20 +257,6 @@
         <button class="app-content-cancelButton mr-2" @click="cancelAdd">
           Cancel
         </button>
-        <button
-          v-if="!editActivivityOpen"
-          class="app-content-headerButton"
-          @click="addNewItem"
-        >
-          Add
-        </button>
-        <button
-          v-if="editActivivityOpen"
-          class="app-content-headerButton"
-          @click="updateBooking"
-        >
-          Update
-        </button>
       </div>
     </div>
   </div>

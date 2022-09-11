@@ -21,7 +21,7 @@
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input v-model="formData.cellNum" @input="formData.cellNum = $event.target.value" type="number" id="password" placeholder="&nbsp;"/>
+          <input pattern="^(\+27|0)[6-8][0-9]{8}$" v-model="formData.cellNum" @input="formData.cellNum = $event.target.value" type="number" id="password" placeholder="&nbsp;"/>
           <span class="label">Cell Number</span>
           <span class="focus-bg"></span>
         </label>
@@ -36,7 +36,7 @@
           <span class="focus-bg"></span>
         </label>
         <a class="mt-1" href="#" @click="goToLogin">I have an account</a>
-        <button class="action-button Login-Btn" @click="register">Register</button>
+        <button class="action-button Login-Btn" @click="validate">Register</button>
       </div>
     </div>
   </div>
@@ -70,6 +70,30 @@ export default {
   methods: { 
     goToLogin(){
       this.$router.push('/Login');
+    },
+    validate(){
+      var emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.formData.email);
+      if(!this.formData.email || !emailValid){
+        this.$toast.error(`Email is invalid`);
+        return ;
+      }
+      if(!this.formData.full_name || this.formData.full_name.length < 2){
+        this.$toast.error(`Full Name is invalid`);
+        return ;
+      }
+      if(!this.formData.cellNum || this.formData.cellNum.length != 10){
+        this.$toast.error(`Cell Number is invalid`);
+        return ;
+      }
+      if(!this.formData.rSA_ID || this.formData.rSA_ID.length != 13){
+        this.$toast.error(`RSA ID is invalid`);
+        return ;
+      }
+      if(!this.password || this.password.length < 8){
+        this.$toast.error(`Password is invalid`);
+        return ;
+      }
+      this.register();
     },
     register(){
       var self = this;
