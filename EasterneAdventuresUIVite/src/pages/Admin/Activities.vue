@@ -352,8 +352,8 @@ export default {
       this.filteredActivityList = this.activityList.filter((x) => {
         var stringValue = x.price_PP.toString();
         return (
-          x.name.includes(value) ||
-          x.description.includes(value) ||
+          x.name.toLowerCase().includes(value) ||
+          x.description.toLowerCase().includes(value) ||
           stringValue.includes(value)
         );
       });

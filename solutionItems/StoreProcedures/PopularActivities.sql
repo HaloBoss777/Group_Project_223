@@ -11,12 +11,10 @@ Begin
 	from Activity a
 	JOIN Booking b
 		on b.Activity_Id = a.Activity_Id
-	JOIN Payment p
-		on b.Payment_Id = p.Payment_Id
 
-	WHERE p.Paid is not null
+	WHERE b.Payment_Id is not null
 
-	GROUP BY  a.Name
+	GROUP BY a.Name
 
 	Order by Attending desc
 END
