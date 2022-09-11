@@ -309,6 +309,30 @@ export default {
     },
   },
   methods: {
+    validate(){
+      var emailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.formData.email);
+      if(!this.formData.email || !emailValid){
+        this.$toast.error(`Email is invalid`);
+        return ;
+      }
+      if(!this.formData.full_name || this.formData.full_name.length < 2){
+        this.$toast.error(`Full Name is invalid`);
+        return ;
+      }
+      if(!this.formData.cellNum || this.formData.cellNum.length != 10){
+        this.$toast.error(`Cell Number is invalid`);
+        return ;
+      }
+      if(!this.formData.rSA_ID || this.formData.rSA_ID.length != 13){
+        this.$toast.error(`RSA ID is invalid`);
+        return ;
+      }
+      if(!this.password || this.password.length < 8){
+        this.$toast.error(`Password is invalid`);
+        return ;
+      }
+      this.register();
+    },
     goToLogin() {
       this.haveAnAccount = !this.haveAnAccount;
     },
@@ -483,7 +507,7 @@ export default {
         this.login();
       }
       else{
-        this.register();
+        this.validate();
       }
     }
   },
