@@ -17,6 +17,24 @@
         placeholder="Search..."
         type="text"
       />
+      <span style="margin-left: 10px">Items Per Page: </span>
+      <div class="counter counter-icons">
+        <button :disabled="maxItems == 1" @click="maxItems--">
+          <vue-feather
+            style="margin-right: 2px"
+            type="minus"
+            size="16"
+          ></vue-feather>
+        </button>
+        <output>{{ maxItems }}</output>
+        <button @click="maxItems++">
+          <vue-feather
+            style="margin-right: 2px"
+            type="plus"
+            size="16"
+          ></vue-feather>
+        </button>
+      </div>
       <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
         <button
           @click="setList"
@@ -96,7 +114,7 @@
       </div>
       <div
         class="products-row ItemBelow"
-        v-for="(equipment, index) in filteredEquipmentList"
+        v-for="(equipment, index) in pageAbleEquipmentList"
         :key="index"
         @click.prevent="equipmentSelected(equipment)"
       >
@@ -114,6 +132,33 @@
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
+      </div>
+      <div class="pageSection">
+        <vue-feather
+          @click="goToFirstPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="skip-back"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="prevPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="arrow-left"
+          size="16"
+        ></vue-feather>
+        <h5>{{ pageNumber }} / {{ maxPages }}</h5>
+        <vue-feather
+          @click="nextPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="arrow-right"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="goToLastPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="skip-forward"
+          size="16"
+        ></vue-feather>
       </div>
     </div>
     <div v-if="addActivivityOpen">
@@ -174,6 +219,7 @@ export default {
       listViewActive: true,
       equipmentList: [],
       filteredEquipmentList: [],
+      pageAbleEquipmentList: [],
       addActivivityOpen: false,
       editActivivityOpen: false,
       deletedEquipment: false,
@@ -184,6 +230,9 @@ export default {
       },
       filterValue: "",
       windowWidth:window.innerWidth,
+      maxItems: 10,
+      pageNumber: 1,
+      maxPages: 10,
     };
   },
   components: {},
@@ -191,13 +240,53 @@ export default {
     filterValue: function UpdateFilter(value) {
       this.filteredEquipmentList = this.equipmentList.filter((x) => {
         return (
-          x.name.includes(value)
+          x.name.toLowerCase().includes(value)
         );
       });
+      this.setPage();
+      this.maxPages = Math.ceil(this.filteredEquipmentList.length / this.maxItems);
+    },
+    maxItems: function UpdatePaging(value) {
+      value = parseInt(value);
+      if (value < 1) {
+        value = 1;
+      }
+      this.pageAbleEquipmentList = this.filteredEquipmentList.slice(
+        (this.pageNumber - 1) * value,
+        this.pageNumber * value
+      );
+      this.maxPages = Math.ceil(this.filteredEquipmentList.length / value);
+      this.pageNumber = 1;
     },
   },
   computed: {},
   methods: {
+    nextPage() {
+      if (this.pageNumber != this.maxPages) {
+        this.pageNumber++;
+        this.setPage();
+      }
+    },
+    prevPage() {
+      if (this.pageNumber != 1) {
+        this.pageNumber--;
+        this.setPage();
+      }
+    },
+    goToFirstPage() {
+      this.pageNumber = 1;
+      this.setPage();
+    },
+    goToLastPage() {
+      this.pageNumber = this.maxPages;
+      this.setPage();
+    },
+    setPage(){
+      this.pageAbleEquipmentList = this.filteredEquipmentList.slice(
+        (this.pageNumber - 1) * this.maxItems,
+        this.pageNumber * this.maxItems
+      );
+    },
     initFormData() {
       this.formData.equipment_Id = 0;
       this.formData.name = "";
@@ -217,6 +306,8 @@ export default {
       var onSuccess = (response) => {
         self.equipmentList = response;
         self.filteredEquipmentList = self.equipmentList;
+        self.maxPages = Math.ceil(self.filteredEquipmentList.length / self.maxItems)
+        self.setPage();
       };
       this.$AjaxGet(`Admin/ListEquipment`, onSuccess);
     },
