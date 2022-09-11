@@ -352,7 +352,7 @@ export default {
       },
       filterValue: "",
       windowWidth: window.innerWidth,
-      maxItems: 3,
+      maxItems: 10,
       pageNumber: 1,
       maxPages: 10,
     };
