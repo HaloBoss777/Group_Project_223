@@ -362,7 +362,7 @@ export default {
     filterValue: function UpdateFilter(value) {
       this.filteredEmployeeList = this.activityList.filter((x) => {
         var nameToLookFor = x.full_Name.toLowerCase();
-        return nameToLookFor.includes(value.toLowerCase());
+        return nameToLookFor.includes(value.toLowerCase()) || x.cellNum.includes(value) || x.rsA_Id.includes(value);
       });
       this.pageNumber = 1;
       this.pageAbleEmployeeList = this.filteredEmployeeList.slice(
