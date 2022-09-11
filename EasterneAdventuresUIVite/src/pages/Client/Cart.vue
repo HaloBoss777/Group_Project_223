@@ -70,13 +70,15 @@ const authStore = useAuthStore();
                   </button>
                 </div>
               </div>
-              <div style="margin-top: 20px;" class="row date-selector-are">
+              <div style="margin-top: 20px" class="row date-selector-are">
                 <vue-feather
                   class="dateSelect"
                   type="calendar"
                   size="16"
                 ></vue-feather>
-                <p style="margin: 0;color: white; margin-right: 10px;">Pick Date</p>
+                <p style="margin: 0; color: white; margin-right: 10px">
+                  Pick Date
+                </p>
                 <datepicker v-model="activity.date" />
               </div>
             </div>
@@ -130,6 +132,76 @@ const authStore = useAuthStore();
         </div>
       </aside>
     </div>
+    <aside v-if="registerPage">
+      <div ref="LoginPage" class="CartLoginPage" id="LoginPage">
+        <div class="login-Page">
+          <h2 class="Title">{{ haveAnAccount ? "Login" : "Register" }}</h2>
+          <h3 style="color: red" v-if="errorMessage">{{ errorMessage }}</h3>
+          <label for="email" class="inp">
+            <input
+              v-model="formData.email"
+              @input="formData.email = $event.target.value"
+              type="email"
+              id="email"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Email</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label v-if="!haveAnAccount" for="password" class="inp">
+            <input
+              v-model="formData.full_name"
+              @input="formData.full_name = $event.target.value"
+              type="text"
+              id="password"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Full Name</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label v-if="!haveAnAccount" for="password" class="inp">
+            <input
+              v-model="formData.cellNum"
+              @input="formData.cellNum = $event.target.value"
+              type="number"
+              id="password"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Cell Number</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label v-if="!haveAnAccount" for="password" class="inp">
+            <input
+              v-model="formData.rSA_ID"
+              @input="formData.rSA_ID = $event.target.value"
+              type="text"
+              id="password"
+              placeholder="&nbsp;"
+            />
+            <span class="label">RSA ID</span>
+            <span class="focus-bg"></span>
+          </label>
+          <label for="password" class="inp">
+            <input
+              v-model="password"
+              @input="password = $event.target.value"
+              type="password"
+              id="password"
+              placeholder="&nbsp;"
+            />
+            <span class="label">Password</span>
+            <span class="focus-bg"></span>
+          </label>
+          <a class="mt-1" href="#" @click="goToLogin">I have an account</a>
+          <button
+            class="action-button Login-Btn"
+            @click="handleSignInOrRegister"
+          >
+            {{ !haveAnAccount ? "Register" : "Login" }}
+          </button>
+        </div>
+      </div>
+    </aside>
     <aside v-if="paymentPage" class="Cost-Section Payment-Area-Final">
       <div class="card">
         <h2 style="color: white; margin: unset">Cost</h2>
@@ -188,10 +260,21 @@ const authStore = useAuthStore();
 </template>
 
 <script>
-  import Datepicker from 'vue3-datepicker'
+import Datepicker from "vue3-datepicker";
+import md5 from "md5"
 export default {
   data() {
     return {
+      formData: {
+        email: "",
+        passwordHash: "",
+        full_name: "",
+        cellNum: "",
+        rSA_ID: "",
+      },
+      haveAnAccount: false,
+      password: "",
+      errorMessage: "",
       cartItemList: [],
       cartListActive: true,
       registerPage: false,
@@ -213,7 +296,7 @@ export default {
     };
   },
   components: {
-    Datepicker
+    Datepicker,
   },
   watch: {},
   computed: {
@@ -226,6 +309,9 @@ export default {
     },
   },
   methods: {
+    goToLogin() {
+      this.haveAnAccount = !this.haveAnAccount;
+    },
     decreaseAttending(activity) {
       if (activity.attending == 1) {
         return;
@@ -253,7 +339,7 @@ export default {
     },
     getCartItems() {
       this.cartItemList = this.cartStore.getCartItems;
-      this.cartItemList.forEach(element => {
+      this.cartItemList.forEach((element) => {
         element.date = new Date();
       });
     },
@@ -316,20 +402,89 @@ export default {
     },
     successPOPUP() {
       this.cartStore.clearCart();
-      this.$swal
-        .fire({
-          title: `Your Transaction was Successfull`,
-          showCancelButton: false,
-          confirmButtonText: `Thank you`,
-        })
+      this.$swal.fire({
+        title: `Your Transaction was Successfull`,
+        showCancelButton: false,
+        confirmButtonText: `Thank you`,
+      });
     },
-    canclePopup(){
-      this.$swal
-        .fire({
-          title: `Your Transaction was canceled`,
-          showCancelButton: false,
-          confirmButtonText: `Ok`,
-        })
+    canclePopup() {
+      this.$swal.fire({
+        title: `Your Transaction was canceled`,
+        showCancelButton: false,
+        confirmButtonText: `Ok`,
+      });
+    },
+    login(){
+      var self = this;
+      var passwordHash = md5(this.password);
+      var dataToSend = {
+        passwordHash: passwordHash,
+        userName: this.formData.email
+      }
+      var onSuccess = response =>{
+        self.handleSigninUser(response);
+      }
+
+      var onFail = response =>{
+        self.errorMessage = "Details are Incorrect";
+        setTimeout(() => {
+          self.errorMessage = "";
+        }, 5000);
+      }
+      this.$AjaxPostLogin(`Authentication/SignIn`,dataToSend,onSuccess,onFail);
+    },
+    register(){
+      var self = this;
+      var onSuccess = response =>{
+        self.handleSigninUser(response);
+      }
+
+      var onError = response =>{
+        if(response.response.data.includes("User exists")){
+          this.$toast.error(`User exists`);
+          this.errorMessage = "User Exists"
+        }
+        else{
+          this.$toast.error(`Error`);
+          this.errorMessage = "Error"
+        }
+        setTimeout(() => {
+          self.errorMessage = ""
+        }, 5000);
+      }
+      var dataToSend = {
+        email:self.formData.email,
+        passwordHash:md5(self.password),
+        full_name:self.formData.full_name,
+        cellNum:self.formData.cellNum,
+        rSA_ID:self.formData.rSA_ID
+      }
+      self.$AjaxPostLogin("Client/Register" , dataToSend , onSuccess, onError);
+    },
+    handleSigninUser(data){
+      if(data.isClient){
+        this.authStore.setClient_Id(data.id);
+      }
+      else{
+        this.authStore.setEmp_Id(data.id);
+        this.authStore.setIsEmployee(true);
+      }
+      this.authStore.setIsAdmin(data.isAdmin);
+      this.authStore.setIsInstructor(data.isInstructor);
+      this.authStore.setJwtToken(data.apiToken);
+      this.authStore.setName(data.fullName);
+
+      localStorage.setItem("userData",JSON.stringify(data));
+      this.proseedToPayment();
+    },
+    handleSignInOrRegister(){
+      if(this.haveAnAccount){
+        this.login();
+      }
+      else{
+        this.register();
+      }
     }
   },
   mounted() {

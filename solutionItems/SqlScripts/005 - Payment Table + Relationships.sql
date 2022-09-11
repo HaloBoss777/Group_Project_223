@@ -8,7 +8,7 @@ BEGIN
 		[Payment_Id] [int] IDENTITY(1,1) NOT NULL,
 		[Booking_Id] [int] NOT NULL,
 		[Client_Id] [int] NOT NULL,
-		[TotalPrice] Decimal(6,2) NOT NULL,
+		[TotalPrice] Decimal(10,2) NOT NULL,
 		[Paid] datetime NULL,
 
 		CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED 
