@@ -797,3 +797,27 @@ body {
 .CartLoginPage{
   height: unset !important;
 }
+
+
+.pageSection{
+  display: flex;
+  margin: 10px;
+  flex-direction: row;
+  .Disabled{
+    svg{
+      color: gray;
+    }
+  }
+  svg{
+    color: white;
+  }
+  i{
+    cursor: pointer;
+    display: flex;
+    margin-left:5px ;
+    margin-right:5px ;
+  }
+  *{
+    margin: 0;
+  }
+}

@@ -17,6 +17,13 @@
         placeholder="Search..."
         type="text"
       />
+      <input
+        @input="maxItems = $event.target.value"
+        class="search-bar"
+        style="margin-left: 20px"
+        placeholder="Items Per page"
+        type="number"
+      />
       <div v-if="windowWidth > 1024" class="app-content-actions-wrapper">
         <button
           @click="setList"
@@ -132,6 +139,34 @@
             <vue-feather type="trash-2" size="24"></vue-feather>
           </button>
         </div>
+      </div>
+      <!-- v-if="pageNumber != 1" -->
+      <div class="pageSection">
+        <vue-feather
+          @click="goToFirstPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="skip-back"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="prevPage"
+          :class="pageNumber != 1 ? '' : 'Disabled'"
+          type="arrow-left"
+          size="16"
+        ></vue-feather>
+        <h5>{{pageNumber}}</h5>
+        <vue-feather
+          @click="nextPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="arrow-right"
+          size="16"
+        ></vue-feather>
+        <vue-feather
+          @click="goToLastPage"
+          :class="pageNumber != maxPages ? '' : 'Disabled'"
+          type="skip-forward"
+          size="16"
+        ></vue-feather>
       </div>
     </div>
     <div v-if="addActivivityOpen">
@@ -305,6 +340,9 @@ export default {
       },
       filterValue: "",
       windowWidth:window.innerWidth,
+      maxItems:3,
+      pageNumber:1,
+      maxPages:10,
     };
   },
   components: {},
@@ -316,6 +354,12 @@ export default {
         );
       });
     },
+    maxItems:function UpdatePaging(value){
+      value = parseInt(value)
+      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* value,(this.pageNumber )*value);
+      this.maxPages = Math.ceil(this.activityList.length / value);
+      this.pageNumber = 1
+    }
   },
   computed: {},
   methods: {
@@ -341,11 +385,34 @@ export default {
     setGrid() {
       this.listViewActive = false;
     },
+    nextPage(){
+      if(this.pageNumber != this.maxPages){
+        this.pageNumber++;
+        this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems,(this.pageNumber )*this.maxItems)
+      }
+    },
+    prevPage(){
+      if(this.pageNumber != 1){
+        this.pageNumber--;
+        this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+      }
+    },
+    goToFirstPage(){
+      this.pageNumber = 1;
+      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+    },
+    goToLastPage(){
+      this.pageNumber = this.maxPages;
+      this.filteredEmployeeList = this.activityList.slice((this.pageNumber -1 )* this.maxItems, (this.pageNumber )*this.maxItems)
+    },
     getEmployeeList() {
       var self = this;
       var onSuccess = (response) => {
         self.activityList = response;
         self.filteredEmployeeList = self.activityList;
+        self.pageNumber = 1;
+        self.maxPages = Math.ceil(self.filteredEmployeeList.length / self.maxItems);
+        self.filteredEmployeeList = self.filteredEmployeeList.slice(0,self.maxItems)
       };
       this.$AjaxGet(`Admin/ListEmployee`, onSuccess);
     },
