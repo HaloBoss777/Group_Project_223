@@ -21,7 +21,7 @@
             class="sidebar-list-item"
             :class="$route.name == item.routeName ? 'active' : ''"
           >
-            <a href="#" @click="goToRoute(item.routeUrl)">
+            <a  @click="goToRoute(item.routeUrl)">
               <vue-feather :type="item.icon" size="16"></vue-feather>
               <span>{{ item.routeName }}</span>
             </a>

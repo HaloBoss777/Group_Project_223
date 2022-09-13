@@ -185,7 +185,7 @@
             <span class="label">Password</span>
             <span class="focus-bg"></span>
           </label>
-          <a class="mt-1" href="#" @click="goToLogin">{{!haveAnAccount ? 'I have an account' : 'I need an account'}}</a>
+          <a class="mt-1"  @click="goToLogin">{{!haveAnAccount ? 'I have an account' : 'I need an account'}}</a>
           <button
             class="action-button Login-Btn"
             @click="handleSignInOrRegister"

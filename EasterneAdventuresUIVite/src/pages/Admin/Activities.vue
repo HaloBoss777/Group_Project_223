@@ -237,7 +237,7 @@
             <a
               @click="addEquipment(equipment.equipment_Id)"
               :class="focuedOnDropDown ? 'show' : ''"
-              href="#"
+              
               >{{ equipment.name }}</a
             >
           </div>

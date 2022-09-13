@@ -4,19 +4,19 @@
       <img class="logo-image" :src="icon" alt="">
     </div>
     <ul class="nav-links toggle">
-      <li class="cartIcon"><a  @click="goToCart" href="#"><vue-feather type="shopping-cart" size="20"></vue-feather><p>{{cartStore.getCartCount}}</p></a></li>
-      <li><a @click="goToHomePage" href="#">Home</a></li>
+      <li class="cartIcon"><a  @click="goToCart" ><vue-feather type="shopping-cart" size="20"></vue-feather><p>{{cartStore.getCartCount}}</p></a></li>
+      <li><a @click="goToHomePage" >Home</a></li>
       <li >
-        <a v-if="isAdmin" @click="goToDashboardPage" href="#">Dashboard</a>
+        <a v-if="isAdmin" @click="goToDashboardPage" >Dashboard</a>
       </li>
       <li >
-        <a v-if="!isLoggedIn" @click="goToLoginPage" href="#">Login</a>
+        <a v-if="!isLoggedIn" @click="goToLoginPage" >Login</a>
       </li>
       <li >
-        <a v-if="isLoggedIn" href="#">{{ authStore.fullName }}</a>
+        <a v-if="isLoggedIn" >{{ authStore.fullName }}</a>
       </li>
       <li  >
-        <a v-if="isLoggedIn" @click="logout" href="#">Logout</a>
+        <a v-if="isLoggedIn" @click="logout" >Logout</a>
       </li>
     </ul>
     <div class="burger">

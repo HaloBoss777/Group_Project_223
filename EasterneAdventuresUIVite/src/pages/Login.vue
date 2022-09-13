@@ -15,7 +15,7 @@
           <span class="label">Password</span>
           <span class="focus-bg"></span>
         </label>
-        <a class="mt-1" href="#" @click="goToRegister">I need an Account</a>
+        <a class="mt-1"  @click="goToRegister">I need an Account</a>
         <button @click="login" class="action-button Login-Btn">Login</button>
       </div>
     </div>
