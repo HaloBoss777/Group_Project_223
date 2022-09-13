@@ -488,7 +488,7 @@ export default {
           self.cancelAdd();
         }
       };
-      this.$AjaxGet(`Admin/UpdateActivity`, dataToSend, onSuccess);
+      this.$AjaxPost(`Admin/UpdateActivity`, dataToSend, onSuccess);
     },
     confirmDelete(activity_Id, name) {
       this.deletedActivity = true;
