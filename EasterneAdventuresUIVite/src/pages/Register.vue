@@ -5,32 +5,32 @@
         <h2 class="Title">Register</h2>
         <h3 style="color: red;" v-if="errorMessage">{{errorMessage}}</h3>
         <label for="email" class="inp">
-          <input v-model="formData.email" @input="formData.email = $event.target.value" type="email" id="email" placeholder="&nbsp;">
+          <input v-model="formData.email" @input="formData.email = $event.target.value" type="email" id="email" placeholder="&nbsp;" @keyup.enter="validate" >
           <span class="label">Email</span>
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input v-model="formData.full_name" @input="formData.full_name = $event.target.value" type="text" id="password" placeholder="&nbsp;"/>
+          <input v-model="formData.full_name" @input="formData.full_name = $event.target.value" type="text" id="password" placeholder="&nbsp;" @keyup.enter="validate" />
           <span class="label">Full Name</span>
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input pattern="^(\+27|0)[6-8][0-9]{8}$" v-model="formData.cellNum" @input="formData.cellNum = $event.target.value" type="number" id="password" placeholder="&nbsp;"/>
+          <input pattern="^(\+27|0)[6-8][0-9]{8}$" v-model="formData.cellNum" @input="formData.cellNum = $event.target.value" type="number" id="password" placeholder="&nbsp;" @keyup.enter="validate" />
           <span class="label">Cell Number</span>
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input v-model="formData.rSA_ID" @input="formData.rSA_ID = $event.target.value" type="text" id="password" placeholder="&nbsp;"/>
+          <input v-model="formData.rSA_ID" @input="formData.rSA_ID = $event.target.value" type="text" id="password" placeholder="&nbsp;" @keyup.enter="validate" />
           <span class="label">RSA ID</span>
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input v-model="password" @input="password = $event.target.value" type="password" id="password" placeholder="&nbsp;"/>
+          <input v-model="password" @input="password = $event.target.value" type="password" id="password" placeholder="&nbsp;" @keyup.enter="validate" />
           <span class="label">Password</span>
           <span class="focus-bg"></span>
         </label>
         <a class="mt-1"  @click="goToLogin">I have an account</a>
-        <button class="action-button Login-Btn" @click="validate">Register</button>
+        <button   class="action-button Login-Btn" @click="validate">Register</button>
       </div>
     </div>
   </div>

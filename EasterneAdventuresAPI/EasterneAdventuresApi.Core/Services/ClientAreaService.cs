@@ -119,10 +119,10 @@ namespace EasterneAdventuresApi.Core.Services
 
             _unitOfWork.Save();
 
-            var cancelUrl = "http://127.0.0.1:5173/Cart?status=Canceled";
-            var returnUrl = "http://127.0.0.1:5173/Cart?status=Success";
+            var cancelUrl = "https://easterstorageadventures.z6.web.core.windows.net/Cart?status=Canceled";
+            var returnUrl = "https://easterstorageadventures.z6.web.core.windows.net/Cart?status=Success";
             var notifyUrl = "https://esterneadventuresapi.azurewebsites.net/api/PaymentComplete";
-
+            
             var valuesDict = new Dictionary<string, string>
             {
                 { "merchant_id", "10027224"},

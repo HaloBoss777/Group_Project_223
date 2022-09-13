@@ -6,17 +6,17 @@
         <h2 class="Title">Login</h2>
         <h3 class="mb-2" v-if="errorMessage" >{{errorMessage}}</h3>
         <label for="email" class="inp">
-          <input v-model="formData.email" @input="formData.email = $event.target.value" type="email" id="email" placeholder="&nbsp;">
+          <input v-model="formData.email" @input="formData.email = $event.target.value" type="email" id="email" placeholder="&nbsp;" @keyup.enter="login">
           <span class="label">Email</span>
           <span class="focus-bg"></span>
         </label>
         <label for="password" class="inp">
-          <input v-model="formData.password" @input="formData.password = $event.target.value" type="password" id="password" placeholder="&nbsp;"/>
+          <input  v-model="formData.password" @input="formData.password = $event.target.value" type="password" id="password" placeholder="&nbsp;" @keyup.enter="login"/>
           <span class="label">Password</span>
           <span class="focus-bg"></span>
         </label>
-        <a class="mt-1"  @click="goToRegister">I need an Account</a>
-        <button @click="login" class="action-button Login-Btn">Login</button>
+        <a class="mt-1"   @click="goToRegister">I need an Account</a>
+        <button @keyup.enter="login" @click="login" class="action-button Login-Btn">Login</button>
       </div>
     </div>
   </div>
@@ -70,7 +70,6 @@ export default {
       this.$AjaxPostLogin(`Authentication/SignIn`,dataToSend,onSuccess,onFail);
     },
     handleSigninUser(data){
-      debugger
       if(data.isClient){
         this.authStore.setClient_Id(data.id);
       }

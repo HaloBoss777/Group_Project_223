@@ -2,7 +2,7 @@
   <div ref="CartPage" id="CartPage">
     <h1 class="Cover-Text">Checkout</h1>
     <div class="Process-Section">
-      <div @click="goToBooking" class="sections">
+      <div @click="goToBooking" :class="cartListActive ? 'active' : ''" class="sections">
         <vue-feather
           style="margin-right: 5px"
           type="book-open"
@@ -11,7 +11,7 @@
         <h3 :class="cartListActive ? 'active' : ''">Booking</h3>
       </div>
       <h3 class="arrows">></h3>
-      <div @click="goToRegiseter" class="sections" v-if="!authStore.fullName">
+      <div @click="goToRegiseter" :class="registerPage ? 'active' : ''" class="sections" v-if="!authStore.fullName">
         <vue-feather
           style="margin-right: 5px"
           type="edit-2"
@@ -20,7 +20,7 @@
         <h3 :class="registerPage ? 'active' : ''">Register</h3>
       </div>
       <h3 v-if="!authStore.fullName" class="arrows">></h3>
-      <div @click="proseedToPayment" class="sections">
+      <div :class="paymentPage ? 'active' : ''" @click="proseedToPayment" class="sections">
         <vue-feather
           style="margin-right: 5px"
           type="dollar-sign"
@@ -137,6 +137,7 @@
               type="email"
               id="email"
               placeholder="&nbsp;"
+              @keyup.enter="handleSignInOrRegister"
             />
             <span class="label">Email</span>
             <span class="focus-bg"></span>
@@ -148,6 +149,7 @@
               type="text"
               id="password"
               placeholder="&nbsp;"
+              @keyup.enter="handleSignInOrRegister"
             />
             <span class="label">Full Name</span>
             <span class="focus-bg"></span>
@@ -159,6 +161,7 @@
               type="number"
               id="password"
               placeholder="&nbsp;"
+              @keyup.enter="handleSignInOrRegister"
             />
             <span class="label">Cell Number</span>
             <span class="focus-bg"></span>
@@ -170,6 +173,7 @@
               type="text"
               id="password"
               placeholder="&nbsp;"
+              @keyup.enter="handleSignInOrRegister"
             />
             <span class="label">RSA ID</span>
             <span class="focus-bg"></span>
@@ -181,6 +185,7 @@
               type="password"
               id="password"
               placeholder="&nbsp;"
+              @keyup.enter="handleSignInOrRegister"
             />
             <span class="label">Password</span>
             <span class="focus-bg"></span>

@@ -575,7 +575,7 @@ h1,h2,h3,h4,h5,h6,span{
       padding: 10px;
     }
   }
-  .sections:has(.active){
+  .active{
     h3{
       color: #0077ff;
     }
@@ -659,7 +659,8 @@ h1,h2,h3,h4,h5,h6,span{
 z-index: 2;
 }
 .cartIconMobile{
-  display: none;
+  display: flex;
+  cursor: pointer;
   @media screen and (max-width:1024px){
     display: flex;
   }
