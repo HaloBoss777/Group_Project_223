@@ -1,9 +1,3 @@
-<script setup>
-import NavBar from "./components/Navbar.vue";
-import { useAuthStore } from './store/authStore.js'
-const authStore = useAuthStore();
-</script>
-
 <template>
   <div>
     <NavBar></NavBar>
@@ -12,13 +6,16 @@ const authStore = useAuthStore();
 </template>
 
 <script>
+import NavBar from "./components/Navbar.vue";
+import { useAuthStore } from './store/authStore.js'
 export default {
   data() {
     return {
       navOpen: false,
+      authStore:useAuthStore()
     };
   },
-  components: {},
+  components: {NavBar},
   watch: {},
   computed: {},
   methods: {

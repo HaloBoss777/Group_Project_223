@@ -1,9 +1,3 @@
-
-<script setup>
-  import { useAuthStore } from '../store/authStore.js'
-  const authStore = useAuthStore();
-</script>
-
 <template>
   <div>
     <div ref="LoginPage" id="LoginPage"> 
@@ -45,9 +39,11 @@
 
 <script>
 import md5 from "md5"
+import { useAuthStore } from '../store/authStore.js'
 export default {
   data() {
     return { 
+      authStore:useAuthStore(),
       formData:{
         email:"",
         passwordHash:"",

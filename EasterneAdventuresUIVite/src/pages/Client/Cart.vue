@@ -1,10 +1,3 @@
-<script setup>
-import { useCartStore } from "../../store/cartStore.js";
-import { useAuthStore } from "../../store/authStore.js";
-const cartStore = useCartStore();
-const authStore = useAuthStore();
-</script>
-
 <template>
   <div ref="CartPage" id="CartPage">
     <h1 class="Cover-Text">Checkout</h1>
@@ -262,9 +255,13 @@ const authStore = useAuthStore();
 <script>
 import Datepicker from "vue3-datepicker";
 import md5 from "md5"
+import { useCartStore } from "../../store/cartStore.js";
+import { useAuthStore } from "../../store/authStore.js";
 export default {
   data() {
     return {
+      cartStore:useCartStore(),
+      authStore:useAuthStore(),
       formData: {
         email: "",
         passwordHash: "",

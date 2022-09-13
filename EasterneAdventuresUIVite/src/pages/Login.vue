@@ -1,9 +1,4 @@
 
-<script setup>
-  import { useAuthStore } from '../store/authStore.js'
-  const authStore = useAuthStore();
-</script>
-
 <template>
   <div>
     <div ref="LoginPage" id="LoginPage"> 
@@ -30,9 +25,12 @@
 
 <script>
 import md5 from "md5"
+import { useAuthStore } from '../store/authStore.js'
+  const authStore = useAuthStore();
 export default {
   data() {
-    return { 
+    return {
+      authStore:useAuthStore(),
       formData:{
         email:"",
         password:"",
@@ -72,6 +70,7 @@ export default {
       this.$AjaxPostLogin(`Authentication/SignIn`,dataToSend,onSuccess,onFail);
     },
     handleSigninUser(data){
+      debugger
       if(data.isClient){
         this.authStore.setClient_Id(data.id);
       }
