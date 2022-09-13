@@ -3,6 +3,11 @@
     <div class="home-content">
       <h1 class="Cover-Text">WELCOME TO ESTERNE ADVENTURES</h1>
       <h1 class="Cover-Text">Your Adventure starts here 🚀</h1>
+      <div @click="goToCart" v-if="cartStore.count" class="cartIconMobile">
+        <h4 >Go To Cart</h4>
+        <vue-feather type="shopping-cart" size="20"></vue-feather>
+        <p>{{cartStore.count}}</p>
+      </div>
       <div style="display: flex; justify-content: center">
         <label  for="password" class="inp">
           <input
@@ -19,6 +24,7 @@
       <div class="activity-area">
         <div
           class="activity-List-Item"
+          :class="index == filteredActivityList.length -1 ? 'last-item' : ''"
           v-for="(activity, index) in filteredActivityList"
           :key="index"
         >
@@ -83,6 +89,9 @@ export default {
   },
   computed: {},
   methods: {
+    goToCart(){
+      this.$router.push("/Cart");
+    },
     goToOtherPage() {
       this.$router.push("/Login");
     },

@@ -658,3 +658,26 @@ h1,h2,h3,h4,h5,h6,span{
 .home-content{
 z-index: 2;
 }
+.cartIconMobile{
+  display: none;
+  @media screen and (max-width:1024px){
+    display: flex;
+  }
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-bottom: 20px;
+  h4{
+    margin: 0;
+    margin-right: 10px;
+  }
+  p{
+    margin-left: 5px;
+  }
+}
+
+.last-item{
+  @media screen and (max-width:1024px){
+    margin-bottom: 150px !important;
+  }
+}

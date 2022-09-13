@@ -101,7 +101,7 @@ const authStore = useAuthStore();
           </div>
         </div>
       </div>
-      <aside class="Cost-Section">
+      <aside class="Cost-Section last-item">
         <div class="card">
           <h2 style="color: white; margin: unset">Cost</h2>
           <div class="row">
@@ -132,7 +132,7 @@ const authStore = useAuthStore();
         </div>
       </aside>
     </div>
-    <aside v-if="registerPage">
+    <aside class="last-item" v-if="registerPage">
       <div ref="LoginPage" class="CartLoginPage" id="LoginPage">
         <div class="login-Page">
           <h2 class="Title">{{ haveAnAccount ? "Login" : "Register" }}</h2>
@@ -430,6 +430,9 @@ export default {
         title: `Your Transaction was Successfull`,
         showCancelButton: false,
         confirmButtonText: `Thank you`,
+      }).then((result) =>{
+        this.$router.push("/Home");
+        this.$router.push("/Home");
       });
     },
     canclePopup() {
@@ -437,7 +440,10 @@ export default {
         title: `Your Transaction was canceled`,
         showCancelButton: false,
         confirmButtonText: `Ok`,
-      });
+      }).then((result) =>{
+        this.$router.push("/Home");
+        this.$router.push("/Home");
+      });;
     },
     login(){
       var self = this;
