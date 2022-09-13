@@ -459,7 +459,7 @@ export default {
           self.cancelAdd();
         }
       };
-      this.$AjaxGet(`Admin/AddActivity`, dataToSend, onSuccess);
+      this.$AjaxPost(`Admin/AddActivity`, dataToSend, onSuccess);
     },
     activitySelected(dataChosen) {
       if (this.deletedActivity) {

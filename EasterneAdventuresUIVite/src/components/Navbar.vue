@@ -1,7 +1,7 @@
 <template>
   <nav class="nav-bar">
     <div class="logo">
-      <img class="logo-image" :src="icon" alt="">
+      <img class="logo-image" src="../assets/Esterne.png" alt="">
     </div>
     <ul class="nav-links toggle">
       <li class="cartIcon"><a  @click="goToCart" ><vue-feather type="shopping-cart" size="20"></vue-feather><p>{{cartStore.getCartCount}}</p></a></li>
@@ -30,7 +30,6 @@
 <script>
 import { useAuthStore } from "../store/authStore.js";
 import { useCartStore } from "../store/cartStore.js";
-import icon from "../assets/Esterne.png";
 export default {
   name: "NavBar",
   data() {
